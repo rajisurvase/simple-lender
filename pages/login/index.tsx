@@ -36,7 +36,7 @@ const Login = () => {
 
   return (
     <>
-      <Seo />
+      <Seo title="Login Page" />
       <Wrapper>
         <Container maxWidth="sm">
           <Paper className={styles.loginBox}>
