@@ -37,7 +37,6 @@
     "no-useless-escape": "error",
     "unused-imports/no-unused-vars": "error",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "error",
     "import/order": "error",
     "import/newline-after-import": "error",
     // Variables -- start
@@ -60,7 +59,9 @@
     ],
 
     // Variables -- end
-    "camelcase":"off",
+    "camelcase": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "import/named": "off",
     "no-undef": "off",
     "arrow-body-style": "off",
     "prettier/prettier": "off",

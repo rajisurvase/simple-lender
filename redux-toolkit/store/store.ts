@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logInSlice from "@/reduxtoolkit/slices/logInSlice";
+import logger from "redux-logger";
 // ...
 
 export const store = configureStore({
   reducer: {
     loginReducer: logInSlice
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
-  //   .concat(logger),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   devTools: true
 });
 

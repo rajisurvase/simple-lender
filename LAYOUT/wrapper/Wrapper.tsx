@@ -1,24 +1,26 @@
-import dynamic from 'next/dynamic'
-import React from 'react'
+import dynamic from "next/dynamic";
+import React from "react";
+import NextProgress from "next-progress";
 
-
-const Header=dynamic(()=>import('../Header/Header'))
-const Footer=dynamic(()=>import('../Footer/Footer'))
+const Header = dynamic(() => import("../Header/Header"));
+const Footer = dynamic(() => import("../Footer/Footer"));
 
 type wrapperProps = {
-    children:JSX.Element
-}
+  children: JSX.Element|JSX.Element[];
+};
 
-const Wrapper = (props:wrapperProps) => {
+const Wrapper = (props: wrapperProps) => {
+  const { children } = props;
   return (
-    <div>
-        <Header/>
-        {
-            props.children
-        }
-        <Footer/>
-    </div>
-  )
-}
+    <>
+      <NextProgress height={8} color="green" />
+      <Header />
+      {children}
+      <Footer />
+  
+    </>
+  
+  );
+};
 
-export default Wrapper
+export default Wrapper;

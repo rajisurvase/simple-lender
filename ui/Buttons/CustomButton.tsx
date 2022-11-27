@@ -1,12 +1,11 @@
 import Button from "@mui/material/Button";
-import React, { memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styles from "@/styles/components/button.module.scss";
 
-
- type ButtonType = {
+type ButtonType = {
   children: JSX.Element;
   variant?: "text" | "outlined" | "contained";
-  disabled: boolean;
+  disabled?: boolean;
   onClick?: () => {};
   color?:
     | "inherit"
@@ -24,10 +23,6 @@ import styles from "@/styles/components/button.module.scss";
   loading?: boolean;
 };
 
-
-
-
-
 const CustomButtonMemo = ({
   children,
   variant = "contained",
@@ -40,24 +35,37 @@ const CustomButtonMemo = ({
   startIcon,
   type,
   loading = false
-}: ButtonType) => (
-  <Button
-    className={styles.button}
-    variant={variant}
-    disabled={disabled || loading}
-    disableElevation
-    onClick={onClick}
-    color={color}
-    size={size}
-    fullWidth={fullWidth}
-    endIcon={endIcon}
-    startIcon={startIcon}
-    type={type}
-  >
-    {children}
-  </Button>
-);
+}: ButtonType) => {
+  const [className, setClassName] = useState(styles.button);
 
+  useEffect(() => {
+    if (variant === "text") {
+      setClassName(styles.buttonText);
+    } else if (variant === "outlined") {
+      setClassName(styles.buttonOutlined);
+    } else {
+      setClassName(styles.button);
+    }
+  }, [variant]);
+
+  return (
+    <Button
+      className={className}
+      variant={variant}
+      disabled={disabled || loading}
+      disableElevation
+      onClick={onClick}
+      color={color}
+      size={size}
+      fullWidth={fullWidth}
+      endIcon={endIcon}
+      startIcon={startIcon}
+      type={type}
+    >
+      {children}
+    </Button>
+  );
+};
 
 const CustomButton = memo(CustomButtonMemo);
 

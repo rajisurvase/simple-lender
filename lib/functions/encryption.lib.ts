@@ -11,8 +11,8 @@ export function encryptData(data:string) {
 
 }
 
-export function decryptData(key:string) {
+// export function decryptData(key:string) {
 
 
 
-}
+// }

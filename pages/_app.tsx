@@ -2,7 +2,7 @@ import React from "react";
 import "@/styles/global.scss";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
-import { checkWindow } from "@/lib/functions/_storage.lib";
+import { checkWindow } from "@/lib/functions/storage.lib";
 import { Provider } from "react-redux";
 import { store } from "@/reduxtoolkit/store/store";
 

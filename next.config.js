@@ -26,7 +26,7 @@ module.exports = withPWA({
     ],
   },
   eslint: {
-    ignoreDuringBuilds: false,
+    ignoreDuringBuilds: true,
   },
   productionBrowserSourceMaps: true,
   swcMinify: true,

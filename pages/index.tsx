@@ -1,26 +1,39 @@
-import Head from "next/head";
-import Image from "next/image";
 import { useEffect } from "react";
-import styles from "@/styles/pages/home.module.scss";
-import useNotiStack from "@/hooks/useNotistack";
-import Wrapper from "@/layout/wrapper/Wrapper";
-import { useAppDispatch } from "@/reduxtoolkit/hooks/hooks";
+import useNotiStack from "hooks/useNotistack";
+import dynamic from "next/dynamic";
+
+const AllButtons = dynamic(() => import("@/components/AllButtons"));
+const AllInputs = dynamic(() => import("@/components/AllInputs"));
+const AllAvatar = dynamic(() => import("@/components/AllAvatar"));
+const AllColors = dynamic(() => import("@/components/AllColors"));
+const HomeSection = dynamic(() => import("@/components/HomeSection"));
+const Wrapper = dynamic(() => import("@/layout/wrapper/Wrapper"));
 
 export default function Home() {
   const { toastSuccess, toastError } = useNotiStack();
-  const dispatch=useAppDispatch();
+
   useEffect(() => {
     toastError("err");
     toastSuccess("This is sucess");
-
   }, []);
 
- 
   return (
-    
-      <Wrapper>
-        <h1>This is home page</h1>
-      </Wrapper>
-    
+    <Wrapper>
+      <HomeSection title="Theme Colors">
+        <AllColors />
+      </HomeSection>
+
+      <HomeSection title="Input tags">
+        <AllInputs />
+      </HomeSection>
+
+      <HomeSection title="Buttons">
+        <AllButtons />
+      </HomeSection>
+
+      <HomeSection title="Avatar">
+        <AllAvatar />
+      </HomeSection>
+    </Wrapper>
   );
 }

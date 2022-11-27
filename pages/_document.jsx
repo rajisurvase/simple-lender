@@ -1,27 +1,10 @@
-// import Document, { DocumentContext, DocumentInitialProps } from 'next/document'
-
-// class MyDocument extends Document {
-//   static async getInitialProps(
-//     ctx: DocumentContext
-//   ): Promise<DocumentInitialProps> {
-//     const initialProps = await Document.getInitialProps(ctx)
-
-//     return initialProps
-//   }
-// }
-
-// export default MyDocument
-
-
 /* eslint-disable react/jsx-props-no-spreading */
 import * as React from "react";
-import Document, { Head, Html, Main, NextScript,DocumentContext,DocumentInitialProps } from "next/document";
+import Document, { Head, Html, Main, NextScript } from "next/document";
 import createEmotionServer from "@emotion/server/create-instance";
 import createEmotionCache from "@/themes/createEmotionCache";
 
 export default class MyDocument extends Document {
-
-
   render() {
     return (
       <Html lang="en">
@@ -31,7 +14,6 @@ export default class MyDocument extends Document {
           <link rel="shortcut icon" href="/favicon.ico" />
           <link
             rel="stylesheet"
-
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
           <meta name="emotion-insertion-point" content="" />
@@ -83,7 +65,7 @@ MyDocument.getInitialProps = async (ctx) => {
       enhanceApp: (App) =>
         function EnhanceApp(props) {
           return <App emotionCache={cache} {...props} />;
-        },
+        }
     });
 
   const initialProps = await Document.getInitialProps(ctx);
@@ -101,6 +83,6 @@ MyDocument.getInitialProps = async (ctx) => {
 
   return {
     ...initialProps,
-    emotionStyleTags,
+    emotionStyleTags
   };
 };
