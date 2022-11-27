@@ -24,7 +24,7 @@
         "lib/*"
       ],
       "@/reduxtoolkit/*": [
-        "ReduxToolkit/*"
+        "redux-toolkit/*"
       ],
       "@/styles/*": [
         "styles/*"

@@ -15,7 +15,7 @@ type IFormInput = {
   password: string;
 };
 
-const Login = () => {
+const Registration = () => {
   const {
     handleSubmit,
     control,
@@ -65,4 +65,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Registration;
