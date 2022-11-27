@@ -43,7 +43,6 @@
     // Variables -- start
     "init-declarations": "error",
     "no-restricted-globals": "error",
-    "no-undef": "error",
     "no-unused-vars": "error",
     "no-use-before-define": "error",
     // Best Practices -- end
@@ -62,6 +61,7 @@
 
     // Variables -- end
     "camelcase":"off",
+    "no-undef": "off",
     "arrow-body-style": "off",
     "prettier/prettier": "off",
     "react/react-in-jsx-scope": "off",

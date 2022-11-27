@@ -2,46 +2,22 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/components/*": [
-        "Components/*"
-      ],
-      "@/api/*": [
-        "API/*"
-      ],
-      "@/config/*": [
-        "config/*"
-      ],
-      "@/hooks/*": [
-        "Hooks/*"
-      ],
-      "@/json/*": [
-        "JSON/*"
-      ],
-      "@/layout/*": [
-        "LAYOUT/*"
-      ],
-      "@/lib/*": [
-        "lib/*"
-      ],
-      "@/reduxtoolkit/*": [
-        "ReduxToolkit/*"
-      ],
-      "@/styles/*": [
-        "styles/*"
-      ],
-      "@/themes/*": [
-        "mui-theme/*"
-      ],
-      "@/ui/*": [
-        "ui/*"
-      ]
+      "@/components/*": ["Components/*"],
+      "@/api/*": ["API/*"],
+      "@/config/*": ["config/*"],
+      "@/hooks/*": ["Hooks/*"],
+      "@/json/*": ["JSON/*"],
+      "@/layout/*": ["LAYOUT/*"],
+      "@/lib/*": ["lib/*"],
+      "@/reduxtoolkit/*": ["ReduxToolkit/*"],
+      "@/styles/*": ["styles/*"],
+      "@/themes/*": ["mui-theme/*"],
+      "@/ui/*": ["ui/*"],
+      "@/interface/*": ["typescript/interface/*"],
+      "@/types/*": ["typescript/types/*"],
     },
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -63,14 +39,15 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "noFallthroughCasesInSwitch": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "mui-theme/createEmotionCache.js", "mui-theme/index.jsx", "pages/_document.jsx"  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "**/*.tsx",
+    "mui-theme/createEmotionCache.js",
+    "mui-theme/index.jsx",
+    "pages/_document.jsx"
+  ],
+  "exclude": ["node_modules"]
 }
