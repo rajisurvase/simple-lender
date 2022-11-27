@@ -1,0 +1,3 @@
+NODE_ENV=development
+NEXT_APP_CRYPTO_KEY=WEBSKITTERS_@{project_name}_2022
+NEXT_APP_TOKEN_NAME=token

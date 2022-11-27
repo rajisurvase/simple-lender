@@ -1,22 +1,43 @@
-// const withPWA = require('next-pwa')
-// const path = require('path')
-
-// module.exports = withPWA({
-//   pwa: {
-//     dest: "public",
-//     register: true,
-//     skipWaiting: true,
-//   },
-//   reactStrictMode: true,
-//   sassOptions: {
-//     includePaths: [path.join(__dirname, 'styles')],
-//   },
-// });
-
-const withPWA = require('next-pwa')({
-  dest: 'public'
-})
+/** @type {import('next').NextConfig} */
+const withPWA = require("next-pwa");
+const path = require("path");
+const runtimeCaching = require("next-pwa/cache");
 
 module.exports = withPWA({
-  // next.js config
-})
+  pwa: {
+    dest: "public",
+    register: true,
+    skipWaiting: true,
+    runtimeCaching,
+    disable: process.env.NODE_ENV === "development",
+  },
+  reactStrictMode: true,
+  trailingSlash: true,
+  sassOptions: {
+    includePaths: [path.join(__dirname, "styles")],
+  },
+  images: {
+    domains: [
+      "fakestoreapi.com",
+      "api.lorem.space",
+      "picsum.photos",
+      "placeimg.com",
+      "encrypted-tbn0.gstatic.com",
+    ],
+  },
+  eslint: {
+    ignoreDuringBuilds: false,
+  },
+  productionBrowserSourceMaps: true,
+  swcMinify: true,
+  compress: true,
+  optimizeFonts: true,
+  devIndicators: {
+    autoPrerender: false,
+    buildActivityPosition: 'bottom-right',
+  },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
+  },
+});
+

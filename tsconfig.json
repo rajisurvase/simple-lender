@@ -1,0 +1,76 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": [
+        "Components/*"
+      ],
+      "@/api/*": [
+        "API/*"
+      ],
+      "@/config/*": [
+        "CONFIG/*"
+      ],
+      "@/hooks/*": [
+        "Hooks/*"
+      ],
+      "@/json/*": [
+        "JSON/*"
+      ],
+      "@/layout/*": [
+        "LAYOUT/*"
+      ],
+      "@/lib/*": [
+        "lib/*"
+      ],
+      "@/reduxtoolkit/*": [
+        "ReduxToolkit/*"
+      ],
+      "@/styles/*": [
+        "styles/*"
+      ],
+      "@/themes/*": [
+        "mui-theme/*"
+      ],
+      "@/ui/*": [
+        "ui/*"
+      ]
+    },
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "allowSyntheticDefaultImports": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "noFallthroughCasesInSwitch": true,
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+, "mui-theme/createEmotionCache.js", "mui-theme/index.jsx", "pages/_document.jsx"  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
