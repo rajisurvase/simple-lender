@@ -4,7 +4,8 @@ import Container from "@mui/material/Container";
 import React from "react";
 import Wrapper from "@/layout/wrapper/Wrapper";
 import styles from "@/styles/pages/login.module.scss";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import regex from "@/lib/regex";
 
 type IFormInput = {
   email: string;
@@ -32,7 +33,7 @@ const Login = () => {
               control={control}
               {...register("email", {
                 required: "Enter email",
-                maxLength: 20
+                pattern:regex.emailRegex
               })}
               render={({ field: { onChange, value } }) => (
                 <CustomInput
@@ -45,6 +46,8 @@ const Login = () => {
                 />
               )}
             />
+
+            <button type="submit">submit</button>
           </form>
         </Paper>
       </Container>

@@ -9,7 +9,7 @@
         "API/*"
       ],
       "@/config/*": [
-        "CONFIG/*"
+        "config/*"
       ],
       "@/hooks/*": [
         "Hooks/*"
