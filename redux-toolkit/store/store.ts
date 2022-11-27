@@ -1,21 +1,20 @@
-import { configureStore } from '@reduxjs/toolkit'
-import logInSlice from '@/reduxtoolkit/slices/logInSlice'
+import { configureStore } from "@reduxjs/toolkit";
+import logInSlice from "@/reduxtoolkit/slices/logInSlice";
 // ...
 
 export const store = configureStore({
   reducer: {
-        loginReducer:logInSlice
+    loginReducer: logInSlice
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
-//   .concat(logger),
+  //   .concat(logger),
   devTools: true
-
-})
+});
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch
+export type AppDispatch = typeof store.dispatch;
 // export type AppThunk<ReturnType = void> = ThunkAction<
 //   ReturnType,
 //   RootState,
