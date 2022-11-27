@@ -26,17 +26,16 @@ const Login = () => {
   const { toastSuccess } = useNotiStack();
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
     toastSuccess("Login success");
     reset();
   };
 
-  console.log(errors);
 
   return (
     <Wrapper>
       <Container maxWidth="sm">
         <Paper className={styles.loginBox}>
+          <h1>Login</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Controller
               control={control}
@@ -47,7 +46,6 @@ const Login = () => {
                   message: message.error.email_format
                 }
               })}
-              
               render={({ field: { onChange, value } }) => (
                 <CustomInput
                   label="Enter email*"
