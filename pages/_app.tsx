@@ -22,12 +22,12 @@ function fixSSRLayout() {
 export default function App({ Component, pageProps }: AppProps) {
   fixSSRLayout();
   return (
-    <ToastifyProvider>
-      <MuiTheme>
-        <Provider store={store}>
+    <Provider store={store}>
+      <ToastifyProvider>
+        <MuiTheme>
           <Component {...pageProps} />
-        </Provider>
-      </MuiTheme>
-    </ToastifyProvider>
+        </MuiTheme>
+      </ToastifyProvider>
+    </Provider>
   );
 }

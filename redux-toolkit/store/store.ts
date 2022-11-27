@@ -5,10 +5,11 @@ import logInSlice from '@/reduxtoolkit/slices/logInSlice'
 export const store = configureStore({
   reducer: {
         loginReducer:logInSlice
-    // posts: postsReducer,
-    // comments: commentsReducer,
-    // users: usersReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+//   .concat(logger),
+  devTools: true
+
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

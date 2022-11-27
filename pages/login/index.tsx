@@ -8,7 +8,9 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import regex from "@/lib/regex";
 import message from "@/json/message/message";
 import { useAppDispatch } from "@/reduxtoolkit/hooks/hooks";
-import { setLoginData } from "@/reduxtoolkit/hooks/logInSlice";
+import { setLoginData } from "@/reduxtoolkit/slices/logInSlice";
+import CustomButton from "@/ui/Buttons/CustomButton";
+import useNotiStack from "@/hooks/useNotistack";
 
 type IFormInput = {
   email: string;
@@ -20,13 +22,16 @@ const Login = () => {
     handleSubmit,
     control,
     register,
+    reset,
     formState: { errors }
   } = useForm<IFormInput>();
-  const dispatch = useAppDispatch();
-
+  const { toastSuccess } = useNotiStack();
+  const dispatch=useAppDispatch();
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     console.log(data);
     dispatch(setLoginData(data));
+    toastSuccess("Login success");
+    reset();
   };
 
   console.log(errors);
@@ -45,6 +50,7 @@ const Login = () => {
                   message: message.error.email_format
                 }
               })}
+              
               render={({ field: { onChange, value } }) => (
                 <CustomInput
                   label="Enter email*"
@@ -57,7 +63,26 @@ const Login = () => {
               )}
             />
 
-            <button type="submit">submit</button>
+            <Controller
+              control={control}
+              {...register("password", {
+                required: message.error.enter_password
+              })}
+              render={({ field: { onChange, value } }) => (
+                <CustomInput
+                  label="Enter password*"
+                  value={value}
+                  onChange={onChange}
+                  placeholder="Enter password"
+                  error={Boolean(errors?.password)}
+                  helperText={errors?.password?.message}
+                />
+              )}
+            />
+
+            <CustomButton type="submit" disabled={false}>
+              <span>Submit</span>
+            </CustomButton>
           </form>
         </Paper>
       </Container>
