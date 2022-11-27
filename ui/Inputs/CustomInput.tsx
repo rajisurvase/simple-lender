@@ -23,7 +23,7 @@ const CustomInput = memo(
   }: MuiInputProps) => {
     const id = useId();
     return (
-      <FormControl error={error} fullWidth sx={{ paddingBottom: 2 }}>
+      <FormControl error={error} fullWidth >
         {label}
         <OutlinedInput
           error={error}

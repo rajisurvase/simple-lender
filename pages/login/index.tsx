@@ -6,6 +6,7 @@ import Wrapper from "@/layout/wrapper/Wrapper";
 import styles from "@/styles/pages/login.module.scss";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import regex from "@/lib/regex";
+import message from "@/json/message/message";
 
 type IFormInput = {
   email: string;
@@ -24,6 +25,8 @@ const Login = () => {
     console.log(data);
   };
 
+  console.log(errors)
+
   return (
     <Wrapper>
       <Container maxWidth="sm">
@@ -32,12 +35,15 @@ const Login = () => {
             <Controller
               control={control}
               {...register("email", {
-                required: "Enter email",
-                pattern:regex.emailRegex
+                required: message.error.enter_email,
+                pattern:{
+                    value:regex.emailRegex,
+                    message:message.error.email_format
+                }
               })}
               render={({ field: { onChange, value } }) => (
                 <CustomInput
-                  label="Username*"
+                  label="Enter email*"
                   value={value}
                   onChange={onChange}
                   placeholder="Enter username"
@@ -46,6 +52,7 @@ const Login = () => {
                 />
               )}
             />
+         
 
             <button type="submit">submit</button>
           </form>
