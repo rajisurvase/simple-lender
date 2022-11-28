@@ -1,11 +1,28 @@
-import { createSlice } from "@reduxjs/toolkit";
-// import type { PayloadAction } from '@reduxjs/toolkit'
-// import type { RootState } from '@/reduxtoolkit/store/store'
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loginData } from "../interfaces/interfaces";
 
 const initialState: loginData = {
   email: ""
 };
+
+export const loginUser = createAsyncThunk(
+  "/loginUser",
+  async (data, { rejectWithValue }) => {
+    try {
+      // const res = await axiosInstance.post(
+      //   "appointment/terminal-appointments-list",
+      //   data
+      // );
+
+      // return res.data;
+    } catch (error) {
+      return rejectWithValue([], error);
+    }
+  }
+);
+
+
+
 
 export const logInSlice = createSlice({
   name: "login",
@@ -13,8 +30,7 @@ export const logInSlice = createSlice({
   initialState,
   reducers: {
     setLoginData: (state, { payload }) => {
-      console.log(state, "State");
-      console.log(payload, "payload");
+
 
       // state.email
     },
@@ -27,7 +43,6 @@ export const logInSlice = createSlice({
 
 export const { setLoginData, resetLoginData } = logInSlice.actions;
 
-// Other code such as selectors can use the imported `RootState` type
-// export const selectCount = (state: RootState) => state.counter.value
+
 
 export default logInSlice.reducer;
