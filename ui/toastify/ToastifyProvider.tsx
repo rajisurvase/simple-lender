@@ -6,6 +6,7 @@ type Props = {
 };
 
 const ToastifyProvider =(props:Props) => {
+  const {children}=props;
   return (
     <SnackbarProvider
       maxSnack={3}
@@ -14,8 +15,9 @@ const ToastifyProvider =(props:Props) => {
         vertical: "top",
         horizontal: "center"
       }}
+      preventDuplicate
     >
-      {props.children}
+      {children}
     </SnackbarProvider>
   );
 };
