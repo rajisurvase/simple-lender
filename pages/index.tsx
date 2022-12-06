@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { GetServerSideProps } from "next";
 import nookies from "nookies";
 import { getItemFromCookiesServerSide } from "@/lib/functions/storage.lib";
+import Wrapper from "@/layout/wrapper/Wrapper";
 
 const AllButtons = dynamic(() => import("@/components/AllButtons"), {
   ssr: true
@@ -20,9 +21,7 @@ const AllColors = dynamic(() => import("@/components/AllColors"), {
 const HomeSection = dynamic(() => import("@/components/HomeSection"), {
   ssr: true
 });
-const Wrapper = dynamic(() => import("@/layout/wrapper/Wrapper"), {
-  ssr: true
-});
+
 
 // === get serverside methods ===4
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -39,7 +38,7 @@ export default function Home() {
 
   useEffect(() => {
     toastError("err");
-    toastSuccess("This is sucess");
+    toastSuccess("This is success");
   }, []);
 
   return (

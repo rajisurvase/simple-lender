@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "@/styles/pages/login.module.scss";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import dynamic from "next/dynamic";
 import Seo from "@/components/Seo/Seo";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
@@ -9,11 +8,11 @@ import * as yup from "yup";
 import validationText from "@/json/messages/validationText";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useNotiStack from "@/hooks/useNotistack";
+import CustomInput from "@/ui/Inputs/CustomInput";
+import CustomButton from "@/ui/Buttons/CustomButton";
+import Wrapper from "@/layout/wrapper/Wrapper";
 
-// ==== DYNAMIC IMPORTS =====
-const CustomButton = dynamic(() => import("@/ui/Buttons/CustomButton"));
-const Wrapper = dynamic(() => import("@/layout/wrapper/Wrapper"));
-const CustomInput = dynamic(() => import("@/ui/Inputs/CustomInput"));
+
 
 //=== TYPES ====
 type IFormInput = {

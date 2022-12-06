@@ -1,12 +1,13 @@
 import dynamic from "next/dynamic";
-import React from "react";
+import React, { Suspense } from "react";
 import NextProgress from "next-progress";
+import HeaderSkeleton from "@/ui/Skeletons/HeaderSkeleton";
 
-const Header = dynamic(() => import("../Header/Header"));
-const Footer = dynamic(() => import("../Footer/Footer"));
+const Header = dynamic(() => import("../Header/Header"), { suspense: true });
+const Footer = dynamic(() => import("../Footer/Footer"), { suspense: true });
 
 type wrapperProps = {
-  children: JSX.Element|JSX.Element[];
+  children: JSX.Element | JSX.Element[];
 };
 
 const Wrapper = (props: wrapperProps) => {
@@ -14,12 +15,16 @@ const Wrapper = (props: wrapperProps) => {
   return (
     <>
       <NextProgress height={8} color="green" />
-      <Header />
+      <Suspense fallback={<HeaderSkeleton />}>
+        <Header />
+      </Suspense>
+
       {children}
-      <Footer />
-  
+
+      <Suspense fallback={<HeaderSkeleton />}>
+        <Footer />
+      </Suspense>
     </>
-  
   );
 };
 

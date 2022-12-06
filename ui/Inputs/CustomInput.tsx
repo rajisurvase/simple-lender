@@ -1,11 +1,11 @@
 import OutlinedInput from "@mui/material/OutlinedInput";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
-import React, { memo, useId } from "react";
-import { CommonMuiInputProps } from "@/types/common.type";
+import React, { forwardRef, memo, MutableRefObject, useId } from "react";
+import { CommonMuiInputProps } from "@/interface/common.interface";
 
-const CustomInput = memo(
-  ({
+const CustomInputWith_forwardRef = (
+  {
     error = false,
     label,
     value,
@@ -14,29 +14,31 @@ const CustomInput = memo(
     placeholder = "",
     type,
     startAdornment,
-    endAdornment,
+    endAdornment
+  }: CommonMuiInputProps,
+  ref:MutableRefObject
+) => {
+  const id = useId();
+  return (
+    <FormControl error={error} fullWidth>
+      {label}
+      <OutlinedInput
+        error={error}
+        id={id}
+        type={type}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        startAdornment={startAdornment}
+        endAdornment={endAdornment}
+      />
+      {error && <FormHelperText>{helperText}</FormHelperText>}
+    </FormControl>
+  );
+};
 
-  }: CommonMuiInputProps) => {
-    const id = useId();
-    return (
-      <FormControl error={error} fullWidth>
-        {label}
-        <OutlinedInput
-          error={error}
-          id={id}
-          type={type}
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder}
-          startAdornment={startAdornment}
-          endAdornment={endAdornment}
-        />
-        {error && <FormHelperText>{helperText}</FormHelperText>}
-      </FormControl>
-    );
-  }
-);
+CustomInputWith_forwardRef.displayName = "CustomInput";
 
-CustomInput.displayName = "CustomInput";
+const CustomInput = forwardRef(CustomInputWith_forwardRef);
 
 export default CustomInput;

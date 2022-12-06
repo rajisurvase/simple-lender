@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import logInSlice from "@/reduxtoolkit/slices/logInSlice";
+import logInSlice from "@/reduxtoolkit/slices/userSlice";
 import logger from "redux-logger";
 // ...
 

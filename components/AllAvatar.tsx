@@ -1,7 +1,7 @@
-import dynamic from "next/dynamic";
+import CustomAvatar from "@/ui/Avatar/CustomAvatar";
 import React from "react";
 
-const CustomAvatar = dynamic(() => import("@/ui/Avatar/CustomAvatar"));
+
 
 const AllAvatar = () => {
   return (

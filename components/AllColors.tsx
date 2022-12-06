@@ -1,9 +1,9 @@
 import React from "react";
 import colors from "@/styles/abstracts/_variable.module.scss";
-import dynamic from "next/dynamic";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 
-const Stack = dynamic(() => import("@mui/material/Stack"));
-const Box = dynamic(() => import("@mui/material/Box"));
+
 
 const AllColors = () => {
 
