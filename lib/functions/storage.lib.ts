@@ -1,20 +1,16 @@
-import { GetServerSidePropsContext } from "next";
-import nookies, { parseCookies, setCookie, destroyCookie } from "nookies";
+// import {
+//   decryptData, encryptData,
+//   // encryptData
+// } from "./_crypto.lib";
 
-/**
- * Check if the window object exists.
- * @returns A function that checks if the window is undefined.
- */
-export function checkWindow() {
-  return typeof window !== "undefined";
-}
+import { checkWindow, isInServer } from "./_helpers.lib";
 
 /**
  * It takes a key and a value, encrypts the value, and saves it in local storage
  * @param key - The key to store the data under.
  * @param value - The value to be encrypted.
  */
-export function saveInLocalStorage(key: string, value: string) {
+export function saveInLocalStorage(key:string, value:string) {
   if (checkWindow()) {
     // let encript_key = encryptData(key);
     // const encriptVal = encryptData(value);
@@ -28,7 +24,7 @@ export function saveInLocalStorage(key: string, value: string) {
  * @param key - The key to store the data in local storage.
  * @returns the decrypted data from the local storage.
  */
-export function getFromLocalStorage(key: string) {
+export function getFromLocalStorage(key:string) {
   if (checkWindow()) {
     const getItem = localStorage.getItem(key);
     // console.log(getItem)
@@ -47,55 +43,45 @@ export function getFromLocalStorage(key: string) {
 }
 
 /**
- * Simply omit context parameter.
- * @param {string} key - The key of the cookie.
- * @param {string} value - The value to be stored in the cookie.
+ * It checks if the browser allows cookies
  */
-export function saveInCookiesClientSide(key: string, value: string) {
-  // Simply omit context parameter.
-  // Set
-  setCookie(null, key, value, {
-    maxAge: 30 * 24 * 60 * 60,
-    path: "/"
-  });
+export function isCookieAllowed() {
+  if (typeof navigator !== "undefined" && !isInServer()) {
+    let { cookieEnabled } = navigator;
+    if (!cookieEnabled) {
+      //check again if we can write cookie still
+      document.cookie = "testcookie";
+      cookieEnabled = document.cookie.indexOf("testcookie") !== -1;
+    }
+    return cookieEnabled;
+  }
+  //on server return always true
+  return true;
 }
 
 /**
- * It gets the cookies from the context object, and then returns the value of the cookie with the key
- * that was passed in
- * @param {GetServerSidePropsContext} context - GetServerSidePropsContext
- * @param {string} key - The key of the cookie you want to get
- * @returns The value of the cookie with the key of the argument passed in.
+ * It returns the value of the cookie with the name cname
+ * @param cname - The name of the cookie you want to get.
+ * @returns A function that returns a cookie value.
  */
-export function getItemFromCookiesServerSide(
-  context: GetServerSidePropsContext,
-  key: string
-) {
-  const cookies = nookies.get(context);
-
-  if (cookies[key]) {
-    return cookies[key];
-  } else {
+export function getCookie(cname:key) {
+  if (!isInServer()) {
+    const name = `${cname}=`;
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(";");
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == " ") {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
     return "";
   }
-}
-
-/**
- * It takes a key as an argument, parses the cookies, and returns the value of the cookie with the key
- * that was passed in
- * @param {string} key - The key of the cookie you want to get.
- * @returns The value of the cookie with the key that was passed in.
- */
-export function getItemFromCookiesClientSide(key: string) {
-  const cookies = parseCookies();
-
-  return cookies[key];
-}
-
-/**
- * If the cookie exists, delete it.
- * @param {string} key - The name of the cookie to delete.
- */
-export function deleteCookie(key: string) {
-  destroyCookie(null, key);
+  //if it runs in server return null, by default next-cookie-wrapper wraps in redux
+  //or get cookies in methods getInitialProps etc
+  return null;
 }

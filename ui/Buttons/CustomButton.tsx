@@ -2,7 +2,7 @@ import Button from "@mui/material/Button";
 import React, { memo, useEffect, useState } from "react";
 import styles from "@/styles/components/button.module.scss";
 
-type ButtonType = {
+interface ButtonType  {
   children: JSX.Element;
   variant?: "text" | "outlined" | "contained";
   disabled?: boolean;

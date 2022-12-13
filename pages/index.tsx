@@ -5,6 +5,11 @@ import { GetServerSideProps } from "next";
 import nookies from "nookies";
 import { getItemFromCookiesServerSide } from "@/lib/functions/storage.lib";
 import Wrapper from "@/layout/wrapper/Wrapper";
+import { useQuery } from "react-query";
+import { fetchAboutUs } from "@/api/functions/cms.api";
+import Loader from "@/ui/Loader/Loder";
+import logger from "@/lib/functions/_logger.lib";
+import { Divider } from "@mui/material";
 
 const AllButtons = dynamic(() => import("@/components/AllButtons"), {
   ssr: true
@@ -22,12 +27,8 @@ const HomeSection = dynamic(() => import("@/components/HomeSection"), {
   ssr: true
 });
 
-
 // === get serverside methods ===4
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const cookies = nookies.get(context);
-  console.log(getItemFromCookiesServerSide(context,"UserGiftListAuthToken:"), "cook");
-
   return {
     props: {}
   };
@@ -35,6 +36,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 export default function Home() {
   const { toastSuccess, toastError } = useNotiStack();
+  const { isLoading, isError, data, error } = useQuery("todos", fetchAboutUs);
 
   useEffect(() => {
     toastError("err");
@@ -43,6 +45,21 @@ export default function Home() {
 
   return (
     <Wrapper>
+      <HomeSection title="Fetch cms api with react-query">
+        <>
+          {isLoading && <Loader />}
+          {logger.error(error, "error")}
+
+          {!!data && (
+            <>
+              <h1>{data?.data?.title}</h1>
+              <Divider />
+              <p>{data?.data?.description}</p>
+            </>
+          )}
+        </>
+      </HomeSection>
+
       <HomeSection title="Theme Colors">
         <AllColors />
       </HomeSection>

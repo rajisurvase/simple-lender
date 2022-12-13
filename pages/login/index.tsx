@@ -15,7 +15,7 @@ import Wrapper from "@/layout/wrapper/Wrapper";
 
 
 //=== TYPES ====
-type IFormInput = {
+interface IFormInput  {
   email: string;
   password: string;
 };

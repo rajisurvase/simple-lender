@@ -1,16 +1,18 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { baseUrl } from "../endpoints";
+import { baseUrlApi } from "../endpoints";
 
-axios.defaults.baseURL = baseUrl;
+const axiosInstance = axios.create({
+  baseURL: baseUrlApi
+});
 
-axios.interceptors.request.use((config) => {
+axiosInstance.interceptors.request.use((config) => {
   //   if (token) {
   //     config.headers.Authorization = `Bearer ${token}`;
   //   }
   return config;
 });
 
-axios.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   (res) => res,
   (error: AxiosError) => {
     const { data, status, config } = error.response!;
@@ -20,7 +22,7 @@ axios.interceptors.response.use(
         break;
 
       case 401:
-        console.error("unauthorised");
+        console.error("unauthorized");
         break;
 
       case 404:
@@ -35,31 +37,9 @@ axios.interceptors.response.use(
   }
 );
 
-const responseBody = <T>(response: AxiosResponse<T>) => response.data;
-
-const request = {
-  get: <T>(url: string) => axios.get<T>(url).then(responseBody),
-  post: <T>(url: string, body: {}) =>
-    axios.post<T>(url, body).then(responseBody)
-};
 
 
 
-// const todos = {
-//   list: () => request.get<Todo[]>("/todos"),
-//   details: (id: string) => request.get<Todo>(`/todos/${id}`),
-//   create: (data: Todo) => request.post<void>("/todos", data)
-// };
 
-// const users = {
-//   list: () => request.get<User[]>("/users"),
-//   details: (id: string) => request.get<User>(`/users/${id}`),
-//   create: (data: User) => request.post<User>("/users", data)
-// };
 
-// const api = {
-//   todos,
-//   users
-// };
-
-// export default api;
+export default axiosInstance;

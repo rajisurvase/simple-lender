@@ -9,12 +9,12 @@ module.exports = withPWA({
     register: true,
     skipWaiting: true,
     runtimeCaching,
-    disable: process.env.NODE_ENV === "development",
+    disable: process.env.NODE_ENV === "development"
   },
   reactStrictMode: true,
   trailingSlash: true,
   sassOptions: {
-    includePaths: [path.join(__dirname, "styles")],
+    includePaths: [path.join(__dirname, "styles")]
   },
   images: {
     domains: [
@@ -22,11 +22,11 @@ module.exports = withPWA({
       "api.lorem.space",
       "picsum.photos",
       "placeimg.com",
-      "encrypted-tbn0.gstatic.com",
-    ],
+      "encrypted-tbn0.gstatic.com"
+    ]
   },
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: true
   },
   productionBrowserSourceMaps: true,
   swcMinify: true,
@@ -34,10 +34,12 @@ module.exports = withPWA({
   optimizeFonts: true,
   devIndicators: {
     autoPrerender: false,
-    buildActivityPosition: 'bottom-right',
+    buildActivityPosition: "bottom-right"
   },
   compiler: {
-    removeConsole: process.env.NODE_ENV === "production",
+    removeConsole: process.env.NODE_ENV === "production"
   },
+  env: {
+    NEXT_APP_BASE_URL:process.env.NEXT_APP_BASE_URL
+  }
 });
-

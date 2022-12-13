@@ -1,7 +1,7 @@
 import React from "react";
 import { NextSeo } from "next-seo";
 
-type SeoProps = {
+interface SeoProps  {
   title: string;
   canonical: string;
   description: string;

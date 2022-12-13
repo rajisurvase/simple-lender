@@ -4,7 +4,7 @@ import offlineJson from "@/json/lottie/offline.json";
 import { checkWindow } from "@/lib/functions/storage.lib";
 
 
-const Lottie = dynamic(() => import("react-lottie"));
+const Lottie = dynamic(() => import("lottie-react"));
 const Wrapper = dynamic(() => import("@/layout/wrapper/Wrapper"));
 const Container = dynamic(() => import("@mui/material/Container"));
 const Stack = dynamic(() => import("@mui/material/Stack"));

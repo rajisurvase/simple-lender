@@ -2,10 +2,10 @@ import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
 import React, { useId } from "react";
 
-type HomeSectionProps = {
-  children: JSX.Element;
+interface HomeSectionProps {
+  children: JSX.Element | JSX.Element[];
   title: string;
-};
+}
 
 const HomeSection = (props: HomeSectionProps) => {
   const { children, title } = props;
@@ -15,7 +15,7 @@ const HomeSection = (props: HomeSectionProps) => {
     <div id={id}>
       <Container>
         <h1>{title}</h1>
-        <Divider/>
+        <Divider />
         <div>{children}</div>
       </Container>
     </div>
