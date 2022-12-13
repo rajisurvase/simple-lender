@@ -10,6 +10,7 @@ import { fetchAboutUs } from "@/api/functions/cms.api";
 import Loader from "@/ui/Loader/Loder";
 import logger from "@/lib/functions/_logger.lib";
 import { Divider } from "@mui/material";
+import DataWrapper from "@/components/DataWrapper/DataWrapper";
 
 const AllButtons = dynamic(() => import("@/components/AllButtons"), {
   ssr: true
@@ -36,7 +37,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 export default function Home() {
   const { toastSuccess, toastError } = useNotiStack();
-  const { isLoading, isError, data, error } = useQuery("todos", fetchAboutUs);
+  const { isLoading, isError, data, error, isRefetching } = useQuery(
+    "fetchAboutUs",
+    fetchAboutUs,
+    {
+      refetchOnReconnect: true
+    }
+  );
 
   useEffect(() => {
     toastError("err");
@@ -46,18 +53,15 @@ export default function Home() {
   return (
     <Wrapper>
       <HomeSection title="Fetch cms api with react-query">
-        <>
-          {isLoading && <Loader />}
-          {logger.error(error, "error")}
-
-          {!!data && (
-            <>
-              <h1>{data?.data?.title}</h1>
-              <Divider />
-              <p>{data?.data?.description}</p>
-            </>
-          )}
-        </>
+        <DataWrapper
+          isError={isError}
+          isLoading={isLoading}
+          isRefetching={isRefetching}
+        >
+          <h1>{data?.data?.title}</h1>
+          <Divider />
+          <p>{data?.data?.description}</p>
+        </DataWrapper>
       </HomeSection>
 
       <HomeSection title="Theme Colors">

@@ -1,7 +1,7 @@
 import { Alert } from "@mui/material";
 import React from "react";
 
-const Error = ({ text<string> =  "something went wrong" }) => {
+const Error = ({ text: string }) => {
   return <Alert severity="error">{text}</Alert>;
 };
 

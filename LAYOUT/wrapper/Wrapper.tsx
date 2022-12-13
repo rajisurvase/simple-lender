@@ -8,7 +8,7 @@ import useOnlineStatus from "@/hooks/useDetectOnline";
 const Header = dynamic(() => import("../Header/Header"), { suspense: true });
 const Footer = dynamic(() => import("../Footer/Footer"), { suspense: true });
 
-type wrapperProps = {
+interface wrapperProps  {
   children: JSX.Element | JSX.Element[];
 };
 
