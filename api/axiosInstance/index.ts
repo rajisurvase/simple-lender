@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosError } from "axios";
 import { baseUrlApi } from "../endpoints";
 
 const axiosInstance = axios.create({

@@ -1,12 +1,9 @@
-
 import { checkWindow } from "@/lib/functions/_helpers.lib";
 import { useEffect } from "react";
 import useNotiStack from "./useNotistack";
 
 function useOnlineStatus() {
-
-  const _Window=checkWindow()?window:null;
-
+  const _Window = checkWindow() ? window : null;
 
   const { toastSuccess, toastError } = useNotiStack();
   useEffect(() => {
@@ -15,9 +12,6 @@ function useOnlineStatus() {
       window.addEventListener("offline", () => toastError("You are offline"));
     }
   }, [_Window?.navigator?.onLine]);
-
-
-
 }
 
 export default useOnlineStatus;

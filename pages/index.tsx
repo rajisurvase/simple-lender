@@ -1,16 +1,12 @@
-import { useEffect } from "react";
-import useNotiStack from "hooks/useNotistack";
-import dynamic from "next/dynamic";
-import { GetServerSideProps } from "next";
-import nookies from "nookies";
-import { getItemFromCookiesServerSide } from "@/lib/functions/storage.lib";
-import Wrapper from "@/layout/wrapper/Wrapper";
-import { useQuery } from "react-query";
 import { fetchAboutUs } from "@/api/functions/cms.api";
-import Loader from "@/ui/Loader/Loder";
-import logger from "@/lib/functions/_logger.lib";
-import { Divider } from "@mui/material";
 import DataWrapper from "@/components/DataWrapper/DataWrapper";
+import Wrapper from "@/layout/wrapper/Wrapper";
+import Divider from "@mui/material/Divider";
+import useNotiStack from "hooks/useNotistack";
+import { GetServerSideProps } from "next";
+import dynamic from "next/dynamic";
+import { useEffect } from "react";
+import { useQuery } from "react-query";
 
 const AllButtons = dynamic(() => import("@/components/AllButtons"), {
   ssr: true
