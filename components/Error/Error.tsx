@@ -1,7 +1,11 @@
-import { Alert } from "@mui/material";
-import React from "react";
+import Alert from "@mui/material/Alert";
 
-const Error = ({ text: string }) => {
+interface ErrorType {
+  text?: string;
+}
+
+const Error = (props: ErrorType) => {
+  const { text } = props;
   return <Alert severity="error">{text}</Alert>;
 };
 

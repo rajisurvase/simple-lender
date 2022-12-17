@@ -1,6 +1,6 @@
 import React from "react";
 import "@/styles/global.scss";
-import type { AppProps } from "next/app";
+import type { AppContext, AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import { Provider } from "react-redux";
 import { store } from "@/reduxtoolkit/store/store";
@@ -28,8 +28,12 @@ const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
   fixSSRLayout();
+
+
+
+
   return (
-    <Provider store={store}>
+    <Provider  store={store}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <ToastifyProvider>
@@ -45,4 +49,10 @@ export default function App({ Component, pageProps }: AppProps) {
       </QueryClientProvider>
     </Provider>
   );
+
+}
+
+App.getInitialProps=(context:AppContext)=>{
+  const {router,ctx}=context;
+
 }

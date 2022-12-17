@@ -9,3 +9,4 @@ export const fetchAboutUs = async () => {
     return error;
   }
 };
+

@@ -3,6 +3,7 @@
 //   // encryptData
 // } from "./_crypto.lib";
 
+import { setCookie } from "nookies";
 import { checkWindow, isInServer } from "./_helpers.lib";
 
 /**
@@ -10,7 +11,7 @@ import { checkWindow, isInServer } from "./_helpers.lib";
  * @param key - The key to store the data under.
  * @param value - The value to be encrypted.
  */
-export function saveInLocalStorage(key:string, value:string) {
+export function saveInLocalStorage(key: string, value: string) {
   if (checkWindow()) {
     // let encript_key = encryptData(key);
     // const encriptVal = encryptData(value);
@@ -24,7 +25,7 @@ export function saveInLocalStorage(key:string, value:string) {
  * @param key - The key to store the data in local storage.
  * @returns the decrypted data from the local storage.
  */
-export function getFromLocalStorage(key:string) {
+export function getFromLocalStorage(key: string) {
   if (checkWindow()) {
     const getItem = localStorage.getItem(key);
     // console.log(getItem)
@@ -64,7 +65,7 @@ export function isCookieAllowed() {
  * @param cname - The name of the cookie you want to get.
  * @returns A function that returns a cookie value.
  */
-export function getCookie(cname:key) {
+export function getCookie(cname: string) {
   if (!isInServer()) {
     const name = `${cname}=`;
     const decodedCookie = decodeURIComponent(document.cookie);
@@ -84,4 +85,8 @@ export function getCookie(cname:key) {
   //if it runs in server return null, by default next-cookie-wrapper wraps in redux
   //or get cookies in methods getInitialProps etc
   return null;
+}
+
+export function setCookieClient(key: string, value: string) {
+  setCookie(null, key, value);
 }

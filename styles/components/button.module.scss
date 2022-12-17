@@ -1,21 +1,19 @@
-@import "../abstracts/variable.module";
-
 .button {
   padding: 10px 20px;
   border-radius: 50px;
-  background-color: $commonThemeColor1;
+  background-color: var(--primaryBlue);
   color: white;
 }
 
 .buttonOutlined {
   padding: 10px 20px;
   border-radius: 50px;
-  border: 1px solid $commonThemeColor1;
-  color: $commonThemeColor1;
+  border: 1px solid var(--primaryBlue);
+  color: var(--primaryBlue);
 }
 
 .buttonText {
   padding: 10px 20px;
   border-radius: 50px;
-  color: $commonThemeColor1;
+  color: var(--primaryBlue);
 }

@@ -5,7 +5,7 @@ const initialState: globalStateInterface = {
   counter: 0
 };
 
-export const globalSlice = createSlice({
+const globalSlice = createSlice({
   name: "globalSlice",
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,

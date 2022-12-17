@@ -1,8 +1,10 @@
+import { userData } from "@/types/common.type";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { loginData } from "../interfaces/interfaces";
+import { userSliceData } from "../interfaces/interfaces";
 
-const initialState: loginData = {
-  email: ""
+const initialState: userSliceData = {
+  isLoggedIn: false,
+  userData: null
 };
 
 export const loginUser = createAsyncThunk(
@@ -13,7 +15,6 @@ export const loginUser = createAsyncThunk(
       //   "appointment/terminal-appointments-list",
       //   data
       // );
-
       // return res.data;
     } catch (error) {
       return rejectWithValue([]);
@@ -21,28 +22,21 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-
-
-
-export const logInSlice = createSlice({
-  name: "login",
+export const userSlice = createSlice({
+  name: "userSlice",
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    setLoginData: (state, { payload }) => {
-
-
+    setLoginData: (state, { payload }: { payload: userData }) => {
       // state.email
+      state.userData = payload;
+      state.isLoggedIn = true;
     },
-    resetLoginData: (state) => {
-      state.email = initialState.email;
-    }
+    checkLoggedIn: (state) => {}
   },
   extraReducers: {}
 });
 
-export const { setLoginData, resetLoginData } = logInSlice.actions;
+export const { setLoginData, checkLoggedIn } = userSlice.actions;
 
-
-
-export default logInSlice.reducer;
+export default userSlice.reducer;

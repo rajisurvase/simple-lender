@@ -1,6 +1,7 @@
 import { fetchAboutUs } from "@/api/functions/cms.api";
 import DataWrapper from "@/components/DataWrapper/DataWrapper";
 import Wrapper from "@/layout/wrapper/Wrapper";
+import AboutSkeleton from "@/ui/Skeletons/AboutSkeleton";
 import Divider from "@mui/material/Divider";
 import useNotiStack from "hooks/useNotistack";
 import { GetServerSideProps } from "next";
@@ -48,10 +49,11 @@ export default function Home() {
 
   return (
     <Wrapper>
-      <HomeSection title="Fetch cms api with react-query">
+      <HomeSection title="Fetch cms api with react-query - useQuery() ">
         <DataWrapper
           isError={isError}
           isLoading={isLoading}
+          loader={<AboutSkeleton />}
           isRefetching={isRefetching}
         >
           <h1>{data?.data?.title}</h1>

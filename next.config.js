@@ -29,7 +29,7 @@ module.exports = withPWA({
     ignoreDuringBuilds: true
   },
   productionBrowserSourceMaps: true,
-  swcMinify: true,
+  swcMinify: false,
   compress: true,
   optimizeFonts: true,
   devIndicators: {
@@ -40,6 +40,6 @@ module.exports = withPWA({
     removeConsole: process.env.NODE_ENV === "production"
   },
   env: {
-    NEXT_APP_BASE_URL:process.env.NEXT_APP_BASE_URL
+    NEXT_APP_BASE_URL: process.env.NEXT_APP_BASE_URL
   }
 });

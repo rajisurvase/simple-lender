@@ -1,8 +1,9 @@
-import Button from "@mui/material/Button";
-import React, { memo, useEffect, useState } from "react";
 import styles from "@/styles/components/button.module.scss";
+import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
+import { memo, useEffect, useState } from "react";
 
-interface ButtonType  {
+interface ButtonType {
   children: JSX.Element;
   variant?: "text" | "outlined" | "contained";
   disabled?: boolean;
@@ -21,7 +22,7 @@ interface ButtonType  {
   endIcon?: JSX.Element;
   startIcon?: JSX.Element;
   loading?: boolean;
-};
+}
 
 const CustomButtonMemo = ({
   children,
@@ -62,6 +63,7 @@ const CustomButtonMemo = ({
       startIcon={startIcon}
       type={type}
     >
+      {loading && <CircularProgress size={15} color="inherit" />}
       {children}
     </Button>
   );

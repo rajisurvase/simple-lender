@@ -1,14 +1,22 @@
 import { configureStore } from "@reduxjs/toolkit";
-import logInSlice from "@/reduxtoolkit/slices/userSlice";
 import logger from "redux-logger";
+import { createStateSyncMiddleware } from "redux-state-sync";
+import rootReducer from "../slices/rootReducer";
+
 // ...
 
+//Middlewares
+const config = {
+  // Overwrite existing state with incoming state
+  receiveState: (prevState: any, nextState: any) => nextState
+};
+
+const middleware = [createStateSyncMiddleware(config), logger];
+
 export const store = configureStore({
-  reducer: {
-    loginReducer: logInSlice
-  },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
-  devTools: true
+  reducer: rootReducer,
+  middleware,
+  devTools: process.env.NODE_ENV === "development"
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

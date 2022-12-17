@@ -1,16 +1,15 @@
-import React from "react";
-import styles from "@/styles/pages/login.module.scss";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import Seo from "@/components/Seo/Seo";
+import useNotiStack from "@/hooks/useNotistack";
+import validationText from "@/json/messages/validationText";
+import Wrapper from "@/layout/wrapper/Wrapper";
+import styles from "@/styles/pages/login.module.scss";
+import CustomButton from "@/ui/Buttons/CustomButton";
+import CustomInput from "@/ui/Inputs/CustomInput";
+import { yupResolver } from "@hookform/resolvers/yup";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
-import validationText from "@/json/messages/validationText";
-import { yupResolver } from "@hookform/resolvers/yup";
-import useNotiStack from "@/hooks/useNotistack";
-import CustomInput from "@/ui/Inputs/CustomInput";
-import CustomButton from "@/ui/Buttons/CustomButton";
-import Wrapper from "@/layout/wrapper/Wrapper";
 
 
 
@@ -90,7 +89,7 @@ const Login = () => {
                 )}
               />
 
-              <CustomButton type="submit" disabled={false}>
+              <CustomButton   type="submit" disabled={false}>
                 <span>Submit</span>
               </CustomButton>
             </form>

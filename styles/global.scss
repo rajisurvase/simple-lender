@@ -1,2 +1,5 @@
-@import "/styles/base/_theme.scss";
+@import "./abstracts/theme.module";
 
+:root {
+  @include printVariables();
+}
