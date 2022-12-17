@@ -32,11 +32,14 @@ export const userSlice = createSlice({
       state.userData = payload;
       state.isLoggedIn = true;
     },
-    checkLoggedIn: (state) => {}
+    checkLoggedInServer: (state, { payload }) => {
+      state.isLoggedIn = payload?.hasToken;
+      state.userData = payload?.user;
+    }
   },
   extraReducers: {}
 });
 
-export const { setLoginData, checkLoggedIn } = userSlice.actions;
+export const { setLoginData, checkLoggedInServer } = userSlice.actions;
 
 export default userSlice.reducer;

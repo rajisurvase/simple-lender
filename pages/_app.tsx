@@ -1,13 +1,17 @@
-import React from "react";
-import "@/styles/global.scss";
-import type { AppContext, AppProps } from "next/app";
-import dynamic from "next/dynamic";
-import { Provider } from "react-redux";
-import { store } from "@/reduxtoolkit/store/store";
-import ToastifyProvider from "@/ui/toastify/ToastifyProvider";
 import { checkWindow } from "@/lib/functions/_helpers.lib";
+import { checkLoggedInServer } from "@/reduxtoolkit/slices/userSlice";
+import { store } from "@/reduxtoolkit/store/store";
+import "@/styles/global.scss";
+import { userData } from "@/types/common.type";
+import ToastifyProvider from "@/ui/toastify/ToastifyProvider";
+import type { AppContext, AppProps } from "next/app";
+import App from "next/app";
+import dynamic from "next/dynamic";
+import nookies from "nookies";
+import React from "react";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { Provider } from "react-redux";
 
 const MuiTheme = dynamic(() => import("@/themes/index"), { ssr: true });
 
@@ -26,14 +30,23 @@ function fixSSRLayout() {
 
 const queryClient = new QueryClient();
 
-export default function App({ Component, pageProps }: AppProps) {
+interface CustomAppProps extends AppProps {
+  user: userData | null;
+  hasToken?: boolean;
+}
+
+export default function CustomApp({
+  Component,
+  pageProps,
+  hasToken,
+  user
+}: CustomAppProps) {
   fixSSRLayout();
 
-
-
+  store.dispatch(checkLoggedInServer({ hasToken, user }));
 
   return (
-    <Provider  store={store}>
+    <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <ToastifyProvider>
@@ -49,10 +62,31 @@ export default function App({ Component, pageProps }: AppProps) {
       </QueryClientProvider>
     </Provider>
   );
-
 }
 
-App.getInitialProps=(context:AppContext)=>{
-  const {router,ctx}=context;
+/* Getting the current user from the server and passing it to the client. */
+CustomApp.getInitialProps = async (context: AppContext) => {
+  // // const client = initializeApollo({ headers: context.ctx.req?.headers });
+  // const { data } = await client.query({
+  //   query: CURRENT_USER_QUERY,
+  // });
+  // // resetServerContext();
+  const appProps = await App.getInitialProps(context);
+  // return { user: data?.authenticatedItem, ...appProps };
+  const cookies = nookies.get(context.ctx);
 
-}
+  let hasToken = false;
+  let user = null;
+
+  if (cookies?.token?.length) {
+    hasToken = true;
+  }
+
+  if (cookies?.user?.length) {
+    user = JSON.parse(cookies?.user);
+  }
+
+  console.log(cookies, "head");
+
+  return { ...appProps, hasToken, user };
+};

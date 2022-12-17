@@ -1,4 +1,4 @@
-import * as React from "react";
+import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
@@ -8,15 +8,16 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import * as React from "react";
 
+import { useAppSelector } from "@/hooks/useAppSelector";
 import styles from "@/styles/layout/header.module.scss";
-import Link from "next/link";
 import dynamic from "next/dynamic";
-const CustomButton =dynamic(()=>import("@/ui/Buttons/CustomButton"))
+import Link from "next/link";
 
+const CustomButton = dynamic(() => import("@/ui/Buttons/CustomButton"));
 
 interface Props {
   /**
@@ -41,6 +42,7 @@ const navItems = [
 export default function Header(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { userData, isLoggedIn } = useAppSelector((state) => state.userSlice);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -94,15 +96,27 @@ export default function Header(props: Props) {
           >
             MUI
           </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <Link href={item?.route} key={item.name}>
-                <CustomButton type="button" variant="text">
-                  <span>{item?.name}</span>
-                </CustomButton>
-              </Link>
-            ))}
-          </Box>
+          {isLoggedIn ? (
+            <Box sx={{ display: { xs: "none", sm: "block" } }}>
+              <CustomButton type="button" variant="text">
+                <span>Logout</span>
+              </CustomButton>
+
+              <CustomButton type="button" variant="text">
+                <span>{userData?.email}</span>
+              </CustomButton>
+            </Box>
+          ) : (
+            <Box sx={{ display: { xs: "none", sm: "block" } }}>
+              {navItems.map((item) => (
+                <Link href={item?.route} key={item.name}>
+                  <CustomButton type="button" variant="text">
+                    <span>{item?.name}</span>
+                  </CustomButton>
+                </Link>
+              ))}
+            </Box>
+          )}
         </Toolbar>
       </AppBar>
       <Box component="nav">

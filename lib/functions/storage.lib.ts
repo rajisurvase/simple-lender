@@ -88,5 +88,7 @@ export function getCookie(cname: string) {
 }
 
 export function setCookieClient(key: string, value: string) {
-  setCookie(null, key, value);
+  setCookie(null, key, value, {
+    path: "/"
+  });
 }
