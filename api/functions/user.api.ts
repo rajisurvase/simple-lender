@@ -1,22 +1,24 @@
+import { IFormInput } from "@/interface/common.interface";
+import { userData } from "@/types/common.type";
 import ApiRequest from "../axiosInstance/request";
 import { endpoints } from "../endpoints";
-
-interface IFormInput {
-  email: string;
-  password: string;
-  fullName: string;
-  username: string;
-  phone: Number;
-  bio: string;
-}
 
 export const signUpMutation = async (body: IFormInput) => {
   try {
     const res = await ApiRequest.post(endpoints.auth.signup, body);
-    console.log("inereer", res);
+
     return res;
   } catch (error) {
-    console.log("inerr", error);
+    return error;
+  }
+};
+
+export const ProfileUpdateMutation = async (body: userData) => {
+  try {
+    const res = await ApiRequest.post(endpoints.auth.profileUpdate, body);
+
+    return res;
+  } catch (error) {
     return error;
   }
 };

@@ -6,7 +6,8 @@ export const baseUrlMedia = process.env.NEXT_APP_BASE_URL;
 
 export const endpoints = {
   auth: {
-    signup: "user/signup"
+    signup: "user/signup",
+    profileUpdate: "user/profile/update"
   },
   cms: {
     about: "aboutpolicy/details"

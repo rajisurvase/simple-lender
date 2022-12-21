@@ -1,5 +1,6 @@
 import { userData } from "@/types/common.type";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { destroyCookie } from "nookies";
 import { userSliceData } from "../interfaces/interfaces";
 
 const initialState: userSliceData = {
@@ -35,11 +36,17 @@ export const userSlice = createSlice({
     checkLoggedInServer: (state, { payload }) => {
       state.isLoggedIn = payload?.hasToken;
       state.userData = payload?.user;
+    },
+    logout: (state) => {
+      state.isLoggedIn = false;
+      state.userData = null;
+      destroyCookie(null, "token");
+      destroyCookie(null, "user");
     }
   },
   extraReducers: {}
 });
 
-export const { setLoginData, checkLoggedInServer } = userSlice.actions;
+export const { setLoginData, checkLoggedInServer, logout } = userSlice.actions;
 
 export default userSlice.reducer;

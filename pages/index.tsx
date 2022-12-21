@@ -1,4 +1,6 @@
 import { fetchAboutUs } from "@/api/functions/cms.api";
+import AllAssets from "@/components/AllAssets";
+import AllModals from "@/components/AllModals";
 import DataWrapper from "@/components/DataWrapper/DataWrapper";
 import Wrapper from "@/layout/wrapper/Wrapper";
 import AboutSkeleton from "@/ui/Skeletons/AboutSkeleton";
@@ -66,6 +68,10 @@ export default function Home() {
         <AllColors />
       </HomeSection>
 
+      <HomeSection title="All assets">
+        <AllAssets />
+      </HomeSection>
+
       <HomeSection title="Input tags">
         <AllInputs />
       </HomeSection>
@@ -76,6 +82,10 @@ export default function Home() {
 
       <HomeSection title="Avatar">
         <AllAvatar />
+      </HomeSection>
+
+      <HomeSection title="Modals">
+        <AllModals />
       </HomeSection>
     </Wrapper>
   );

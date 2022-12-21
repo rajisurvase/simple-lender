@@ -12,10 +12,13 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 
+import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { useAppSelector } from "@/hooks/useAppSelector";
+import { logout } from "@/reduxtoolkit/slices/userSlice";
 import styles from "@/styles/layout/header.module.scss";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const CustomButton = dynamic(() => import("@/ui/Buttons/CustomButton"));
 
@@ -43,9 +46,16 @@ export default function Header(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { userData, isLoggedIn } = useAppSelector((state) => state.userSlice);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    router.push("/login");
   };
 
   const drawer = (
@@ -98,7 +108,7 @@ export default function Header(props: Props) {
           </Typography>
           {isLoggedIn ? (
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
-              <CustomButton type="button" variant="text">
+              <CustomButton onClick={handleLogout} type="button" variant="text">
                 <span>Logout</span>
               </CustomButton>
 

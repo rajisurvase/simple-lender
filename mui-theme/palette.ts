@@ -1,73 +1,110 @@
+import themeColor from "@/styles/abstracts/_theme.module.scss";
+import { alpha } from "@mui/material/styles";
 /**
  * Color intention that you want to used in your theme
  * @param {JsonObject} theme Theme customization object
  */
 
-import themeColors from "@/styles/abstracts/_variable.module.scss";
+// ----------------------------------------------------------------------
 
-export default function themePalette() {
-  return {
-    mode: "light",
+// SETUP COLORS
+const GREY = {
+  0: "#FFFFFF",
+  100: "#F9FAFB",
+  200: "#F4F6F8",
+  300: "#DFE3E8",
+  400: "#C4CDD5",
+  500: "#919EAB",
+  600: "#637381",
+  700: "#454F5B",
+  800: "#212B36",
+  900: "#161C24"
+};
 
-    primary: {
-      light: themeColors?.primaryLight,
-      main: themeColors?.primaryMain,
-      dark: themeColors?.primaryDark,
-      200: themeColors?.primary200,
-      800: themeColors?.primary800
-    },
-    secondary: {
-      light: themeColors?.secondaryLight,
-      main: themeColors?.secondaryMain,
-      dark: themeColors?.secondaryDark,
-      200: themeColors?.secondary200,
-      800: themeColors?.secondary800
-    },
-    error: {
-      light: themeColors?.errorLight,
-      main: themeColors?.errorMain,
-      dark: themeColors?.errorDark
-    },
-    orange: {
-      light: themeColors?.orangeLight,
-      main: themeColors?.orangeMain,
-      dark: themeColors?.orangeDark
-    },
-    warning: {
-      light: themeColors?.warningLight,
-      main: themeColors?.warningMain,
-      dark: themeColors?.warningDark
-    },
-    success: {
-      light: themeColors?.successLight,
-      200: themeColors?.success200,
-      main: themeColors?.successMain,
-      dark: themeColors?.successDark
-    },
-    grey: {
-      50: themeColors?.grey50,
-      100: themeColors?.grey100,
-      500: themeColors?.darkTextSecondary,
-      600: themeColors?.heading,
-      700: themeColors?.darkTextPrimary,
-      900: themeColors?.textDark
-    },
-    dark: {
-      light: themeColors?.darkTextPrimary,
-      main: themeColors?.darkLevel1,
-      dark: themeColors?.darkLevel2,
-      800: themeColors?.darkBackground,
-      900: themeColors?.darkPaper
-    },
-    text: {
-      primary: themeColors?.darkTextPrimary,
-      secondary: themeColors?.darkTextSecondary,
-      dark: themeColors?.textDark,
-      hint: themeColors?.grey100
-    },
-    background: {
-      paper: themeColors?.paper,
-      default: themeColors?.backgroundDefault
-    }
-  };
-}
+const PRIMARY = {
+  lighter: "#D1E9FC",
+  light: "#76B0F1",
+  main: themeColor?.primaryMain,
+  dark: "#103996",
+  darker: "#061B64",
+  contrastText: "#fff"
+};
+
+const SECONDARY = {
+  lighter: "#D6E4FF",
+  light: "#84A9FF",
+  main: themeColor?.secondaryMain,
+  dark: "#1939B7",
+  darker: "#091A7A",
+  contrastText: "#fff"
+};
+
+const INFO = {
+  lighter: "#D0F2FF",
+  light: "#74CAFF",
+  main:themeColor?.primaryMain,
+  dark: "#0C53B7",
+  darker: "#04297A",
+  contrastText: "#fff"
+};
+
+const SUCCESS = {
+  lighter: "#E9FCD4",
+  light: "#AAF27F",
+  main:themeColor?.successMain,
+  dark: "#229A16",
+  darker: "#08660D",
+  contrastText: GREY[800]
+};
+
+const WARNING = {
+  lighter: "#FFF7CD",
+  light: "#FFE16A",
+  main:themeColor?.warningMain,
+  dark: "#B78103",
+  darker: "#7A4F01",
+  contrastText: GREY[800]
+};
+
+const ERROR = {
+  lighter: "#FFE7D9",
+  light: "#FFA48D",
+  main:themeColor?.errorMain,
+  dark: "#B72136",
+  darker: "#7A0C2E",
+  contrastText: "#fff"
+};
+
+const palette = {
+  common: { black: "#000", white: "#fff" },
+  primary: PRIMARY,
+  secondary: SECONDARY,
+  info: INFO,
+  success: SUCCESS,
+  warning: WARNING,
+  error: ERROR,
+  grey: GREY,
+  divider: alpha(GREY[500], 0.24),
+  text: {
+    primary: GREY[800],
+    secondary: GREY[600],
+    disabled: GREY[500]
+  },
+  background: {
+    paper: "#fff",
+    default: GREY[100],
+    neutral: GREY[200]
+  },
+  action: {
+    active: GREY[600],
+    hover: alpha(GREY[500], 0.08),
+    selected: alpha(GREY[500], 0.16),
+    disabled: alpha(GREY[500], 0.8),
+    disabledBackground: alpha(GREY[500], 0.24),
+    focus: alpha(GREY[500], 0.24),
+    hoverOpacity: 0.08,
+    disabledOpacity: 0.48
+  }
+};
+
+export default palette;

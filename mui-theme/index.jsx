@@ -2,10 +2,12 @@ import { useMemo } from "react";
 // material-ui
 import CssBaseline from "@mui/material/CssBaseline";
 import StyledEngineProvider from "@mui/material/StyledEngineProvider";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 // project import
 import Typography from "./typography";
+import palette from "./palette";
+import shadows from "./shadows";
 // import componentsOverride from "./overrides";
 
 // ==============================|| DEFAULT THEME - MAIN  ||============================== //
@@ -16,29 +18,39 @@ export default function ThemeCustomization({ children }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const themeTypography = Typography(`'Poppins', sans-serif`);
 
+  // const themeOptions = useMemo(
+  //   () => ({
+  //     breakpoints: {
+  //       values: {
+  //         xs: 0,
+  //         sm: 768,
+  //         md: 1024,
+  //         lg: 1266,
+  //         xl: 1536
+  //       }
+  //     },
+  //     direction: "ltr",
+  //     mixins: {
+  //       toolbar: {
+  //         minHeight: 60,
+  //         paddingTop: 8,
+  //         paddingBottom: 8
+  //       }
+  //     },
+
+  //     typography: themeTypography
+  //   }),
+  //   [themeTypography]
+  // );
+
   const themeOptions = useMemo(
     () => ({
-      breakpoints: {
-        values: {
-          xs: 0,
-          sm: 768,
-          md: 1024,
-          lg: 1266,
-          xl: 1536
-        }
-      },
-      direction: "ltr",
-      mixins: {
-        toolbar: {
-          minHeight: 60,
-          paddingTop: 8,
-          paddingBottom: 8
-        }
-      },
-
-      typography: themeTypography
+      palette,
+      shape: { borderRadius: 6 },
+      typography:themeTypography,
+      shadows: shadows()
     }),
-    [themeTypography]
+    []
   );
 
   const themes = createTheme(themeOptions);

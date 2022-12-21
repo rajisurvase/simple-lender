@@ -2,27 +2,8 @@ import styles from "@/styles/components/button.module.scss";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import { memo, useEffect, useState } from "react";
+import { ButtonType } from "@/interface/common.interface";
 
-interface ButtonType {
-  children: JSX.Element;
-  variant?: "text" | "outlined" | "contained";
-  disabled?: boolean;
-  onClick?: () => {};
-  color?:
-    | "inherit"
-    | "primary"
-    | "secondary"
-    | "success"
-    | "error"
-    | "info"
-    | "warning";
-  size?: "small" | "medium" | "large";
-  fullWidth?: boolean;
-  type: "button" | "submit" | "reset";
-  endIcon?: JSX.Element;
-  startIcon?: JSX.Element;
-  loading?: boolean;
-}
 
 const CustomButtonMemo = ({
   children,

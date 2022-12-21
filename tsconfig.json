@@ -14,7 +14,7 @@
       "@/themes/*": ["mui-theme/*"],
       "@/ui/*": ["ui/*"],
       "@/interface/*": ["typescript/interface/*"],
-      "@/types/*": ["typescript/types/*"],
+      "@/types/*": ["typescript/types/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -45,9 +45,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "mui-theme/createEmotionCache.js",
+    "mui-theme/createEmotionCache.ts",
     "mui-theme/index.jsx",
     "pages/_document.jsx"
-  ],
+, "theme/globalStyles.ts"  ],
   "exclude": ["node_modules"]
 }
