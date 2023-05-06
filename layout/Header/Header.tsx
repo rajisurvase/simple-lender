@@ -1,3 +1,5 @@
+"use client";
+
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -11,16 +13,16 @@ import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { useAppSelector } from "@/hooks/useAppSelector";
 import { logout } from "@/reduxtoolkit/slices/userSlice";
 import styles from "@/styles/layout/header.module.scss";
-import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from 'next/navigation';
+import CustomButton from "@/ui/Buttons/CustomButton";
 
-const CustomButton = dynamic(() => import("@/ui/Buttons/CustomButton"));
+
+
 
 interface Props {
   /**

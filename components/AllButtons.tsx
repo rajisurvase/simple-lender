@@ -1,10 +1,11 @@
 
+import Stack from "@mui/material/Stack";
 import dynamic from "next/dynamic";
 import React from "react";
 
 const AddIcCallIcon = dynamic(() => import("@mui/icons-material/AddIcCall"));
 const AirlineSeatFlatIcon = dynamic(() => import("@mui/icons-material/AirlineSeatFlat"));
-const Stack = dynamic(() => import("@mui/material/Stack"));
+
 const CustomButton = dynamic(() => import( "@/ui/Buttons/CustomButton"));
 
 

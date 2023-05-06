@@ -1,3 +1,5 @@
+'use client';
+
 import { MutableRefObject, useEffect, useState } from "react";
 
 // Doc : https://usehooks.com/useOnScreen/

@@ -1,3 +1,5 @@
+"use client";
+
 import assest from "@/json/assest";
 import Image from "next/image";
 import React from "react";

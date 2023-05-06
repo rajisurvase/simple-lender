@@ -1,4 +1,4 @@
-import { borderRadius } from "@/themes/themeConstant";
+import { borderRadius } from "../../material-ui/themeConstant";
 import CloseIcon from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";

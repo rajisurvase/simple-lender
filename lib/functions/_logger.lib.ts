@@ -1,28 +1,11 @@
-
-const type='log'||'error'||"waring"
+type Logtype = "log" | "error" | "warn" | "debug";
+type consoleMessage= any[] 
 
 const logger = (() => {
-  const checkIfLogsEnabled = () => {
-    if (process?.browser) {
-      const search = global?.window?.location?.search;
-      const enabled =
-        search && new URLSearchParams(search).get("debug") === "true";
+  const areLogsEnabled = process.env.NEXT_areLogsEnabled;
 
-      global.areLogsEnabled = enabled || false;
-      return global.areLogsEnabled;
-    }
-
-    return false;
-  };
-
-  const isDev = process.env.NODE_ENV !== "production";
-
-  const print = (type:type, ...messages) => {
-    if (typeof global.areLogsEnabled === "undefined") {
-      checkIfLogsEnabled();
-    }
-
-    if (global.areLogsEnabled || isDev) {
+  const print = (type: Logtype, ...messages:consoleMessage) => {
+    if (areLogsEnabled) {
       switch (type) {
         case "log":
           console.log(
@@ -45,13 +28,6 @@ const logger = (() => {
             ...messages
           );
           break;
-        case "trace":
-          console.trace(
-            "%c Log:",
-            "background: grey; color: black;",
-            ...messages
-          );
-          break;
         case "debug":
         default:
           console.log(
@@ -67,8 +43,7 @@ const logger = (() => {
     debug: print.bind(null, "debug"),
     log: print.bind(null, "log"),
     warn: print.bind(null, "warn"),
-    error: print.bind(null, "error"),
-    trace: print.bind(null, "trace")
+    error: print.bind(null, "error")
   };
 })();
 

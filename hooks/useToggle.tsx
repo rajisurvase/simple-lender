@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useState } from "react";
 
 // Parameter is the boolean, with default "false" value
