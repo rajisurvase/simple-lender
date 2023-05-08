@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "turbo": "next dev --turbo  -p 3000",
     "dev": "next dev  -p 3000",
     "build": "next build",
     "start": "next start -p 3000",
@@ -20,6 +19,7 @@
     "@emotion/cache": "^11.10.8",
     "@emotion/react": "^11.10.8",
     "@emotion/server": "^11.10.0",
+    "@emotion/styled": "^11.10.8",
     "@hookform/resolvers": "^2.9.10",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.3",
