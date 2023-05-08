@@ -13,13 +13,7 @@ export default function SignUpLayout({
 }) {
   return (
     <html lang="en">
-   <Wrapper>
-   {children}
-   </Wrapper>
-        
-        
-  
-   
+      <Wrapper>{children}</Wrapper>
     </html>
   );
 }

@@ -1,5 +1,9 @@
+"use client";
+
 import { SnackbarProvider } from "notistack";
 import "./globals.scss";
+import ThemeCustomization from "@/themes/index";
+import React from "react";
 
 export const metadata = {
   title: "Create Next App",
@@ -14,7 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <SnackbarProvider>{children}</SnackbarProvider>
+        <ThemeCustomization>
+          <SnackbarProvider>{children}</SnackbarProvider>
+        </ThemeCustomization>
       </body>
     </html>
   );
