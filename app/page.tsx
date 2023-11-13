@@ -2,17 +2,29 @@
 
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSnackbar } from "notistack";
+import WrapLoader from "@/components/Loader/WrapLoader";
 import styles from "./page.module.scss";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const { enqueueSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(true)
+  //  const {userData, isLoggedIn} = useSelector((s)=>s.userSlice)
+
   useEffect(() => {
     enqueueSnackbar("Hey! Welcome to next 13!");
+    setTimeout(()=>{
+      setLoading(false)
+    },2000)
   }, []);
+
+  if(loading){
+    return <WrapLoader />
+  }
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>

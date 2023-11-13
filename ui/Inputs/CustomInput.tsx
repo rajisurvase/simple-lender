@@ -1,9 +1,8 @@
 import { CommonMuiInputProps } from "@/interface/common.interface";
-import { TextField } from "@mui/material";
+import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import { MutableRefObject, forwardRef, useId } from "react";
+import {  forwardRef, useId } from "react";
 
 const CustomInputWith_forwardRef = ({
   error = false,
@@ -13,8 +12,8 @@ const CustomInputWith_forwardRef = ({
   helperText = "",
   placeholder = "",
   type,
-  startAdornment,
-  endAdornment
+  // startAdornment="",
+  // endAdornment
 }: CommonMuiInputProps) => {
   const id = useId();
   return (
@@ -27,8 +26,8 @@ const CustomInputWith_forwardRef = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        startAdornment={startAdornment}
-        endAdornment={endAdornment}
+        // startAdornment={startAdornment}
+        // endAdornment={endAdornment}
       />
       {error && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>

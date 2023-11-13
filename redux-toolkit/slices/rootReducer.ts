@@ -1,9 +1,7 @@
-import globalSlice from "./global.slice";
 import userSlice from "./userSlice";
 
 const rootReducer = {
-  userSlice,
-  globalSlice
+  userSlice
 };
 
 export default rootReducer;

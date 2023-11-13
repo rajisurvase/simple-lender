@@ -1,3 +1,21 @@
+
+export type BaseApiResponseType = {
+  message: string;
+  status: number;
+  data?: {} | null;
+};
+
+
+
+
+export interface BaseApiResponse {
+  message: string;
+  status: string | number;
+  type: string;
+  token: string;
+}
+
+
 export type CommonButtonType = {
   children: JSX.Element;
   variant?: "text" | "outlined" | "contained";

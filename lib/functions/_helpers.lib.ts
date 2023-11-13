@@ -1,3 +1,4 @@
+/* eslint-disable valid-typeof */
 /**
  * Check if the window object exists.
  * @returns A function that checks if the window is undefined.

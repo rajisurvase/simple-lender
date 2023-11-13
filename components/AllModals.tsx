@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useToggle } from "@/hooks/useToggle";
 import CustomButton from "@/ui/Buttons/CustomButton";
 import MuiModalWrapper from "@/ui/Modal/MuiModalWrapper";

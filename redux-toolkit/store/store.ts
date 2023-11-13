@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
 import { createStateSyncMiddleware } from "redux-state-sync";

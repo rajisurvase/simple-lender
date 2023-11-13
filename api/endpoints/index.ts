@@ -13,3 +13,4 @@ export const endpoints = {
     about: "aboutpolicy/details"
   }
 };
+

@@ -6,5 +6,8 @@ export default {
   testicon2: "/assets/icons/icon-256x256.png",
   testicon3: "/assets/icons/icon-384x384.png",
   testicon4: "/assets/icons/icon-512x512.png",
-  image: "/assets/icons/auricular-phone_318-1028.webp"
+  image: "/assets/icons/auricular-phone_318-1028.webp",
+  letterA : "/images/letteraa.png",
+  letterC : "/images/letterC.png",
+  letterS : "/images/letterss.png",
 };

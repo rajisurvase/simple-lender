@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 type Logtype = "log" | "error" | "warn" | "debug";
 type consoleMessage= any[] 
 
