@@ -19,6 +19,7 @@ import Typography from "@mui/material/Typography";
   import ListItemText from "@mui/material/ListItemText";
 //   import {  usePathname } from "next/navigation";
   import CalculateIcon from '@mui/icons-material/Calculate';
+import Button from "@mui/material/Button";
   
   const sideLabel = [
     {
@@ -155,7 +156,7 @@ import Typography from "@mui/material/Typography";
                 sx={{ ml: 1, flex: 1 }}
                 placeholder="Search Borrower Name"
               />
-              <IconButton type="submit" sx={{ p: "10px" }}>
+              <IconButton type="submit" >
                 <SearchIcon />
               </IconButton>
               {/* <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
@@ -169,7 +170,6 @@ import Typography from "@mui/material/Typography";
             item
             lg={2}
             display={{ xs: "none", lg: "block" }}
-            alignItems="center"
           >
             {/* {session ?
               <Box display="flex" justifyContent={'end'}  >
@@ -181,13 +181,13 @@ import Typography from "@mui/material/Typography";
                   <Typography fontSize={13}>Super Admin</Typography>
                 </div>
               </Box>
-              :
-              <Box textAlign={'center'} >
+             */} :
+              <Box textAlign='center' >
                 <Button variant='outlined'
                 //  onClick={() => signIn()}
                   >SignIn</Button>
               </Box>
-            } */}
+            {/* }  */}
           </Grid>
         </Grid>
       </Box>
