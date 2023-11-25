@@ -13,6 +13,7 @@ import KeyboardDoubleArrowUpOutlinedIcon from "@mui/icons-material/KeyboardDoubl
 import RadioButtonCheckedOutlinedIcon from "@mui/icons-material/RadioButtonCheckedOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import Link from "next/link";
+import BorrowersTable from "@/components/Borrower/BorrowersTable";
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -138,7 +139,7 @@ export default function Home() {
                  <Button variant='contained' sx={{borderRadius : '1.5rem', backgroundColor : "#7D8CC4", textTransform:"none"}} endIcon={<AddIcon  sx={{fontSize:'small'}} />} >Add Borrower  </Button>
               </Link>
             </Box>
-          {/* <BorrowersTable /> */}
+          <BorrowersTable />
        </Card>
   </div>
   );

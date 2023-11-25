@@ -159,6 +159,8 @@
     "require-unicode-regexp": "off",
     "vars-on-top": "off",
     "wrap-iife": "off",
-    "yoda": "off"
+    "yoda": "off",
+    "import/order":"off",
+    "mui-path-imports/mui-path-imports" : "off"
   }
 }

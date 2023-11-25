@@ -20,6 +20,8 @@ import Typography from "@mui/material/Typography";
 //   import {  usePathname } from "next/navigation";
   import CalculateIcon from '@mui/icons-material/Calculate';
 import Button from "@mui/material/Button";
+import { useAppSelector } from "@/hooks/useAppSelector";
+import Avatar from "@mui/material/Avatar";
   
   const sideLabel = [
     {
@@ -52,6 +54,7 @@ import Button from "@mui/material/Button";
     const pathname = "/"
     const [result, setResult] = React.useState(false);
     const [data, setData] = useState("");
+    const {userData, isLoggedIn}= useAppSelector((a)=>a.userSlice)
   
     const handleSubmit = (e : FormEvent) => {
       e.preventDefault();
@@ -115,13 +118,13 @@ import Button from "@mui/material/Button";
                       <div>
                         <ListItem disablePadding>
                           <ListItemButton
-                            // onClick={() => (token ? signOut() : signIn())}
+                            // onClick={() => (isLoggedIn ? signOut() : signIn())}
                           >
                             <ListItemIcon color="white">
                               <LogoutIcon />
                             </ListItemIcon>
                             <ListItemText
-                            //   primary={session ? "logout" : "SignIn"}
+                              primary={isLoggedIn ? "logout" : "SignIn"}
                             />
                           </ListItemButton>
                         </ListItem>
@@ -131,10 +134,10 @@ import Button from "@mui/material/Button";
                 </Box>
               </Drawer>
             </Box>
-            {/* <Typography variant="h6" pl={2}>
+            <Typography display={{ xs: "none", lg: "block" }} variant="h6" pl={2}>
               {" "}
               Total Borrowers
-            </Typography> */}
+            </Typography>
           </Grid>
          {pathname === '/' &&  <Grid item lg={5} md={7} sm={7} xs={10}>
             <Paper
@@ -147,9 +150,6 @@ import Button from "@mui/material/Button";
                 width: "100%",
               }}
             >
-              {/* <IconButton sx={{ p: '10px' }} aria-label="menu">
-                <MenuIcon />
-              </IconButton> */}
               <InputBase
                 value={data}
                 onChange={(e) => setData(e.target.value)}
@@ -159,10 +159,6 @@ import Button from "@mui/material/Button";
               <IconButton type="submit" >
                 <SearchIcon />
               </IconButton>
-              {/* <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-              <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions">
-                <DirectionsIcon />
-              </IconButton> */}
             </Paper>
           </Grid> }
          
@@ -171,23 +167,25 @@ import Button from "@mui/material/Button";
             lg={2}
             display={{ xs: "none", lg: "block" }}
           >
-            {/* {session ?
-              <Box display="flex" justifyContent={'end'}  >
+            {isLoggedIn ?
+            <Link href="/profile" >
+              <Box display="flex" justifyContent='end'   >
                 <Box pr={2}>
                   <Avatar alt="Piraji survase" src="https://image.shutterstock.com/mosaic_250/301519563/1139558762/stock-photo-image-of-hesitant-unshaven-european-male-with-thick-beard-holds-chin-purses-lips-with-clueless-1139558762.jpg" />
                 </Box>
                 <div>
-                  <Typography fontSize={13}>{session?.user?.name}</Typography>
+                  <Typography fontSize={13}>{userData?.fullName}</Typography>
                   <Typography fontSize={13}>Super Admin</Typography>
                 </div>
               </Box>
-             */} :
+              </Link>
+             :
               <Box textAlign='center' >
                 <Button variant='outlined'
                 //  onClick={() => signIn()}
                   >SignIn</Button>
               </Box>
-            {/* }  */}
+             } 
           </Grid>
         </Grid>
       </Box>
