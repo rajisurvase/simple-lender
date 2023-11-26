@@ -63,6 +63,7 @@ const rows = [ {
 
 export default function BorrowersTable() {
     const [currentPage, setCurrentPage] = useState(1)
+    
     const itemsPerPage = 5;
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
