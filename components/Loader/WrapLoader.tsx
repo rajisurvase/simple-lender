@@ -9,15 +9,15 @@ export default function WrapLoader() {
   return (
     <WrapperLoader>
       <Box className="wrapper_loaderMain">
-        <Box className="wrapper_loaderMainInner" sx={{backgroundColor:"red"}} >
+        <Box className="wrapper_loaderMainInner" sx={{backgroundColor:"skyblue"}} >
+          <i>
+            <Image src={assest.letterS} alt="icon" width={100} height={100} />
+          </i>
           <i>
             <Image src={assest.letterC} alt="icon" width={100} height={100} />
           </i>
           <i>
             <Image src={assest.letterA} alt="icon" width={100} height={100} />
-          </i>
-          <i>
-            <Image src={assest.letterS} alt="icon" width={100} height={100} />
           </i>
           <i>
             <Image src={assest.letterA} alt="icon" width={100} height={100} />

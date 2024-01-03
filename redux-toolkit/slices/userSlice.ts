@@ -2,6 +2,7 @@ import { userData } from "@/types/common.type";
 import {  createSlice } from "@reduxjs/toolkit";
 import { destroyCookie } from "nookies";
 import { userSliceData } from "../interfaces/interfaces";
+import { loginAccessTokenCookieName } from "@/config/constants";
 
 const initialState: userSliceData = {
   isLoggedIn: false,
@@ -24,8 +25,9 @@ export const userSlice = createSlice({
     logout: (state) => {
       state.isLoggedIn = false;
       state.userData = null;
-      destroyCookie(null, "token");
-      destroyCookie(null, "user");
+      destroyCookie(null, loginAccessTokenCookieName);
+      destroyCookie(null, "userDetails");
+      window.location.href="/auth/signin"
     }
   },
   extraReducers: {}

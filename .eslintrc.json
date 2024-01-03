@@ -161,6 +161,7 @@
     "wrap-iife": "off",
     "yoda": "off",
     "import/order":"off",
-    "mui-path-imports/mui-path-imports" : "off"
+    "mui-path-imports/mui-path-imports" : "off",
+    "no-extra-boolean-cast" : "off"
   }
 }

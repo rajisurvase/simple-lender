@@ -1,33 +1,44 @@
 // import { loginAccessTokenCookieName } from "@/config/constants";
 // import { parseCookies } from "nookies";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 // eslint-disable-next-line mui-path-imports/mui-path-imports
 import { Grid } from "@mui/material";
-import SingInComponent from "app/auth/signin/page";
 import SidebarComponent from "./SidebarComponent";
 import HeaderComponent from "./HeaderComponent";
+// import { parseCookies } from "nookies";
+// import { loginAccessTokenCookieName } from "@/config/constants";
+import WrapLoader from "@/components/Loader/WrapLoader";
+import { usePathname } from "next/navigation";
+import { parseCookies } from "nookies";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { setLoginData } from "@/reduxtoolkit/slices/userSlice";
+// import { useSearchParams } from 'next/navigation';
 
 const LayoutComponent = ({ children }: { children: React.ReactNode }) => {
-  // const cookies = parseCookies();
-  // const token = cookies?.[loginAccessTokenCookieName];
-  const token = "sdfsdfsdfsdf"
   const dispatch = useAppDispatch();
-
-  const userData = {
-    first_name : "piraji",
-    last_name : "survase",
-    email: "pirajisurvase@gmail.com",
-    fullName : "piraji survase"
+  const pathname = usePathname()
+  const isAuthProcess = pathname?.includes("auth")
+  const cookies = parseCookies();
+  const userDetails = cookies?.userDetails? JSON?.parse(cookies?.userDetails) : "";
+  const [loading, setLoading] = useState(true)
+  
+   useEffect(()=>{
+     if(userDetails){
+      dispatch(setLoginData(userDetails))
+     }
+   },[userDetails])
+  
+  if(loading) {
+    setTimeout(()=>{
+      setLoading(false)
+    }, 1000)
+    return <WrapLoader />
   }
-  dispatch(setLoginData(userData as any))
 
   return (
     <Box>
-      {token ? (
-        <Grid container>
+      {!isAuthProcess ? <Grid container>
           <Grid item lg={1.5}>
             <SidebarComponent />{" "}
           </Grid>
@@ -41,10 +52,11 @@ const LayoutComponent = ({ children }: { children: React.ReactNode }) => {
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      ) : (
-        <SingInComponent />
-      )}
+        </Grid> : (
+          <div>
+           {children}
+          </div>
+        ) }
     </Box>
   );
 };

@@ -18,12 +18,16 @@ import Typography from "@mui/material/Typography";
   import ListItemButton from "@mui/material/ListItemButton";
   import ListItemText from "@mui/material/ListItemText";
 //   import {  usePathname } from "next/navigation";
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
   import CalculateIcon from '@mui/icons-material/Calculate';
 import Button from "@mui/material/Button";
 import { useAppSelector } from "@/hooks/useAppSelector";
 import Avatar from "@mui/material/Avatar";
+import { logout } from "@/reduxtoolkit/slices/userSlice";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { useRouter } from "next/navigation";
   
-  const sideLabel = [
+ export const sideLabel = [
     {
       id: 1,
       name: "Dashboard",
@@ -34,13 +38,13 @@ import Avatar from "@mui/material/Avatar";
       id: 2,
       name: "Borrowers",
       icon: <GroupAddIcon />,
-      link: "/borrowers"
+      link: "/borrowers",
     },
     {
       id: 3,
       name: "Calculator",
       icon: <CalculateIcon />,
-      link: "/calculator"
+      link: "/calculator",
     }
     // {
     //   id: 2,
@@ -49,12 +53,17 @@ import Avatar from "@mui/material/Avatar";
     //   link: "/records",
     // },
   ];
+
+
   const HeaderComponent = () => {
     // const router = useRouter();
+    const dispatch = useAppDispatch();
     const pathname = "/"
     const [result, setResult] = React.useState(false);
     const [data, setData] = useState("");
     const {userData, isLoggedIn}= useAppSelector((a)=>a.userSlice)
+    const router = useRouter()
+
   
     const handleSubmit = (e : FormEvent) => {
       e.preventDefault();
@@ -66,7 +75,17 @@ import Avatar from "@mui/material/Avatar";
     // useEffect(() => {
     //   setData(router?.query?.find);
     // }, [router?.query?.find]);
+
+
+    const handleAuth =()=>{
+      if(isLoggedIn) {
+        dispatch(logout())
+      } else {
+        router.push("/auth/signin")
+      }   
+    }
   
+
     return (
       <Box py={1} px={1}>
         <Grid container alignItems="center">
@@ -99,7 +118,8 @@ import Avatar from "@mui/material/Avatar";
                       display="flex"
                       flexDirection="column"
                       justifyContent="space-between"
-                    >
+                    > 
+                    
                       <div>
                         {sideLabel?.map((item, index) => (
                           // eslint-disable-next-line react/no-array-index-key
@@ -115,10 +135,24 @@ import Avatar from "@mui/material/Avatar";
                           </div>
                         ))}
                       </div>
+                      {isLoggedIn && <div>
+                        <ListItem disablePadding>
+                          <Link href="/profile" >
+                          <ListItemButton>
+                            <ListItemIcon color="white">
+                              <PersonOutlineOutlinedIcon />
+                            </ListItemIcon>
+                            <ListItemText
+                              primary="Profile"
+                            />
+                          </ListItemButton>
+                          </Link>
+                        </ListItem>
+                      </div>}
                       <div>
                         <ListItem disablePadding>
                           <ListItemButton
-                            // onClick={() => (isLoggedIn ? signOut() : signIn())}
+                            onClick={handleAuth}
                           >
                             <ListItemIcon color="white">
                               <LogoutIcon />
@@ -173,17 +207,18 @@ import Avatar from "@mui/material/Avatar";
                 <Box pr={2}>
                   <Avatar alt="Piraji survase" src="https://image.shutterstock.com/mosaic_250/301519563/1139558762/stock-photo-image-of-hesitant-unshaven-european-male-with-thick-beard-holds-chin-purses-lips-with-clueless-1139558762.jpg" />
                 </Box>
-                <div>
-                  <Typography fontSize={13}>{userData?.fullName}</Typography>
-                  <Typography fontSize={13}>Super Admin</Typography>
-                </div>
+                <Box >
+                  <Typography fontSize={13} fontWeight="bold" >{userData?.fullName || "Piraji survase"}</Typography>
+                  <Typography fontSize={13}>Admin</Typography>
+                </Box>
               </Box>
               </Link>
              :
               <Box textAlign='center' >
+                <Link href="/auth/signin" >
                 <Button variant='outlined'
-                //  onClick={() => signIn()}
                   >SignIn</Button>
+                  </Link>
               </Box>
              } 
           </Grid>

@@ -100,6 +100,13 @@ a {
   text-decoration: none;
 }
 
+.MuiStack-root {
+  /* Your global styles for elements with MuiStack-root class */
+  // background-color: lightgray;
+  padding: 0px !important;
+}
+
+
 // @media (prefers-color-scheme: dark) {
 //   html {
 //     color-scheme: dark;

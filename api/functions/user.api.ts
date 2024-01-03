@@ -1,24 +1,36 @@
 import { IFormInput } from "@/interface/common.interface";
-import { userData } from "@/types/common.type";
-import ApiRequest from "../axiosInstance/request";
+import { BaseApiResponse, userData } from "@/types/common.type";
+// import ApiRequest from "../axiosInstance/request";
 import { endpoints } from "../endpoints";
+import axiosInstance from "../axiosInstance";
 
+
+export type signUpMutationResponce = BaseApiResponse & {
+  // message : string
+}
 export const signUpMutation = async (body: IFormInput) => {
-  try {
-    const res = await ApiRequest.post(endpoints.auth.signup, body);
-
-    return res;
-  } catch (error) {
-    return error;
-  }
+  return axiosInstance
+  .post<signUpMutationResponce>(endpoints.auth.signup, body)
+  ?.then((response) => response?.data)
 };
 
-export const ProfileUpdateMutation = async (body: userData) => {
-  try {
-    const res = await ApiRequest.post(endpoints.auth.profileUpdate, body);
+export type signInMutationResponse = {
 
-    return res;
-  } catch (error) {
-    return error;
-  }
+    id: string
+  username: string
+  email: string
+  roles: string[]
+  accessToken: string
+}
+
+export const signInMutation =async (body: IFormInput)=>{
+  return axiosInstance
+  .post<signInMutationResponse>(endpoints.auth.login, body)
+  ?.then((response) => response?.data)
+}
+
+export const ProfileUpdateMutation = async (body: userData) => {
+  return axiosInstance
+  .post<signInMutationResponse>(endpoints.auth.login, body)
+  ?.then((response) => response?.data)
 };

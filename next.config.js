@@ -10,6 +10,9 @@ const nextConfig = {
   },
   images: {
     domains: ["image.shutterstock.com"]
+  },
+  env: {
+    NEXT_APP_BASE_URL: process.env.NEXT_APP_BASE_URL
   }
 }
 

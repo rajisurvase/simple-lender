@@ -4,34 +4,27 @@
 "use client"
 
 // import { Inter } from "next/font/google";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSnackbar } from "notistack";
-import WrapLoader from "@/components/Loader/WrapLoader";
-import { Box, Button, Card, Divider, Grid, Typography } from "@mui/material";
+import { Box, Card, Divider, Grid, Typography } from "@mui/material";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import KeyboardDoubleArrowUpOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowUpOutlined";
 import RadioButtonCheckedOutlinedIcon from "@mui/icons-material/RadioButtonCheckedOutlined";
-import AddIcon from "@mui/icons-material/Add";
-import Link from "next/link";
 import BorrowersTable from "@/components/Borrower/BorrowersTable";
 
 // const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const { enqueueSnackbar } = useSnackbar();
-  const [loading, setLoading] = useState(true)
   //  const {userData, isLoggedIn} = useSelector((s)=>s.userSlice)
 
   useEffect(() => {
-    enqueueSnackbar("Hey! Welcome to next 13!");
-    setTimeout(()=>{
-      setLoading(false)
-    },2000)
+    enqueueSnackbar("Hey! Welcome to Simple Lender!");
   }, []);
 
-  if(loading){
-    return <WrapLoader />
-  }
+  // if(loading){
+  //   return <WrapLoader />
+  // }
 
   return (
     <div>
@@ -134,11 +127,11 @@ export default function Home() {
 
 
         <Card style={{ margin: "1rem" }} >
-            <Box my={1} textAlign={'right'} >
+            {/* <Box my={1} textAlign={'right'} >
               <Link href="/borrowers/create" >
                  <Button variant='contained' sx={{borderRadius : '1.5rem', backgroundColor : "#7D8CC4", textTransform:"none"}} endIcon={<AddIcon  sx={{fontSize:'small'}} />} >Add Borrower  </Button>
               </Link>
-            </Box>
+            </Box> */}
           <BorrowersTable />
        </Card>
   </div>

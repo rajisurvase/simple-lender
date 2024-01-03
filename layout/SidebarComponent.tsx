@@ -6,49 +6,40 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import {  Typography } from "@mui/material";
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
+
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Link from "next/link";
 import LogoutIcon from '@mui/icons-material/Logout';
-import CalculateIcon from '@mui/icons-material/Calculate';
+import { sideLabel } from "./HeaderComponent";
+import { useRouter } from "next/navigation";
+import { useAppSelector } from "@/hooks/useAppSelector";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { logout } from "@/reduxtoolkit/slices/userSlice";
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 
-const sideLabel = [
-  {
-    id: 1,
-    name: "Dashboard",
-    icon: <DashboardIcon />,
-    link: '/'
-  },
-  {
-    id: 2,
-    name: "Borrowers",
-    icon: <GroupAddIcon />,
-    link: "/borrowers"
-  },
-  {
-    id: 3,
-    name: "Calculator",
-    icon: <CalculateIcon />,
-    link: "/calculator"
-  }
-  // {
-  //   id: 2,
-  //   name: "Records",
-  //   icon: <GroupAddIcon />,
-  //   link: "/records"
-  // }
-]
+
 
 const SidebarComponent = () => {
-// \  console.log("session", session)
-const session = "sdfsdf"
+const router = useRouter()
+const dispatch = useAppDispatch();
+const {isLoggedIn} = useAppSelector((s)=>s.userSlice)
+
+
+const handleAuth =()=>{
+  if(isLoggedIn) {
+    dispatch(logout())
+  } else {
+    router.push("/auth/signin")
+  } 
+}
+
   return (
     <Box sx={{ backgroundColor: '#CEF3FF' }} display={{ xs: 'none', lg: 'block', height: "100vh" }}>
         <Box>
           <Typography textAlign={'center'} py={3} >Logo</Typography>
         </Box>
-        <Box  >
+        <Box  > 
+          
           {sideLabel?.map((item, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <div key={index}>
@@ -64,17 +55,27 @@ const session = "sdfsdf"
               </Link>
             </div>
           ))}
-          <ListItem disablePadding>
 
-            <ListItemButton 
-            // onClick={() => session ? signOut() : signIn()}
-             >
+         {isLoggedIn && <Link href={"/profile"} >
+            <ListItem disablePadding>
+               <ListItemButton  >
+              <ListItemIcon color='white'>
+                <PersonOutlineOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Profile"} />
+             </ListItemButton>
+            </ListItem>
+          </Link>
+          }
+          <ListItem disablePadding>
+            <ListItemButton onClick={handleAuth} >
               <ListItemIcon color='white'>
                 <LogoutIcon />
               </ListItemIcon>
-              <ListItemText primary={session ? "logout" : "SignIn"} />
+              <ListItemText primary={isLoggedIn ? "logout" : "SignIn"} />
             </ListItemButton>
           </ListItem>
+          
         </Box>
 
       </Box>

@@ -13,10 +13,15 @@ export interface CommonMuiInputProps {
 export interface IFormInput {
   email: string;
   password: string;
-  fullName: string;
-  username: string;
-  phone: Number;
-  bio: string;
+  // fullName: string;
+  userName: string;
+  username? : string;
+  firstName : string;
+  lastName : string;
+  confirmPassword : string;
+  phone : string;
+  role : string[]
+
 }
 
 export interface ButtonType {

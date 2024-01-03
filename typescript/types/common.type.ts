@@ -38,12 +38,8 @@ export type CommonButtonType = {
 };
 
 export type userData = {
-  _id?: string;
-  role: {
-    _id?: string;
-    role?: string;
-    roleDisplayName?: string;
-  };
+  id?: string;
+  roles: string []
   first_name?: string;
   last_name?: string;
   fullName?: string;
@@ -54,7 +50,7 @@ export type userData = {
   otp?: string;
   profile_image?: string;
   registerType?: string;
-  socialAccount: [];
+  socialAccount?: [];
   createdAt?: string;
   updatedAt?: string;
   address?: string;
