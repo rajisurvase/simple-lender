@@ -1,13 +1,11 @@
 
 
-import SingUpComponent from '@/components/Auth/SingUpComponent'
+import SignUpComponent from '@/components/Auth/SignUpComponent'
 import React from 'react'
 
 const SignUp = () => {
   return (
-    <div>
-     <SingUpComponent />
-    </div>
+    <SignUpComponent />
   )
 }
 

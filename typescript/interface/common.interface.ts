@@ -1,5 +1,5 @@
 export interface CommonMuiInputProps {
-  error?: boolean;
+  error?:  boolean;
   label?: string;
   value?: string | Number | File | File[];
   onChange?: () => void;
