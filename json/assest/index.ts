@@ -10,5 +10,6 @@ export default {
   letterA : "/images/letteraa.png",
   letterC : "/images/letterC.png",
   letterS : "/images/letterss.png",
-  authLogo : "/assets/logo.png"
+  authLogo : "/assets/logo.png",
+  whitelogo : "/assets/whitelogo.png"
 };
