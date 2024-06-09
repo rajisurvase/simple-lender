@@ -6,6 +6,7 @@
 // eslint-disable-next-line import/no-cycle
 import { endpoints } from "../endpoints";
 import axiosInstance from "../axiosInstance";
+import { Dayjs } from "dayjs";
 
   //  const cookies = parseCookies();
   // const accessToken = cookies?.[loginAccessTokenCookieName];
@@ -18,7 +19,8 @@ import axiosInstance from "../axiosInstance";
   
  export type borrowerType = {
     id?: number | undefined
-    name: string
+    firstName?: string
+    lastName? : string
     email: string
     phone: string
     city: string
@@ -26,6 +28,8 @@ import axiosInstance from "../axiosInstance";
     country: string
     pincode: string
     address: string
+    dob ? : Dayjs
+    full_name? :string
   }
 
   type GetBorrowerListReponse = {

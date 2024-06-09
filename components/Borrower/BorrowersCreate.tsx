@@ -9,29 +9,14 @@ import {
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import useNotiStack from "@/hooks/useNotistack";
 import {  AddBorrower, EditBorrowerMutation, borrowerType } from "@/api/functions/borrower.api";
 import { useMutation } from "react-query";
 import Loader from "@/ui/Loader/Loder";
+import { AddBorrowerSchema, AddEditBorrowerType } from "@/schema/borrower.schema";
+import dayjs from "dayjs";
+import CustomDatePicker from "@/ui/DatePicker/CustomDatePicker";
 
-const schema = yup
-  .object({
-    name: yup.string().required("Borrower Name is a required field"),
-    phone: yup
-      .string()
-      .required("Phone number is required")
-      .matches(/^\d+$/, "Invalid phone number")
-      .min(10, "Phone number must be at least 10 digits")
-      .max(10, "Phone number must not exceed 10 digits"),
-    email: yup.string().required().email().label("Email"),
-    address: yup.string().required().label("Address"),
-    country: yup.string().required().label("Country"),
-    city: yup.string().required().label("City"),
-    state: yup.string().required().label("State"),
-    pincode: yup.string().required().label("Pincode")
-  })
-  .required();
 
   type BorrowersCreateProps = {
     handleClose : ()=>void,
@@ -45,10 +30,12 @@ const BorrowersCreate = ({handleClose, selectedBorrower, refetch} :BorrowersCrea
     control,
     handleSubmit,
     reset
-  } = useForm({
-    resolver: yupResolver(schema),
+  } = useForm<AddEditBorrowerType>({
+    resolver: yupResolver(AddBorrowerSchema),
     defaultValues : {
-      name : selectedBorrower?.name || "",
+      firstName : selectedBorrower?.firstName || "",
+      lastName : selectedBorrower?.lastName ?? "",
+      dob : dayjs(selectedBorrower?.dob)?.format("DD/MM/YYYY") ?? null,
       email : selectedBorrower?.email || "",
       address : selectedBorrower?.address || "", 
       country : selectedBorrower?.country || "", 
@@ -106,12 +93,28 @@ const BorrowersCreate = ({handleClose, selectedBorrower, refetch} :BorrowersCrea
         <Grid item xs={12} sm={6} md={6} lg={6}>
           <Controller
             control={control}
-            {...register("name")}
+            {...register("firstName")}
             render={({ field, fieldState: { error } }) => (
               <TextField
                 size="small"
                 fullWidth
-                label="Borrower Name"
+                label="First Name"
+                {...field}
+                helperText={error?.message}
+                error={Boolean(error?.message)}
+              />
+            )}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={6} lg={6}>
+          <Controller
+            control={control}
+            {...register("lastName")}
+            render={({ field, fieldState: { error } }) => (
+              <TextField
+                size="small"
+                fullWidth
+                label="Last Name"
                 {...field}
                 helperText={error?.message}
                 error={Boolean(error?.message)}
@@ -132,6 +135,21 @@ const BorrowersCreate = ({handleClose, selectedBorrower, refetch} :BorrowersCrea
                 {...field}
                 helperText={error?.message}
                 error={Boolean(error?.message)}
+              />
+            )}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={6} lg={6}>
+          <Controller
+            control={control}
+            {...register("dob")}
+            render={({ field, fieldState: { error } }) => (
+              <CustomDatePicker
+              label="Date of birth"
+              value={dayjs(field?.value)}
+              onChange={field?.onChange}
+              error={Boolean(error?.message)}
+              helperText={error?.message}
               />
             )}
           />

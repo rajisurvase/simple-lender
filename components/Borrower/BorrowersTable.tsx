@@ -57,18 +57,16 @@ export default function BorrowersTable() {
     }
 
     const handleAdd =()=>{
-      if(isLoggedIn){
-        setOpen(true)
-      } else {
-        toastWarning('Please Login')
-      }
+      setOpen(true)
+      // if(isLoggedIn){
+      // } else {
+      //   toastWarning('Please Login')
+      // }
     }
   return (
     <div>
       <Box my={1} textAlign='right' > 
-          {/* <Link href="/borrowers/create" > */}
             <Button onClick={handleAdd} variant='contained' sx={{borderRadius : '1.5rem', backgroundColor : "#7D8CC4", textTransform:"none"}} endIcon={<AddIcon  sx={{fontSize:'small'}} />} >Add Borrower  </Button>
-          {/* </Link> */}
       </Box>
     <TableContainer component={Paper} >
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -88,10 +86,10 @@ export default function BorrowersTable() {
             >
               <TableCell align="center" component="th" scope="row">
               <Link href={`/borrowers/${row?.id}`} >
-                {row.name} </Link>
+                {row?.full_name} </Link>
               </TableCell>
-              <TableCell align="center">{row.phone}</TableCell>
-              <TableCell align="center" >{row.email}</TableCell>
+              <TableCell align="center">{row?.phone}</TableCell>
+              <TableCell align="center" >{row?.email}</TableCell>
               <TableCell align='right' >
               {/*  */}
              
