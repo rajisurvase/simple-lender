@@ -28,7 +28,7 @@ import { Dayjs } from "dayjs";
     country: string
     pincode: string
     address: string
-    dob ? : Dayjs
+    dob ? : string
     full_name? :string
   }
 

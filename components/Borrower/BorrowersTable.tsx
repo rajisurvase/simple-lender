@@ -71,10 +71,12 @@ export default function BorrowersTable() {
     <TableContainer component={Paper} >
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
-          <TableRow  sx={{background:"#B2DFFF"}} >
-            <TableCell align="center">Borrower</TableCell>
-            <TableCell align="center">Phone</TableCell>
-            <TableCell align="center">Email </TableCell>
+          <TableRow  sx={{background:"#D765FF"}} >
+            <TableCell align="center">Full Name</TableCell>
+            <TableCell align="center">Email</TableCell>
+            <TableCell align="center">Phone </TableCell>
+            <TableCell align='right' >D.O.B</TableCell>
+            <TableCell align='right' >Address</TableCell>
             <TableCell align='right' >Action</TableCell>
           </TableRow>
         </TableHead>
@@ -88,11 +90,11 @@ export default function BorrowersTable() {
               <Link href={`/borrowers/${row?.id}`} >
                 {row?.full_name} </Link>
               </TableCell>
-              <TableCell align="center">{row?.phone}</TableCell>
-              <TableCell align="center" >{row?.email}</TableCell>
-              <TableCell align='right' >
-              {/*  */}
-             
+              <TableCell align="center">{row?.email}</TableCell>
+              <TableCell align="center" >{row?.phone}</TableCell>
+              <TableCell align="center" >{row?.dob}</TableCell>
+              <TableCell align="center" >{row?.address}</TableCell>
+              <TableCell align='right' >             
                 <Tooltip title="Edit" onClick={()=>setSelectedBorrower(row)} >
                 <IconButton size="small">
                 <EditOutlinedIcon fontSize="small" />
