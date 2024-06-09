@@ -1,12 +1,13 @@
 "use client";
 import AuthWrapper from "@/layout/wrapper/AuthWrapper";
-import { ILoginForm, loginValidationSchema } from "@/schema/auth.schema";
+import {
+  IResetPassForm,
+  resetPasswordValidationSchema,
+} from "@/schema/auth.schema";
 import CustomAuthButton from "@/ui/Buttons/CustomAuthButton";
 import CustomInput from "@/ui/Inputs/CustomInput";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CheckBox } from "@mui/icons-material";
-import { Box, Stack, Typography, styled } from "@mui/material";
-import Link from "next/link";
+import { Box, Typography, styled } from "@mui/material";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -30,10 +31,10 @@ const SignStyle = styled(Box)`
   }
 `;
 
-const LoginComponent = () => {
+const ResetPasswordComponent = () => {
   const router = useRouter();
-  const { control, handleSubmit } = useForm<ILoginForm>({
-    resolver: yupResolver(loginValidationSchema),
+  const { control, handleSubmit } = useForm<IResetPassForm>({
+    resolver: yupResolver(resetPasswordValidationSchema),
   });
 
   const onSubmit = async () => {
@@ -41,39 +42,33 @@ const LoginComponent = () => {
   };
 
   return (
-    <AuthWrapper
-      title="Hello! Welcome Back"
-      isShowBottom
-      ButtonTxt="Sign up"
-      leftText="Don’t have an Account?"
-      path="/auth/signup"
-    >
+    <AuthWrapper title="RESET YOUR PASSWORD" isShowBottom={false}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <SignStyle>
-          <Box className="sign_in_input">
-            <Controller
-              name="email"
-              control={control}
-              render={({ field, fieldState: { error } }) => (
-                <CustomInput
-                  placeholder="Enter email address"
-                  label="Email"
-                  {...field}
-                  error={Boolean(error?.message)}
-                  helperText={error?.message}
-                />
-              )}
-            />
-          </Box>
           <Box className="sign_in_input">
             <Controller
               name="password"
               control={control}
               render={({ field, fieldState: { error } }) => (
                 <CustomInput
+                  placeholder="Enter new password"
+                  label="New Password"
+                  {...field}
+                  error={Boolean(error?.message)}
+                  helperText={error?.message}
+                />
+              )}
+            />
+          </Box>
+          <Box className="sign_in_input">
+            <Controller
+              name="confirm_password"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <CustomInput
                   type="password"
                   placeholder="**********"
-                  label="Password"
+                  label="Confirm Password"
                   {...field}
                   error={Boolean(error?.message)}
                   helperText={error?.message}
@@ -82,17 +77,9 @@ const LoginComponent = () => {
             />
           </Box>
 
-          <Stack direction="row" justifyContent="space-between" mt={1}>
-            <Stack direction="row" gap={1}>
-              <CheckBox />
-              <Typography variant="body1">Remember me</Typography>
-            </Stack>
-
-            <Link href={"/auth/forget-password"}>Forget Password</Link>
-          </Stack>
           <Box className="sign_in_input">
             <CustomAuthButton type="submit">
-              <Typography>Login</Typography>
+              <Typography>RESET PASSWORD</Typography>
             </CustomAuthButton>
           </Box>
         </SignStyle>
@@ -101,4 +88,4 @@ const LoginComponent = () => {
   );
 };
 
-export default LoginComponent;
+export default ResetPasswordComponent;
