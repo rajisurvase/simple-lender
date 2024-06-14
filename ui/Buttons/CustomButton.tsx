@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "@/styles/components/button.module.scss";
+// import styles from "@/styles/components/button.module.scss";
 import { ButtonType } from "@/typescript/interface/common.interface";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -20,21 +20,21 @@ const CustomButtonMemo = ({
   type,
   loading = false
 }: ButtonType) => {
-  const [className, setClassName] = useState(styles.button);
+  // const [className, setClassName] = useState(styles.button);
 
-  useEffect(() => {
-    if (variant === "text") {
-      setClassName(styles.buttonText);
-    } else if (variant === "outlined") {
-      setClassName(styles.buttonOutlined);
-    } else {
-      setClassName(styles.button);
-    }
-  }, [variant]);
+  // useEffect(() => {
+  //   if (variant === "text") {
+  //     setClassName(styles.buttonText);
+  //   } else if (variant === "outlined") {
+  //     setClassName(styles.buttonOutlined);
+  //   } else {
+  //     setClassName(styles.button);
+  //   }
+  // }, [variant]);
 
   return (
     <Button
-      className={className}
+      // className={className}
       variant={variant}
       disabled={disabled || loading}
       disableElevation

@@ -186,7 +186,7 @@ const HeaderComponent = () => {
             </Paper>
           </Grid>
         <Grid item lg={2} display={{ xs: "none", lg: "block" }}>
-          {isLoggedIn ? (
+          {true ? (
             <Link href="/profile">
               <Box display="flex" justifyContent="end">
                 <Box pr={2}>

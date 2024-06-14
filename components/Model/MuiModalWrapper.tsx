@@ -46,7 +46,7 @@ export default function MuiModalWrapper({
           alignItems="center"
           spacing={2}
         >
-          <Typography px={3} variant="h5" >{title}</Typography>
+          <Typography px={4} variant="h6" >{title}</Typography>
           <IconButton  className="isClose_btn" onClick={onClose} autoFocus>
             <CloseIcon />
           </IconButton>

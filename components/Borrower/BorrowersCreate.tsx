@@ -35,7 +35,7 @@ const BorrowersCreate = ({handleClose, selectedBorrower, refetch} :BorrowersCrea
     defaultValues : {
       firstName : selectedBorrower?.firstName || "",
       lastName : selectedBorrower?.lastName ?? "",
-      dob : dayjs(selectedBorrower?.dob)?.format("DD/MM/YYYY") ?? null,
+      dob : dayjs(selectedBorrower?.dob)?.toDate(),
       email : selectedBorrower?.email || "",
       address : selectedBorrower?.address || "", 
       country : selectedBorrower?.country || "", 
@@ -89,7 +89,7 @@ const BorrowersCreate = ({handleClose, selectedBorrower, refetch} :BorrowersCrea
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Grid p={3} container spacing={3}>
+      <Grid container columnSpacing={3} rowSpacing={2} pb={2} >
         <Grid item xs={12} sm={6} md={6} lg={6}>
           <Controller
             control={control}

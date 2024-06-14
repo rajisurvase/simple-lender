@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Link from 'next/link'
-import { Alert, Box, Button, IconButton, Pagination, Tooltip } from '@mui/material';
+import { Alert, Box, Button, IconButton, Pagination, Stack, Tooltip } from '@mui/material';
 import { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { DeleteBorrowerMutation, GetBorrowerList, borrowerType } from '@/api/functions/borrower.api';
@@ -18,6 +18,9 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import useNotiStack from '@/hooks/useNotistack';
+import CustomInput from '@/ui/Inputs/CustomInput';
+import CustomButton from '../CustomButton/CustomButton';
+import FilterComponent from './FilterComponent';
 
 export default function BorrowersTable() {
    const {toastSuccess, toastWarning} = useNotiStack()
@@ -64,10 +67,8 @@ export default function BorrowersTable() {
       // }
     }
   return (
-    <div>
-      {/* <Box my={1} textAlign='right' > 
-            <Button onClick={handleAdd} variant='contained' sx={{borderRadius : '1.5rem', backgroundColor : "#7D8CC4", textTransform:"none"}} endIcon={<AddIcon  sx={{fontSize:'small'}} />} >Add Borrower  </Button>
-      </Box> */}
+    <>
+    <FilterComponent handleAdd={handleAdd} />
     <TableContainer component={Paper} >
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
@@ -126,7 +127,6 @@ export default function BorrowersTable() {
       </MuiModalWrapper>
       </Box>
     </TableContainer>
-    </div>
-    
+    </>
   );
 }
