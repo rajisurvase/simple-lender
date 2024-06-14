@@ -11,9 +11,10 @@ import { Box, Stack, Typography, styled } from "@mui/material";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
+// import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import MuiModalWrapper from "../Model/MuiModalWrapper";
-import CustomButton from "@/ui/Buttons/CustomButton";
+// import CustomButton from "@/ui/Buttons/CustomButton";
+import OtpVerification from "./OtpVerification";
 
 // Correct the styled component name and fix the text-align property
 const SignStyle = styled(Box)`
@@ -34,7 +35,7 @@ const SignStyle = styled(Box)`
   }
 `;
 
-const VerifyEmailComponent = () => {
+const ForgotComponent = () => {
   const router = useRouter();
   const [isMailSent, setIsMailSent] = useState(false);
 
@@ -52,7 +53,13 @@ const VerifyEmailComponent = () => {
 
   return (
     <>
-      <AuthWrapper title="VERIFY YOUR EMAIL!" isShowBottom={false}>
+      <AuthWrapper
+        title="Forgot Your Password?"
+        isShowBottom
+        ButtonTxt="Sign in"
+        leftText="Do you know password?"
+        path="/auth/signin"
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <SignStyle>
             <Box className="sign_in_input">
@@ -86,25 +93,11 @@ const VerifyEmailComponent = () => {
           open={isMailSent}
           onClose={toggleMailSentModal}
         >
-          <Stack alignItems="center" justifyContent="center" padding={4}>
-            <MailOutlineIcon
-              sx={{ height: "96px", width: "96px", display: "inline-block" }}
-            />
-
-            <Typography variant="h5" mt={3}>
-              An OTP has been sent on your email successfully
-            </Typography>
-
-            <Stack direction="row" justifyItems="end">
-              <CustomAuthButton type="button" onClick={toggleMailSentModal}>
-                <Typography>Ok</Typography>
-              </CustomAuthButton>
-            </Stack>
-          </Stack>
+          <OtpVerification />
         </MuiModalWrapper>
       )}
     </>
   );
 };
 
-export default VerifyEmailComponent;
+export default ForgotComponent;

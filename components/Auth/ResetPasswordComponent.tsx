@@ -42,7 +42,7 @@ const ResetPasswordComponent = () => {
   };
 
   return (
-    <AuthWrapper title="RESET YOUR PASSWORD" isShowBottom={false}>
+    <AuthWrapper title="Reset Your Password" isShowBottom={false}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <SignStyle>
           <Box className="sign_in_input">

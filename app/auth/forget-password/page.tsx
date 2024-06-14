@@ -1,8 +1,8 @@
-import ForgetPasswordComponent from "@/components/Auth/ForgetPasswordComponent";
+import ForgotComponent from "@/components/Auth/ForgotComponent";
 import React from "react";
 
 const SignUp = () => {
-  return <ForgetPasswordComponent />;
+  return <ForgotComponent />;
 };
 
 export default SignUp;

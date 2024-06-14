@@ -38,11 +38,16 @@ const ForgetPasswordComponent = () => {
   });
 
   const onSubmit = async () => {
-    router.push("/auth/signin");
+    router.push("/auth/reset-password");
   };
 
   return (
-    <AuthWrapper title="FORGET YOUR PASSWORD?" isShowBottom={false}>
+    <AuthWrapper title="Forgot Your Password?"
+     isShowBottom
+     ButtonTxt="Sign in"
+     leftText="Do you know password?"
+     path="/auth/signin"
+     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <SignStyle>
           <Box className="sign_in_input">
@@ -66,6 +71,7 @@ const ForgetPasswordComponent = () => {
               <Typography>Continue</Typography>
             </CustomAuthButton>
           </Box>
+          
         </SignStyle>
       </form>
     </AuthWrapper>

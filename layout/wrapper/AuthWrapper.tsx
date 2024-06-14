@@ -7,7 +7,7 @@ import Link from 'next/link'
 import React from 'react'
 
 const AuthWrapperStyle = styled(Box)`
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,14 +15,14 @@ const AuthWrapperStyle = styled(Box)`
 `
 
 const CenteredBox = styled(Box)`
-  padding: 4rem;
+  padding: 2rem 3rem ;
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #fff;
   text-align : center;
   .auth_page_heading {
-   fontsize : 10px;
-   padding : 1rem 0rem
+   fontsize : 0.1rem;
+   padding : 0.5rem 0rem
   }
   .bottomActionStyle {
   padding : 0.5rem 0rem

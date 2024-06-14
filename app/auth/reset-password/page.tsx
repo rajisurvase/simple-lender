@@ -1,4 +1,3 @@
-import ForgetPasswordComponent from "@/components/Auth/ForgetPasswordComponent";
 import ResetPasswordComponent from "@/components/Auth/ResetPasswordComponent";
 import React from "react";
 

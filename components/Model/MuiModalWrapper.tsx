@@ -1,11 +1,14 @@
 import CloseIcon from "@mui/icons-material/Close";
+import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
-// import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-// import useMediaQuery from "@mui/material/useMediaQuery";
+
+const MuiWrapperStyle =  styled(Box)`
+  padding : 0rem 2rem
+`
 
 interface MuiModalWrapperProps {
   open: boolean;
@@ -32,7 +35,7 @@ export default function MuiModalWrapper({
       aria-labelledby="responsive-dialog-title"
       PaperProps={{
         style: {
-          // borderRadius
+          borderRadius : "0.5rem",
         }
       }}
     >
@@ -42,7 +45,6 @@ export default function MuiModalWrapper({
           justifyContent="space-between"
           alignItems="center"
           spacing={2}
-          pt={1}
         >
           <Typography px={3} variant="h5" >{title}</Typography>
           <IconButton  className="isClose_btn" onClick={onClose} autoFocus>
@@ -50,8 +52,7 @@ export default function MuiModalWrapper({
           </IconButton>
         </Stack>
       </Box>
-
-      <Box>{children}</Box>
+      <MuiWrapperStyle>{children}</MuiWrapperStyle>
     </Dialog>
   );
 }

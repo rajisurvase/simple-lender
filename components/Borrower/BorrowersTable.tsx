@@ -65,9 +65,9 @@ export default function BorrowersTable() {
     }
   return (
     <div>
-      <Box my={1} textAlign='right' > 
+      {/* <Box my={1} textAlign='right' > 
             <Button onClick={handleAdd} variant='contained' sx={{borderRadius : '1.5rem', backgroundColor : "#7D8CC4", textTransform:"none"}} endIcon={<AddIcon  sx={{fontSize:'small'}} />} >Add Borrower  </Button>
-      </Box>
+      </Box> */}
     <TableContainer component={Paper} >
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>

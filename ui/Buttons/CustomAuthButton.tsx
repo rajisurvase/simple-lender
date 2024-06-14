@@ -16,7 +16,10 @@ const CustomAuthButtonStyle = styled(Box)`
   }
 
   &:hover {
+  .auth_button_style{
     width: 100%;
+    background-color : #D289FF
+  }
   }
 `
 

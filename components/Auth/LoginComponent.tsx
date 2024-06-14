@@ -37,7 +37,7 @@ const LoginComponent = () => {
   });
 
   const onSubmit = async () => {
-    router.push("/auth/signin");
+    router.push("/");
   };
 
   return (
@@ -88,7 +88,7 @@ const LoginComponent = () => {
               <Typography variant="body1">Remember me</Typography>
             </Stack>
 
-            <Link href={"/auth/forget-password"}>Forget Password</Link>
+            <Link href={"/auth/forget-password"}>Forget Password?</Link>
           </Stack>
           <Box className="sign_in_input">
             <CustomAuthButton type="submit">

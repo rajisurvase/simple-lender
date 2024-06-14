@@ -59,6 +59,12 @@ export const resetPasswordValidationSchema = Yup.object({
     .oneOf([Yup.ref("password"), ""], "Passwords must match"),
 });
 
+export const otpValidationSchema = Yup.object({
+  otp : Yup.string().trim().required().min(1).max(6).label("Otp")
+})
+
+export type IOtpValidationSchema = Yup.InferType<typeof otpValidationSchema>
+
 export type IResetPassForm = Yup.InferType<
   typeof resetPasswordValidationSchema
 >;
