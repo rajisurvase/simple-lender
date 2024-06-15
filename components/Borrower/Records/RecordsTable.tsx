@@ -73,7 +73,7 @@ export default function RecordsTable({borrowerId}: RecordsTableProps) {
             >
               <TableCell align="center" component="th" scope="row">
               <Link href={`/borrowers/${row?.borrower?.id}/record/${row?.id}`} >
-                {row.borrower?.name} </Link>
+                {row?.borrower?.full_name} </Link>
               </TableCell>
               <TableCell align="center">{row.principleAmount}</TableCell>
               <TableCell align="center" >{row.roi}%</TableCell>
