@@ -8,7 +8,8 @@ const page = () => {
   return (
     <Card style={{ margin: "1rem" }}>
       <BorrowersTable />
-    </Card>
+    </Card> 
+    
   );
 };
 
