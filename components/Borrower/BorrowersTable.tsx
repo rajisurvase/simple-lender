@@ -21,6 +21,7 @@ import useNotiStack from '@/hooks/useNotistack';
 import CustomInput from '@/ui/Inputs/CustomInput';
 import CustomButton from '../CustomButton/CustomButton';
 import FilterComponent from './FilterComponent';
+import ConfirmationComponent from '../Model/ConfirmationComponent';
 
 export default function BorrowersTable() {
    const {toastSuccess, toastWarning} = useNotiStack()
@@ -28,6 +29,7 @@ export default function BorrowersTable() {
     const [currentPage, setCurrentPage] = useState(1)
     const [open, setOpen] = useState(false)
     const [selectedBorrower, setSelectedBorrower] = useState<borrowerType | undefined>(undefined)
+    const [isConfirm, setIsConfirm] = useState(false)
     
     const  {data : borrowerList, refetch} = useQuery({
       queryFn : ()=>GetBorrowerList({
@@ -102,7 +104,7 @@ export default function BorrowersTable() {
                 </IconButton>
                 </Tooltip>
                 <Tooltip title="Delete" onClick={()=>handleDelete(row)}  >
-                <IconButton size="small" disabled={isLoading}   >
+                <IconButton size="small" disabled={isLoading} onClick={()=>setIsConfirm(true)}   >
                 <DeleteIcon fontSize="small"   />
                 </IconButton>
                 </Tooltip>
@@ -111,6 +113,9 @@ export default function BorrowersTable() {
           ))}
         </TableBody>
       </Table>
+      <IconButton size="small" disabled={isLoading} onClick={()=>setIsConfirm(true)}   >
+                <DeleteIcon fontSize="small"   />
+                </IconButton>
       {!borrowerList?.borrowers?.length && <Alert severity="error" >No Data Found..!</Alert>}
       <Box display="flex" justifyContent="center" p={2} >
       {Number(borrowerList?.borrowers?.length) > 0 &&   <Pagination
@@ -124,6 +129,11 @@ export default function BorrowersTable() {
         setSelectedBorrower(undefined)
       }} >
        <BorrowersCreate handleClose={handleClose} selectedBorrower={selectedBorrower} refetch={refetch} />
+      </MuiModalWrapper>
+      <MuiModalWrapper open={isConfirm} title={``}  onClose={()=>{
+        setIsConfirm(false)
+      }} >
+       <ConfirmationComponent />
       </MuiModalWrapper>
       </Box>
     </TableContainer>
