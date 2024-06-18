@@ -1,7 +1,8 @@
 import React, { ChangeEvent, MouseEvent } from 'react';
 
 import { AppBar, Toolbar } from '@mui/material';
-import { Container, Box, Avatar, TextField, Button, Typography, IconButton, InputAdornment } from '@mui/material';
+import Button from '@mui/material/Button';
+import { Container, Box, Avatar, TextField,  Typography, IconButton, InputAdornment } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Visibility from '@mui/icons-material/Visibility';
@@ -55,7 +56,8 @@ const ProfilePage = () => {
             My profile
           </Typography>
         </Box>
-        <Button  onClick={toggleReadOnly}
+        <Button onClick={toggleReadOnly}
+        variant="outlined"
           color="inherit" 
           startIcon={<EditIcon  />} 
           sx={{ textTransform: 'none' }} 
