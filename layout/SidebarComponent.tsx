@@ -65,7 +65,7 @@ const SidebarComponent = () => {
           );
         })}
 
-        {isLoggedIn && (
+        {/* {isLoggedIn && ( */}
           <Link href={"/profile"}>
           <Stack display="flex" flexDirection="row" alignItems="center">
            <Box pr={2} py={1} >
@@ -74,7 +74,7 @@ const SidebarComponent = () => {
           <ListItemText primary={"Profile"}/>
           </Stack>
           </Link>
-        )}
+        {/* )} */}
          <Link href={"/javascript:void()"} onClick={handleAuth} >
           <Stack display="flex" flexDirection="row" alignItems="center">
            <Box pr={2} py={1} >
