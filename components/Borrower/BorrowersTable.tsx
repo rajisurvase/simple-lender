@@ -30,6 +30,10 @@ export default function BorrowersTable() {
     const [open, setOpen] = useState(false)
     const [selectedBorrower, setSelectedBorrower] = useState<borrowerType | undefined>(undefined)
     const [isConfirm, setIsConfirm] = useState(false)
+
+    const handleConfirmationModel= ()=>{
+      setIsConfirm(false)
+    }
     
     const  {data : borrowerList, refetch} = useQuery({
       queryFn : ()=>GetBorrowerList({
@@ -130,10 +134,8 @@ export default function BorrowersTable() {
       }} >
        <BorrowersCreate handleClose={handleClose} selectedBorrower={selectedBorrower} refetch={refetch} />
       </MuiModalWrapper>
-      <MuiModalWrapper open={isConfirm} title={``}  onClose={()=>{
-        setIsConfirm(false)
-      }} >
-       <ConfirmationComponent />
+      <MuiModalWrapper open={isConfirm} title={``}  onClose={handleConfirmationModel} >
+       <ConfirmationComponent handleConfirmationModel={handleConfirmationModel} />
       </MuiModalWrapper>
       </Box>
     </TableContainer>
