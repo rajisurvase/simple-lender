@@ -1,28 +1,33 @@
 import React, { ChangeEvent, MouseEvent } from 'react';
-
-import { AppBar, Toolbar } from '@mui/material';
-import Button from '@mui/material/Button';
-import { Container, Box, Avatar, TextField,  Typography, IconButton, InputAdornment } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { AppBar, Toolbar, Button, Container, Box, Avatar, TextField, Typography, IconButton, InputAdornment } from '@mui/material';
+import { Delete as DeleteIcon, Edit as EditIcon, Visibility, VisibilityOff } from '@mui/icons-material';
+import { Controller,  } from "react-hook-form";
+import CustomInput from "@/ui/Inputs/CustomInput";
+import { number } from 'yup';
 
 const ProfilePage = () => {
+  // State for showing/hiding password
   const [showPassword, setShowPassword] = React.useState(false);
-  const [firstName, setFirstName] = React.useState('John');
-  const [lastName, setLastName] = React.useState('Doe');
-  const [email, setEmail] = React.useState('john.doe@example.com');
-  const [mobile, setMobile] = React.useState('123 456 7890');
-  const [password, setPassword] = React.useState('password');
+
+  // State for user profile information
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [mobile, setMobile] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  // State for read-only mode
   const [readOnly, setReadOnly] = React.useState(true);
 
+  // Toggle password visibility
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
+  // Prevent default behavior for mouse down on password icon
   const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
 
+  // Event handlers for changing profile information
   const handleFirstNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFirstName(event.target.value);
   };
@@ -43,75 +48,68 @@ const ProfilePage = () => {
     setPassword(event.target.value);
   };
 
+  // Toggle read-only mode
   const toggleReadOnly = () => {
     setReadOnly(!readOnly);
   };
 
   return (
     <Container maxWidth="sm">
-         <AppBar position="static" color="transparent" elevation={0}>
-      <Toolbar>
-        <Box sx={{ flexGrow: 1 }}>
-          <Typography variant="h6" color="textSecondary">
-            My profile
-          </Typography>
-        </Box>
-        <Button onClick={toggleReadOnly}
-        variant="outlined"
-          color="inherit" 
-          startIcon={<EditIcon  />} 
-          sx={{ textTransform: 'none' }} 
-          aria-label="edit profile"
-        >
-          <Typography variant="button" color="textSecondary">
-            EDIT
-          </Typography>
-        </Button>
-      </Toolbar>
-    </AppBar>
+      <AppBar position="static" color="transparent" elevation={0}>
+        <Toolbar>
+          <Box sx={{ flexGrow: 1 }}>
+            <Typography variant="h6" color="textSecondary">
+              My profile
+            </Typography>
+          </Box>
+          <Button
+            onClick={toggleReadOnly}
+            variant="outlined"
+            color="inherit"
+            startIcon={<EditIcon />}
+            sx={{ textTransform: 'none' }}
+            aria-label="edit profile"
+          >
+            <Typography variant="button" color="textSecondary">
+              {readOnly ? "EDIT" : "SAVE"}
+            </Typography>
+          </Button>
+        </Toolbar>
+      </AppBar>
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4 }}>
         <Avatar sx={{ width: 80, height: 80, mb: 2 }} src="/static/images/avatar/1.jpg" />
         <Box sx={{ width: '100%' }}>
-       
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
             <TextField
               margin="normal"
               label="First name"
               value={firstName}
               onChange={handleFirstNameChange}
-              InputProps={{
-                readOnly: readOnly,
-              }}
+          
             />
             <TextField
               margin="normal"
               label="Last name"
               value={lastName}
               onChange={handleLastNameChange}
-              InputProps={{
-                readOnly: readOnly,
-              }}
+              
             />
           </Box>
           <TextField
-            fullWidth
-            margin="normal"
-            label="Email address"
-            value={email}
-            onChange={handleEmailChange}
-            InputProps={{
-              readOnly: readOnly,
-            }}
-          />
+  fullWidth
+  margin="normal"
+  label="Email address"
+  value={email}
+  onChange={handleEmailChange}
+ 
+/>
           <TextField
             fullWidth
             margin="normal"
             label="Mobile number"
-            value={mobile}
+            value={number}
             onChange={handleMobileChange}
-            InputProps={{
-              readOnly: readOnly,
-            }}
+          
           />
           <TextField
             fullWidth
@@ -121,7 +119,7 @@ const ProfilePage = () => {
             value={password}
             onChange={handlePasswordChange}
             InputProps={{
-              readOnly: readOnly,
+              
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
@@ -136,13 +134,18 @@ const ProfilePage = () => {
               ),
             }}
           />
+            
+
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
             <Button variant="contained" color="secondary" startIcon={<DeleteIcon />}>
               DELETE ACCOUNT
             </Button>
           </Box>
+   
         </Box>
       </Box>
+    
+          
     </Container>
   );
 };
