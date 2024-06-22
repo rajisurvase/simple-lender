@@ -82,7 +82,7 @@ const TransactionComponent = () => {
         }}
       >
         <Stack display="flex" direction="row" justifyContent="space-between" px={1} alignItems="center" >
-          <Typography variant="h6" >{isEdit?.id? "View/Edit" : "Add"} Transaction</Typography>
+          <Typography variant="h6" fontWeight="bold" >{isEdit?.id? "View/Edit" : "Add"} Transaction</Typography>
           <IconButton>
               <HighlightOffRoundedIcon />
           </IconButton>

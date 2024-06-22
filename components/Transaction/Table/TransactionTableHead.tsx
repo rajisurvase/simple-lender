@@ -1,4 +1,4 @@
-import {  TableCell, TableRow } from '@mui/material'
+import {  TableCell, TableRow, Typography } from '@mui/material'
 import React from 'react'
 
 function stringToColor(string: string) {
@@ -29,14 +29,14 @@ export function stringAvatar(name: string) {
 const TransactionTableHead = () => {
   return (
     <TableRow>
-            <TableCell>
-             Name
+            <TableCell  >
+            <Typography variant="body1" fontWeight="bold"  >Name</Typography>
             </TableCell>
-            <TableCell align="right">Principal&nbsp;(₹)</TableCell>
-            <TableCell align="right">R.O.I&nbsp;(% / Flat)</TableCell>
-            <TableCell align="right">Adjusted. Prin&nbsp;(₹)</TableCell>
-            <TableCell align="right">Interest Amt&nbsp;(₹)</TableCell>
-            <TableCell align="right">Total Amt&nbsp;(₹)</TableCell>
+            <TableCell align="right"><Typography variant="body1" fontWeight="bold"  >Principal&nbsp;(₹)</Typography></TableCell>
+            <TableCell align="right"><Typography variant="body1" fontWeight="bold"  >R.O.I&nbsp;(%/Flat)</Typography></TableCell>
+            <TableCell align="right"><Typography variant="body1" fontWeight="bold"  >Adjusted. Prin&nbsp;(₹)</Typography></TableCell>
+            <TableCell align="right"><Typography variant="body1" fontWeight="bold"  >Interest Amt&nbsp;(₹)</Typography></TableCell>
+            <TableCell align="right"><Typography variant="body1" fontWeight="bold"  >Total Amt&nbsp;(₹)</Typography></TableCell>
           </TableRow>
   )
 }

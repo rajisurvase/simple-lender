@@ -22,11 +22,11 @@ const TransactionTableBodyRow = ({handleClick}:TransactionTableBodyRowProps) => 
                  </Box>
               </Stack>
     </TableCell>
-    <TableCell align="right">₹10000</TableCell>
-    <TableCell align="right">2 (Flat)</TableCell>
-    <TableCell align="right">₹8000</TableCell>
-    <TableCell align="right">₹200</TableCell>
-    <TableCell align="right">₹8200</TableCell>
+    <TableCell align="right"><Typography variant='body2' fontWeight="bold" color="red" >₹{Number(10000)?.toFixed(2)}</Typography></TableCell>
+    <TableCell align="right"><Typography variant='body2' fontWeight="bold">2 (Flat)</Typography></TableCell>
+    <TableCell align="right"><Typography variant='body2' fontWeight="bold" color="green" >₹{Number(8000)?.toFixed(2)}</Typography></TableCell>
+    <TableCell align="right"><Typography variant='body2' fontWeight="bold" color="green" >₹{Number(200)?.toFixed(2)}</Typography></TableCell>
+    <TableCell align="right"><Typography variant='body2' fontWeight="bold" color="green" >₹{Number(8200)?.toFixed(2)}</Typography></TableCell>
   </TableRow>
   )
 }

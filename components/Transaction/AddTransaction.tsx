@@ -33,7 +33,7 @@ const AddTransaction = () => {
     <Box>
       <CustomAutocomplete options={[]} label="Search borrower" />
       <Grid container py={2} spacing={2}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6}  >
           <CustomInput
             label="Principle Amount"
             placeholder="Ex.1000"

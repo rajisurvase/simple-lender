@@ -13,7 +13,7 @@ const EntriesTableRow = () => {
       <Typography variant='body2' fontWeight="bold">{dayjs()?.format("MMM D, YYYY h:mm A")}</Typography>          
      </Stack>
     </TableCell>
-    <TableCell align="right"><Typography variant='body2' color="red" fontWeight="bold" >₹200</Typography></TableCell>
+    <TableCell align="right"><Typography variant='body2' color="red" fontWeight="bold" >-</Typography></TableCell>
     <TableCell align="right"><Typography variant='body2' color="green" fontWeight="bold" >₹800</Typography></TableCell>
   </TableRow>
   )
