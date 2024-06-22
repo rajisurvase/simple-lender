@@ -13,6 +13,8 @@ const CustomInputWith_forwardRef = ({
   helperText = "",
   placeholder = "",
   type,
+  rows,
+  multiline,
   ...props
 }: CommonMuiInputProps) => {
   const id =useId()
@@ -28,7 +30,8 @@ const CustomInputWith_forwardRef = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-       
+       multiline={multiline}
+       rows={rows? rows : 1}
       />
       {error && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>

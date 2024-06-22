@@ -3,17 +3,22 @@ import React from 'react'
 import { stringAvatar } from './TransactionTableHead'
 import dayjs from 'dayjs'
 
-const TransactionTableBodyRow = () => {
+
+type TransactionTableBodyRowProps ={
+  handleClick? : ()=>void
+}
+const TransactionTableBodyRow = ({handleClick}:TransactionTableBodyRowProps) => {
   return (
     <TableRow
-    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+    sx={{ '&:last-child td, &:last-child th': { border: 0 }, cursor:"pointer" }}
+    onClick={handleClick && handleClick}
   >
     <TableCell component="th" scope="row">
     <Stack display="flex" flexDirection="row" columnGap={1} alignItems="center"  >
               <Avatar {...stringAvatar('Kent Dodds')}   sx={{ width: 35, height: 35 }} />
                  <Box>
-                  <Typography>Name</Typography>
-                  <Typography>{dayjs()?.format("MMM D, YYYY h:mm A")}</Typography>
+                  <Typography variant='body2' fontWeight="bold">Name</Typography>
+                  <Typography variant='body2' fontWeight="bold" >{dayjs()?.format("MMM D, YYYY h:mm A")}</Typography>
                  </Box>
               </Stack>
     </TableCell>
