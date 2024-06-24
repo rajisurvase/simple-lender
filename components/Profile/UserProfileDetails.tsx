@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-import React, { ChangeEvent, MouseEvent } from 'react';
+import React, { ChangeEvent, MouseEvent, useEffect } from 'react';
 import { AppBar, Toolbar, Button, Container, Box, Avatar, TextField, Typography, IconButton, InputAdornment } from '@mui/material';
 import { Delete as DeleteIcon, Edit as EditIcon, Visibility, VisibilityOff } from '@mui/icons-material';
-import { Controller,  } from "react-hook-form";
-import CustomInput from "@/ui/Inputs/CustomInput";
-import { number } from 'yup';
+
 
 const ProfilePage = () => {
   // State for showing/hiding password
@@ -24,7 +21,7 @@ const ProfilePage = () => {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   // Prevent default behavior for mouse down on password icon
-  const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement> ) => {
     event.preventDefault();
   };
 
@@ -53,7 +50,9 @@ const ProfilePage = () => {
   const toggleReadOnly = () => {
     setReadOnly(!readOnly);
   };
+  //Axios fetch property
 
+ 
   return (
     <Container maxWidth="sm">
       <AppBar position="static" color="transparent" elevation={0}>
@@ -108,7 +107,7 @@ const ProfilePage = () => {
             fullWidth
             margin="normal"
             label="Mobile number"
-            value={number}
+            value={mobile}
             onChange={handleMobileChange}
           
           />
@@ -143,57 +142,6 @@ const ProfilePage = () => {
             </Button>
           </Box>
    
-=======
-import React from "react";
-
-import {  Stack } from "@mui/material";
-import Button from "@mui/material/Button";
-import {
-  Container,
-  Box,
-  Avatar
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import CustomInput from "@/ui/Inputs/CustomInput";
-
-const ProfilePage = () => {
- 
-  return (
-    <Container maxWidth="sm">
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          mt: 4,
-        }}
-      >
-        <Avatar
-          sx={{ width: 80, height: 80, mb: 2 }}
-          src="/static/images/avatar/1.jpg"
-        />
-        <Box sx={{ width: "100%" }}>
-          <Stack display="flex" flexDirection="row" gap={2} py={1}>
-            <CustomInput placeholder="First name" />
-            <CustomInput placeholder="Last name" />
-          </Stack>
-          <Box py={1}>
-            <CustomInput placeholder="Email" />
-          </Box>
-          <Box py={1}>
-            <CustomInput placeholder="Phone" type="number" />
-          </Box>
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <Button
-              variant="contained"
-              color="secondary"
-              startIcon={<DeleteIcon />}
-            >
-              DELETE ACCOUNT
-            </Button>
-          </Box>
-          
->>>>>>> 30b33595bec7b5cb7544139cb2547446e3cd8778
         </Box>
       </Box>
     
