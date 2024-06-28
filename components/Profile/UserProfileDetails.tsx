@@ -1,6 +1,7 @@
-import React, { ChangeEvent, MouseEvent, useEffect } from 'react';
+import React, { ChangeEvent, MouseEvent, useState } from 'react';
 import { AppBar, Toolbar, Button, Container, Box, Avatar, TextField, Typography, IconButton, InputAdornment } from '@mui/material';
 import { Delete as DeleteIcon, Edit as EditIcon, Visibility, VisibilityOff } from '@mui/icons-material';
+import axios from 'axios';
 
 
 const ProfilePage = () => {
@@ -8,43 +9,34 @@ const ProfilePage = () => {
   const [showPassword, setShowPassword] = React.useState(false);
 
   // State for user profile information
-  const [firstName, setFirstName] = React.useState("");
-  const [lastName, setLastName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [mobile, setMobile] = React.useState('');
-  const [password, setPassword] = React.useState('');
-
+ 
+  const handleDelete=(e)=>{
+e.preventDefault();
+axios.delete("https://jsonplaceholder.typicode.com/posts/1")
+.then((res)=>{
+console.log(res)
+})
+  }
+  const data={fName:"",lastName:"",emailId:"",mobileNumber:"",password:""};
+  const [inputData,setInputData]=useState(data)
+  const handleData=(e)=>{
+    setInputData({...inputData,[e.target.name]:e.target.value})
+  }
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+    axios.put("https://jsonplaceholder.typicode.com/posts/1",inputData)
+    .then((res)=>{
+      console.log(res)
+    })
+  }
+ 
   // State for read-only mode
-  const [readOnly, setReadOnly] = React.useState(true);
+  const [readOnly, setReadOnly] = React.useState(true); 
 
   // Toggle password visibility
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  // Prevent default behavior for mouse down on password icon
-  const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement> ) => {
-    event.preventDefault();
-  };
 
-  // Event handlers for changing profile information
-  const handleFirstNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setFirstName(event.target.value);
-  };
-
-  const handleLastNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setLastName(event.target.value);
-  };
-
-  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-
-  const handleMobileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setMobile(event.target.value);
-  };
-
-  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
 
   // Toggle read-only mode
   const toggleReadOnly = () => {
@@ -62,8 +54,9 @@ const ProfilePage = () => {
               My profile
             </Typography>
           </Box>
+          
           <Button
-            onClick={toggleReadOnly}
+            onClick={handleSubmit}
             variant="outlined"
             color="inherit"
             startIcon={<EditIcon />}
@@ -83,15 +76,17 @@ const ProfilePage = () => {
             <TextField
               margin="normal"
               label="First name"
-              value={firstName}
-              onChange={handleFirstNameChange}
+              value={inputData.fName}
+              name="fName"
+              onChange={handleData}
           
             />
             <TextField
               margin="normal"
               label="Last name"
-              value={lastName}
-              onChange={handleLastNameChange}
+              value={inputData.lastName}
+              name="lastName"
+              onChange={handleData}
               
             />
           </Box>
@@ -99,16 +94,19 @@ const ProfilePage = () => {
   fullWidth
   margin="normal"
   label="Email address"
-  value={email}
-  onChange={handleEmailChange}
+  name="emailId"
+  value={inputData.emailId}
+  onChange={handleData}
  
 />
           <TextField
             fullWidth
             margin="normal"
             label="Mobile number"
-            value={mobile}
-            onChange={handleMobileChange}
+            value={inputData.mobileNumber}
+
+            name="mobileNumber"
+           onChange={handleData}
           
           />
           <TextField
@@ -116,8 +114,9 @@ const ProfilePage = () => {
             margin="normal"
             label="Password"
             type={showPassword ? 'text' : 'password'}
-            value={password}
-            onChange={handlePasswordChange}
+            value={inputData.password}
+            onChange={handleData}
+            name="password"
             InputProps={{
               
               endAdornment: (
@@ -125,7 +124,7 @@ const ProfilePage = () => {
                   <IconButton
                     aria-label="toggle password visibility"
                     onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
+                    
                     edge="end"
                   >
                     {showPassword ? <Visibility /> : <VisibilityOff />}
@@ -137,7 +136,7 @@ const ProfilePage = () => {
             
 
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
-            <Button variant="contained" color="secondary" startIcon={<DeleteIcon />}>
+            <Button variant="contained" onClick={handleDelete} color="secondary" startIcon={<DeleteIcon />}>
               DELETE ACCOUNT
             </Button>
           </Box>
