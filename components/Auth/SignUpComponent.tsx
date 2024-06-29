@@ -6,7 +6,7 @@ import CustomInput from "@/ui/Inputs/CustomInput";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Typography, styled } from "@mui/material";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 // Correct the styled component name and fix the text-align property
@@ -25,6 +25,8 @@ const SignUpComponent = () => {
   const onSubmit = async () => {
     router.push("/auth/signin")
   };
+ 
+  
   return (
     <AuthWrapper
       title="Sign up to get started!"
@@ -38,6 +40,7 @@ const SignUpComponent = () => {
           <Box className="sign_in_input">
             <Controller
               name="firstName"
+             
               control={control}
               render={({ field, fieldState: { error } }) => (
                 <CustomInput
@@ -121,6 +124,7 @@ const SignUpComponent = () => {
           </Box>
           <Box className="sign_in_input">
             <CustomAuthButton type="submit">
+
               <Typography>Sign up</Typography>
             </CustomAuthButton>
           </Box>
