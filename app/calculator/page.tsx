@@ -9,7 +9,7 @@ type periodType = {
     value: number;
 }
 
-const period : periodType[] = [
+export const period : periodType[] = [
   {
     id: 1,
     name: "Year",

@@ -12,15 +12,17 @@ type CustomDatePickerProps = {
     error? : Boolean,
     helperText? : string
 }
-const CustomDatePicker = ({ label, value, onChange, error, helperText } : CustomDatePickerProps) => (
-  <LocalizationProvider dateAdapter={AdapterDayjs}>
+const CustomDatePicker = ({ label, value, onChange, error, helperText, ...props } : CustomDatePickerProps) => (
+  <LocalizationProvider dateAdapter={AdapterDayjs} >
     <DatePicker
       label={label}
       value={value}
       onChange={onChange}
+      {...props}
       slotProps={{
-        textField: { size: 'small', error :Boolean(error), helperText },
+        textField: { size: 'small', error :Boolean(error), helperText, style: {width : "100%"} },
       }}
+      
     />
   </LocalizationProvider>
 );

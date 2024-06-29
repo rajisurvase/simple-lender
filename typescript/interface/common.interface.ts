@@ -5,6 +5,8 @@ export interface CommonMuiInputProps {
   onChange?: () => void;
   helperText?: string;
   placeholder: string;
+  multiline? : boolean
+  rows? : number
   type?: "text" | "email" | "password" | "number" | "tel" | "file";
   endAdornment?: JSX.Element;
   startAdornment?: JSX.Element;
