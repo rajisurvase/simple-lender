@@ -1,38 +1,8 @@
 "use client"
 
+import { PERIODS } from '@/config/constants';
 import { Card,  Grid, MenuItem, Select, SelectChangeEvent, TextField, Typography } from '@mui/material'
 import { ChangeEvent, useEffect, useState } from 'react';
-
-type periodType = {
-    id: number;
-    name: string;
-    value: number;
-}
-
-export const period : periodType[] = [
-  {
-    id: 1,
-    name: "Year",
-    value: 1
-  },
-  {
-    id: 2,
-    name: "Monthly",
-    value: 12
-  },
-  {
-    id: 3,
-    name: "Weekly",
-    value: 52
-  },
-  {
-    id: 4,
-    name: "Days",
-    value: 365
-  },
-
-]
-
 
 
 export default function Home() {
@@ -58,9 +28,7 @@ export default function Home() {
   };
 
 
-  useEffect(() => {
-    return setLabelName(period.find(s => s.value === checkDuration)?.name as string);
-  }, [checkDuration])
+
 
 const TotalInterestEarned =()=>{
 return Number(formValue.amount) * (1 + Number(formValue.rate) / 100 * Number(formValue.duration) / checkDuration) - Number(formValue.amount)
@@ -68,6 +36,12 @@ return Number(formValue.amount) * (1 + Number(formValue.rate) / 100 * Number(for
 const Totalvalue =()=>{
  return Number(formValue.amount) * (1 +Number( formValue.rate) / 100 * Number(formValue.duration) / checkDuration)
 }
+
+useEffect(() => {
+  if(PERIODS?.length){
+    setLabelName(PERIODS.find(s => s.value === checkDuration)?.name as string);
+  }
+}, [checkDuration])
 
   return (
 
@@ -105,7 +79,7 @@ const Totalvalue =()=>{
                     onChange={handleChange}
                     fullWidth
                   >
-                    {period?.map((item, index) => (
+                    {PERIODS?.map((item, index) => (
                       // eslint-disable-next-line react/no-array-index-key
                       <MenuItem key={index} value={item?.value}>{item?.name}</MenuItem>
                     ))}

@@ -1,4 +1,4 @@
-import { period } from "@/app/calculator/page";
+import { PERIODS } from "@/config/constants";
 import CustomAutocomplete from "@/ui/AutoComplete/CustomAutocomplete";
 import CustomDatePicker from "@/ui/DatePicker/CustomDatePicker";
 import CustomInput from "@/ui/Inputs/CustomInput";
@@ -94,7 +94,7 @@ const AddTransaction = () => {
                 onChange={handleChange}
                 fullWidth
               >
-                {period?.map((item, index) => (
+                {PERIODS?.map((item, index) => (
                   <MenuItem key={index} value={item?.value}>
                     {item?.name}
                   </MenuItem>
