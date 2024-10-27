@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import ClientProvider from "@/clientProvider/ClientProvider";
+import { Toaster } from "sonner";
+import EventListeners from "@/components/EventListener/EventListener";
+import dynamic from "next/dynamic";
+
+const ClientProvider = dynamic(() => import('@/clientProvider/ClientProvider'), { ssr: false })
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +24,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ClientProvider>
+        <Toaster richColors position="bottom-left" />
+        <EventListeners />
         {children}
         </ClientProvider>
         </body>

@@ -1,15 +1,20 @@
 "use client";
 import { signInMutation } from "@/api/functions/user.api";
+import { loginAccessTokenCookieName } from "@/config/constants";
 import { QUERYKEY } from "@/config/QueryKey";
 import AuthWrapper from "@/layout/wrapper/AuthWrapper";
+import { setCookieClient } from "@/lib/_helper";
 import { ILoginForm, loginValidationSchema } from "@/schema/auth.schema";
+import BackDropCom from "@/ui/BackDrop/BackDropCom";
 import CustomAuthButton from "@/ui/Buttons/CustomAuthButton";
 import CustomInput from "@/ui/Inputs/CustomInput";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CheckBox } from "@mui/icons-material";
 import { Box, Stack, Typography, styled } from "@mui/material";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import { setCookie } from "nookies";
+import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 
@@ -33,14 +38,22 @@ const SignStyle = styled(Box)`
 `;
 
 const LoginComponent = () => {
-  // const router = useRouter();
+  const router = useRouter()
+  const [isRediecting , setIsRedirecting] = useState(false)
   const { control, handleSubmit } = useForm<ILoginForm>({
     resolver: yupResolver(loginValidationSchema),
   });
 
   const {mutateAsync, isLoading} = useMutation({
     mutationFn : signInMutation,
-    mutationKey : [QUERYKEY?.auth?.SIGNIN]
+    mutationKey : [QUERYKEY?.auth?.SIGNIN],
+    onSuccess :(response)=>{
+         if(response?.status ===200){
+              setCookieClient(loginAccessTokenCookieName, response?.data?.token)
+              setIsRedirecting(true)
+              router.push("/")  
+         }
+    }
   })
 
   const onSubmit = handleSubmit((data)=>{
@@ -55,6 +68,7 @@ const LoginComponent = () => {
       leftText="Don’t have an Account?"
       path="/auth/signup"
     >
+      <BackDropCom open={isRediecting} />
       <form onSubmit={onSubmit}>
         <SignStyle>
           <Box className="sign_in_input">

@@ -2,7 +2,6 @@
 import { endpoints } from "../endpoints";
 import axiosInstance from "../axiosInstance";
 import { BaseApiResponse, userData } from "@/typescript/types/common.type";
-import { IFormInput } from "@/typescript/interface/common.interface";
 import { ILoginForm, ISignupForm } from "@/schema/auth.schema";
 
 
@@ -15,14 +14,6 @@ export const signUpMutation = async (body: ISignupForm) => {
   ?.then((response) => response?.data)
 };
 
-export type signInMutationResponse = {
-    id: string
-  username: string
-  email: string
-  roles: string[]
-  accessToken: string
-}
-
 type EmailVerificationMutationParams = {
   email : string,
   token : string
@@ -34,14 +25,24 @@ export const emailVerificationMutation = (body :EmailVerificationMutationParams)
   ?.then((response) => response?.data)
 }
 
+export type IsignInMutationResponceType = BaseApiResponse & {
+  data :  {
+    token : string
+  }
+}
+
 export const signInMutation =async (body: ILoginForm)=>{
   return axiosInstance
-  .post<signInMutationResponse>(endpoints.auth.login, body)
+  .post<IsignInMutationResponceType>(endpoints.auth.login, body)
   ?.then((response) => response?.data)
 }
 
 export const ProfileUpdateMutation = async (body: userData) => {
   return axiosInstance
-  .post<signInMutationResponse>(endpoints.auth.login, body)
+  .post<signUpMutationResponce>(endpoints.auth.login, body)
   ?.then((response) => response?.data)
 };
+
+export const GetUserProfileDetails = async()=>{  
+  return axiosInstance.post(endpoints?.auth?.profileUpdate)
+}

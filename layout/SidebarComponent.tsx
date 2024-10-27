@@ -1,21 +1,18 @@
+
 import * as React from "react";
 import Box from "@mui/material/Box";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import ListItemIcon from '@mui/material/ListItemIcon';
 import Link from "next/link";
 import LogoutIcon from '@mui/icons-material/Logout';
 import { sideLabel } from "./HeaderComponent";
-import { useAppSelector } from "@/hooks/useAppSelector";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import { logout } from "@/redux-toolkit/slices/userSlice";
 import { Stack, styled } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
-import Image from "next/image";
-import assest from "@/json/assest";
 import MainLogoComponent from "@/components/AppLogo/MainLogoComponent";
+import { parseCookies } from "nookies";
+import { loginAccessTokenCookieName } from "@/config/constants";
 
 const SideBarStyle = styled(Box)(({ theme }) => ({
   backgroundColor: '#D289FF',
@@ -29,18 +26,14 @@ const SideBarStyle = styled(Box)(({ theme }) => ({
 }));
 
 const SidebarComponent = () => {
-  const router = useRouter();
   const pathname = usePathname()
 
   const dispatch = useAppDispatch();
-  const { isLoggedIn } = useAppSelector((s) => s.userSlice);
+  const cookies = parseCookies();
+  const token = cookies?.[loginAccessTokenCookieName];
 
   const handleAuth = () => {
-    if (isLoggedIn) {
-      dispatch(logout());
-    } else {
-      router.push("/auth/signin");
-    }
+      dispatch(logout());   
   };
   return (
     <SideBarStyle>
@@ -75,12 +68,12 @@ const SidebarComponent = () => {
           </Stack>
           </Link>
         {/* )} */}
-         <Link href={"/javascript:void()"} onClick={handleAuth} >
+         <Link href={"javascript:void()"} onClick={handleAuth} >
           <Stack display="flex" flexDirection="row" alignItems="center">
            <Box pr={2} py={1} >
            <LogoutIcon fontSize="small" />
            </Box>
-          <ListItemText primary={isLoggedIn ? "Logout" : "Sign In"} />
+          <ListItemText primary={token ? "Logout" : "Sign In"} />
           </Stack>
           </Link>
       </Box>

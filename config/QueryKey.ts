@@ -3,5 +3,8 @@ export const QUERYKEY = {
         SIGNUP:"Sign-up",
         SIGNIN:"Sign-in",
         VERIFY : "Email-verification"
+    },
+    user : {  
+        details : "profile-details"
     }
 }

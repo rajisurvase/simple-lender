@@ -1,6 +1,6 @@
 export const MAX_SIZE_FILE=2000000;
 
-export const loginAccessTokenCookieName = "simple-lender-token"
+export const loginAccessTokenCookieName=process.env.NEXT_APP_TOKEN_NAME ||""
 
 
 enum IPeriodType  {

@@ -12,7 +12,8 @@ export const endpoints = {
     signup: "v1/signup",
     profileUpdate: "user/profile/update",
     login : "v1/login",
-    verify : "v1/emailVerify"
+    verify : "v1/emailVerify",
+    profileDetails : ""
   },
   cms: {
     about: "aboutpolicy/details"
@@ -51,3 +52,9 @@ export const endpoints = {
   }
 };
 
+
+export const sucessNotificationEndPoints = [
+  endpoints?.auth?.login,
+  endpoints?.auth?.signup,
+  endpoints?.auth?.verify
+]

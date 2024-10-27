@@ -1,9 +1,10 @@
 
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { loginAccessTokenCookieName } from "@/config/constants";
-import { baseUrlApi } from "../endpoints";
+import { baseUrlApi, sucessNotificationEndPoints } from "../endpoints";
 import { BaseApiResponse } from "@/typescript/types/common.type";
 import { parseCookies } from "nookies";
+import { globalCatchError, globalCatchSucess, globalCatchWarning } from "@/lib/_helper";
 
 const axiosInstance = axios.create({
   baseURL: baseUrlApi
@@ -22,9 +23,19 @@ axiosInstance.interceptors.request.use((config) => {
 
 axiosInstance.interceptors.response.use(
   (res: AxiosResponse) => {
-    return res;
-  },
+    const url = res.config.url as string
+    if (sucessNotificationEndPoints?.includes(url)) {
+      if (res?.status !== 200) {
+        globalCatchWarning(res);
+      } else {
+        globalCatchSucess(res);
+      }
+    }
+
+    return res;  },
   async (error: AxiosError<BaseApiResponse>) => {
+    globalCatchError(error);
+
     return Promise.reject(error);
   }
 );

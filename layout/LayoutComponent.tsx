@@ -5,17 +5,16 @@ import { Grid } from "@mui/material";
 import SidebarComponent from "./SidebarComponent";
 import HeaderComponent from "./HeaderComponent";
 import { usePathname } from "next/navigation";
-// import { useAppDispatch } from "@/hooks/useAppDispatch";
-// import { setLoginData } from "@/redux-toolkit/slices/userSlice";
+import { parseCookies } from "nookies";
+
 
 
 const LayoutComponent = ({ children }: { children: React.ReactNode }) => {
   // const dispatch = useAppDispatch();
   const pathname = usePathname()
   const isAuthProcess = pathname?.includes("auth")
-  const userDetails =  "";
+  const cookies = parseCookies();
   
-
   return (
     <Box>
       {!isAuthProcess ? <Grid container>
