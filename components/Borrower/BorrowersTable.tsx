@@ -134,9 +134,9 @@ export default function BorrowersTable() {
       }} >
        <BorrowersCreate handleClose={handleClose} selectedBorrower={selectedBorrower} refetch={refetch} />
       </MuiModalWrapper>
-      <MuiModalWrapper open={isConfirm} title={``}  onClose={handleConfirmationModel} >
+      {/* <MuiModalWrapper open={isConfirm} title={``}  onClose={handleConfirmationModel} >
        <ConfirmationComponent handleConfirmationModel={handleConfirmationModel} />
-      </MuiModalWrapper>
+      </MuiModalWrapper> */}
       </Box>
     </TableContainer>
     </>

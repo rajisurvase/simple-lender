@@ -1,8 +1,8 @@
 import * as Yup from "yup";
 
 export const signupValidationSchema = Yup.object({
-  firstName: Yup.string().trim().required("First name is required"),
-  lastName: Yup.string().trim().required("Last name is required"),
+  first_name: Yup.string().trim().required("First name is required"),
+  last_name: Yup.string().trim().required("Last name is required"),
   email: Yup.string()
     .trim()
     .required("Email address is required")
@@ -17,7 +17,7 @@ export const signupValidationSchema = Yup.object({
     .trim()
     .required("Password is required")
     .min(8, "Password must be at least 8 characters"),
-  confirmPassword: Yup.string()
+  confirm_password: Yup.string()
     .trim()
     .required("Confirm password is required")
     .oneOf([Yup.ref("password"), ""], "Passwords must match"),

@@ -1,4 +1,6 @@
 "use client";
+import { signInMutation } from "@/api/functions/user.api";
+import { QUERYKEY } from "@/config/QueryKey";
 import AuthWrapper from "@/layout/wrapper/AuthWrapper";
 import { ILoginForm, loginValidationSchema } from "@/schema/auth.schema";
 import CustomAuthButton from "@/ui/Buttons/CustomAuthButton";
@@ -7,9 +9,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { CheckBox } from "@mui/icons-material";
 import { Box, Stack, Typography, styled } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useMutation } from "react-query";
 
 // Correct the styled component name and fix the text-align property
 const SignStyle = styled(Box)`
@@ -31,14 +33,19 @@ const SignStyle = styled(Box)`
 `;
 
 const LoginComponent = () => {
-  const router = useRouter();
+  // const router = useRouter();
   const { control, handleSubmit } = useForm<ILoginForm>({
     resolver: yupResolver(loginValidationSchema),
   });
 
-  const onSubmit = async () => {
-    router.push("/");
-  };
+  const {mutateAsync, isLoading} = useMutation({
+    mutationFn : signInMutation,
+    mutationKey : [QUERYKEY?.auth?.SIGNIN]
+  })
+
+  const onSubmit = handleSubmit((data)=>{
+    mutateAsync(data)
+  })
 
   return (
     <AuthWrapper
@@ -48,7 +55,7 @@ const LoginComponent = () => {
       leftText="Don’t have an Account?"
       path="/auth/signup"
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={onSubmit}>
         <SignStyle>
           <Box className="sign_in_input">
             <Controller
@@ -91,7 +98,7 @@ const LoginComponent = () => {
             <Link href={"/auth/forget-password"}>Forget Password?</Link>
           </Stack>
           <Box className="sign_in_input">
-            <CustomAuthButton type="submit">
+            <CustomAuthButton type="submit" loading={isLoading} >
               <Typography>Login</Typography>
             </CustomAuthButton>
           </Box>

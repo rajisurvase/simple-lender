@@ -8,8 +8,11 @@ import {
   Avatar,
   Stack,
 } from '@mui/material';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
+import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
+import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
 
 // const style = {
 //   position: 'absolute',
@@ -25,16 +28,26 @@ import CloseIcon from '@mui/icons-material/Close';
 // };
 
 type ConfirmationComponentProps = {
-  handleConfirmationModel : ()=>void
+  handleConfirmationModel? : ()=>void,
+  title : string;
+  description : string,
+  isShowAction? : boolean,
+  btn1Text? : string,
+  handleBtnAction? : ()=>void,
+  icon : JSX.Element
 }
 
-const ConfirmationComponent = ({handleConfirmationModel}:ConfirmationComponentProps ) => {
-  // const [open, setOpen] = useState(true); // Modal is open by default
-
-
+const ConfirmationComponent = ({
+  handleConfirmationModel,
+  description,
+  title,
+  isShowAction=false,
+  btn1Text="Delete",
+  handleBtnAction,
+  icon
+}:ConfirmationComponentProps ) => {
 
   return (
-    // <Modal open={open} >
       <Box>
         {/* <IconButton
           aria-label="close"
@@ -51,39 +64,41 @@ const ConfirmationComponent = ({handleConfirmationModel}:ConfirmationComponentPr
         {/* <Avatar sx={{ bgcolor: 'grey.200', mx: 'auto', mb: 2 }}> */}
         <Stack display="flex" flexDirection="row" justifyContent="center" py={2} >
         {/* <IconButton> */}
-          <DeleteIcon sx={{ color: 'black',fontSize:"3rem" }}   />
-          {/* </IconButton> */}
+          {/* <DeleteIcon sx={{ color: 'black',fontSize:"3rem" }}   /> */}
+          {/* </IconButton  > */}
+          {/* <CheckCircleOutlineSharpIcon sx={{ color: 'blue',fontSize:"3rem" }}  /> */}
+          {icon}
           </Stack>
         {/* </Avatar> */}
-       <Box textAlign="center" >
+       <Box textAlign="center" sx={{pb: isShowAction ? 0 : 5}}>
        <Typography variant="h6" component="h2" gutterBottom>
-          Are you sure you want to delete this ride
+       {title}
         </Typography>
-        <Typography variant="body2" color="text.secondary" gutterBottom>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu eros
-          ipsum. Vestibulum ultricies odio.
-        </Typography>
+        {description && <Typography variant="body2" color="text.secondary" gutterBottom>
+        {description}
+        </Typography>}
        </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
-          <Button
-            variant="contained"
-            color="error"
-            sx={{ mr: 2 }}
-            // Close the modal when clicked
-          >
-            Delete
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-           // Close the modal when clicked
-           onClick={handleConfirmationModel}
-          >
-            Cancel
-          </Button>
-        </Box>
+       {isShowAction &&
+       <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
+       <Button
+         variant="contained"
+         color="error"
+         sx={{ mr: 2 }}
+        onClick={()=>handleBtnAction && handleBtnAction()}
+       >
+        {btn1Text}
+       </Button>
+       <Button
+         variant="contained"
+         color="secondary"
+        // Close the modal when clicked
+        onClick={handleConfirmationModel}
+       >
+         Cancel
+       </Button>
+     </Box>
+       }
       </Box>
-    // </Modal>
   );
 };
 
