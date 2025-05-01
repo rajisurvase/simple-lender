@@ -2,6 +2,7 @@
 import { signInMutation } from "@/api/functions/user.api";
 import { loginAccessTokenCookieName } from "@/config/constants";
 import { QUERYKEY } from "@/config/QueryKey";
+import { ROUTES } from "@/config/routes";
 import AuthWrapper from "@/layout/wrapper/AuthWrapper";
 import { setCookieClient } from "@/lib/_helper";
 import { ILoginForm, loginValidationSchema } from "@/schema/auth.schema";
@@ -13,7 +14,6 @@ import { CheckBox } from "@mui/icons-material";
 import { Box, Stack, Typography, styled } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { setCookie } from "nookies";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
@@ -23,7 +23,6 @@ const SignStyle = styled(Box)`
   .sign_in_input {
     padding: 0.2rem 0rem;
   }
-  ,
   .link_style {
     color: #0000ff; /* Blue color */
     text-decoration: none; /* Remove underline */
@@ -49,9 +48,9 @@ const LoginComponent = () => {
     mutationKey : [QUERYKEY?.auth?.SIGNIN],
     onSuccess :(response)=>{
          if(response?.status ===200){
-              setCookieClient(loginAccessTokenCookieName, response?.data?.token)
+              setCookieClient(loginAccessTokenCookieName, response?.token)
               setIsRedirecting(true)
-              router.push("/")  
+              router.push(ROUTES.DASHBOARD)  
          }
     }
   })
@@ -66,7 +65,7 @@ const LoginComponent = () => {
       isShowBottom
       ButtonTxt="Sign up"
       leftText="Don’t have an Account?"
-      path="/auth/signup"
+      path={ROUTES.SIGNUP}
     >
       <BackDropCom open={isRediecting} />
       <form onSubmit={onSubmit}>
@@ -109,7 +108,7 @@ const LoginComponent = () => {
               <Typography variant="body1">Remember me</Typography>
             </Stack>
 
-            <Link href={"/auth/forget-password"}>Forget Password?</Link>
+            <Link href={ROUTES.FORGOT_PASSWORD}>Forget Password?</Link>
           </Stack>
           <Box className="sign_in_input">
             <CustomAuthButton type="submit" loading={isLoading} >

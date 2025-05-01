@@ -9,11 +9,11 @@ export const baseUrlMedia = process.env.NEXT_APP_BASE_URL;
 
 export const endpoints = {
   auth: {
-    signup: "v1/signup",
-    profileUpdate: "user/profile/update",
-    login : "v1/login",
-    verify : "v1/emailVerify",
-    profileDetails : ""
+    signup: "/auth/signup",
+    profileUpdate: "/user/profile/update",
+    login : "/auth/signin",
+    verify : "/emailVerify",
+    profileDetails : "/auth/profile"
   },
   cms: {
     about: "aboutpolicy/details"
@@ -21,11 +21,11 @@ export const endpoints = {
   borrower : {
     // list : "allBorrowers",
     list: (params : GetBorrowerListParams)=>{
-     return `borrowers?page=${params?.page}&size=${params?.size}`
+     return `borrower?page=${params?.page}&limit=${params?.size}`
     },
-    add : "borrowers",
+    add : "borrower",
     delete : (Id : string)=>{
-      return `/borrowers/${Id}`
+      return `/borrower/${Id}`
     }
   },
   records : {

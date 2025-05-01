@@ -72,8 +72,8 @@ export default function RecordsTable({borrowerId}: RecordsTableProps) {
               sx={{ '&:last-child td, &:last-child th': { border: 0 }, background:`${index%2===0? "" : "  #CEF3FF"}` }}
             >
               <TableCell align="center" component="th" scope="row">
-              <Link href={`/borrowers/${row?.borrower?.id}/record/${row?.id}`} >
-                {row?.borrower?.full_name} </Link>
+              <Link href={`/borrowers/${row?.borrower?._id}/record/${row?.id}`} >
+                {row?.borrower?.first_name} </Link>
               </TableCell>
               <TableCell align="center">{row.principleAmount}</TableCell>
               <TableCell align="center" >{row.roi}%</TableCell>

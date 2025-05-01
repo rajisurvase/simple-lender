@@ -1,10 +1,20 @@
 
-export type BaseApiResponseType = {
+export type BaseApiResponseType<T> = {
   message: string;
   status: number;
-  data?: {} | null;
-};
+  data: T
+}
 
+export type BaseApiPaginationResponseType<T> = { 
+  message: string;
+  status: number;
+  data: {
+    page: number;
+    pages: number;
+    limit: number;
+    docs: T[];
+  };
+};
 
 
 
@@ -40,8 +50,8 @@ export type CommonButtonType = {
 export type userData = {
   id?: string;
   roles: string []
-  first_name?: string;
-  last_name?: string;
+  first_name: string;
+  last_name: string;
   fullName?: string;
   username?: string;
   phone?: string;

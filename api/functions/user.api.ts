@@ -44,5 +44,5 @@ export const ProfileUpdateMutation = async (body: userData) => {
 };
 
 export const GetUserProfileDetails = async()=>{  
-  return axiosInstance.post(endpoints?.auth?.profileUpdate)
+  return axiosInstance.get(endpoints?.auth?.profileDetails)
 }

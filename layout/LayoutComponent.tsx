@@ -5,15 +5,33 @@ import { Grid } from "@mui/material";
 import SidebarComponent from "./SidebarComponent";
 import HeaderComponent from "./HeaderComponent";
 import { usePathname } from "next/navigation";
-import { parseCookies } from "nookies";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { useQuery } from "react-query";
+import { GetUserProfileDetails } from "@/api/functions/user.api";
+import { QUERYKEY } from "@/config/QueryKey";
+import { setLoginData } from "@/redux-toolkit/slices/userSlice";
 
 
 
 const LayoutComponent = ({ children }: { children: React.ReactNode }) => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const pathname = usePathname()
   const isAuthProcess = pathname?.includes("auth")
-  const cookies = parseCookies();
+
+  const {isLoading} = useQuery({
+    queryFn : GetUserProfileDetails,
+    queryKey : [QUERYKEY.user.details],
+    enabled : !isAuthProcess,
+    onSuccess :(res)=>{
+       if(res.status ===200){
+        dispatch(setLoginData(res.data))
+       }
+    }
+  })
+
+  if(isLoading) {
+    return "Loading..."
+  }
   
   return (
     <Box>

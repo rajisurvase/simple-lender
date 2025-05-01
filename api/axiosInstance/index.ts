@@ -25,10 +25,11 @@ axiosInstance.interceptors.response.use(
   (res: AxiosResponse) => {
     const url = res.config.url as string
     if (sucessNotificationEndPoints?.includes(url)) {
-      if (res?.status !== 200) {
-        globalCatchWarning(res);
-      } else {
+      if ([200, 201]?.includes(res.status)) {
+        
         globalCatchSucess(res);
+      } else {
+        globalCatchWarning(res);
       }
     }
 

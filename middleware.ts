@@ -1,22 +1,27 @@
+
 import { NextResponse } from "next/server";
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 
-// This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
-  const hasToken = request.cookies?.get(process.env.NEXT_APP_TOKEN_NAME!)?.value;
-
+  const token = request.cookies.get(process.env.NEXT_APP_TOKEN_NAME!)?.value;
+  const isAuthenticated = !!token;
   const { pathname } = request.nextUrl;
 
-  // If the user is trying to access the auth routes and does not have a token
-  if (!hasToken && pathname.startsWith("/auth")) {
-    return NextResponse.next(); // Allow access to auth pages
+  // ✅ Authenticated users trying to access /auth routes → redirect to dashboard
+  if (isAuthenticated && pathname.startsWith("/auth")) {
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
+  // ❌ Unauthenticated users trying to access protected routes → redirect to signin
+  if (!isAuthenticated && !pathname.startsWith("/auth")) {
+    return NextResponse.redirect(new URL("/auth/signin", request.url));
+  }
 
-  return NextResponse.next(); // Allow access to other routes
+  // ✅ All other valid conditions → proceed normally
+  return NextResponse.next();
 }
 
-// See "Matching Paths" below to learn more
+// 🛠 Match all routes except static files
 export const config = {
-  matcher: ["/:path*"] // Apply to all paths
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };

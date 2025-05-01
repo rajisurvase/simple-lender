@@ -6,5 +6,8 @@ export const QUERYKEY = {
     },
     user : {  
         details : "profile-details"
+    },
+    borrower : {
+        list : "borrower-list"
     }
 }

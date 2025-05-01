@@ -84,3 +84,22 @@ export const passwordSchema = Yup.object({
 });
 
 export type IPasswordForm = Yup.InferType<typeof passwordSchema>;
+
+
+export const updateProfileSchema = Yup.object({
+  first_name: Yup.string().trim().required("First name is required"),
+  last_name: Yup.string().trim().required("Last name is required"),
+  email: Yup.string()
+    .trim()
+    .required("Email address is required")
+    .email("Invalid email address"),
+  phone: Yup.string()
+    .trim()
+    .required("Phone number is required")
+    .matches(/^[0-9]/, "Phone number must be numeric digits")
+    .min(10, "Atleast 10 digit is needed")
+    .max(10, "Maximum 10 digits are supported"),
+  _id : Yup.string()
+})
+
+export type IUpdateProfileSchemaType = Yup.InferType<typeof updateProfileSchema>

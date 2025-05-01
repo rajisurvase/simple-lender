@@ -3,8 +3,8 @@ import * as Yup from "yup";
 
 export const AddBorrowerSchema = Yup
   .object({
-    firstName : Yup.string().trim().required().label("First name"),
-    lastName : Yup.string().trim().required().label("Last name"),
+    first_name : Yup.string().trim().required().label("First name"),
+    last_name : Yup.string().trim().required().label("Last name"),
     email : Yup.string().trim().email("Invalid email address").required().label("Email"),
     phone: Yup
       .string().trim()
@@ -17,7 +17,8 @@ export const AddBorrowerSchema = Yup
     country: Yup.string().trim().required().label("Country"),
     city: Yup.string().trim().required().label("City"),
     state: Yup.string().trim().required().label("State"),
-    pincode: Yup.string().trim().required().label("Pincode")
+    pincode: Yup.string().trim().required().label("Pincode"),
+    _id : Yup.string()
   })
   .required();
 

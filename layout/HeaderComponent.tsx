@@ -25,6 +25,7 @@ import PaidIcon from '@mui/icons-material/Paid';
 import MainLogoComponent from "@/components/AppLogo/MainLogoComponent";
 import { styled } from "@mui/system";
 import { Stack } from "@mui/material";
+import { ROUTES } from "@/config/routes";
 
 const SideBarStyle = styled(Box)(({ theme }) => ({
   backgroundColor: "#D289FF",
@@ -72,6 +73,7 @@ const HeaderComponent = () => {
   const { userData, isLoggedIn } = useAppSelector((a) => a.userSlice);
   const router = useRouter();
 
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
   };
@@ -80,7 +82,7 @@ const HeaderComponent = () => {
     if (isLoggedIn) {
       dispatch(logout());
     } else {
-      router.push("/auth/signin");
+      router.push(ROUTES.LOGIN);
     }
   };
 
@@ -197,7 +199,7 @@ const HeaderComponent = () => {
                 </Box>
                 <Box>
                   <Typography fontSize={13} fontWeight="bold">
-                    {userData?.fullName || "Piraji survase"}
+                    {userData?.first_name} {userData?.last_name}
                   </Typography>
                   <Typography fontSize={13}>Admin</Typography>
                 </Box>
@@ -205,7 +207,7 @@ const HeaderComponent = () => {
             </Link>
           ) : (
             <Box textAlign="center">
-              <Link href="/auth/signin">
+              <Link href={ROUTES.LOGIN}>
                 <Button variant="outlined">SignIn</Button>
               </Link>
             </Box>

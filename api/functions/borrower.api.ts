@@ -6,7 +6,8 @@
 // eslint-disable-next-line import/no-cycle
 import { endpoints } from "../endpoints";
 import axiosInstance from "../axiosInstance";
-import { Dayjs } from "dayjs";
+import { AddEditBorrowerType } from "@/schema/borrower.schema";
+import { BaseApiPaginationResponseType } from "@/typescript/types/common.type";
 
   //  const cookies = parseCookies();
   // const accessToken = cookies?.[loginAccessTokenCookieName];
@@ -17,36 +18,18 @@ import { Dayjs } from "dayjs";
     size : number
   }
   
- export type borrowerType = {
-    id?: number | undefined
-    firstName?: string
-    lastName? : string
-    email: string
-    phone: string
-    city: string
-    state: string
-    country: string
-    pincode: string
-    address: string
-    dob ? : string
-    full_name? :string
-  }
-
-  type GetBorrowerListReponse = {
-    borrowers : borrowerType[] | undefined,
-    count : number
-  }
+ 
 export const GetBorrowerList = async (params: GetBorrowerListParams) => {
-    return axiosInstance.get<GetBorrowerListReponse>(endpoints?.borrower?.list(params))
+    return axiosInstance.get<BaseApiPaginationResponseType<AddEditBorrowerType>>(endpoints?.borrower?.list(params))
     ?.then((response) => response?.data)
   };
 
-  export const AddBorrower = async (params : borrowerType)=>{
+  export const AddBorrower = async (params : AddEditBorrowerType)=>{
    return axiosInstance.post(endpoints.borrower.add, params)?.then((res)=>res?.data)
   }
 
-  export const EditBorrowerMutation = async (params : borrowerType)=>{
-    return axiosInstance.put(endpoints.borrower.add, params)?.then((res)=>res?.data)
+  export const EditBorrowerMutation = async (params : AddEditBorrowerType)=>{
+    return axiosInstance.post(endpoints.borrower.add, params)?.then((res)=>res?.data)
    }
 
    type DeleteBorrowerMutationParams ={

@@ -29,7 +29,6 @@ export const userSlice = createSlice({
       state.isLoggedIn = false;
       state.userData = null;
       destroyCookie(null, loginAccessTokenCookieName);
-      // destroyCookie(null, "userDetails");
       window.location.href="/auth/signin"
     }
   }

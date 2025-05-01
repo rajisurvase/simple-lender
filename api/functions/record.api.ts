@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-cycle
+import { AddEditBorrowerType } from "@/schema/borrower.schema"
 import axiosInstance from "../axiosInstance"
 import { endpoints } from "../endpoints"
-import { borrowerType } from "./borrower.api"
 
 
 export type RecordType = {
@@ -27,7 +27,7 @@ export type IRecord = {
     purchaseDate : string,
     dueDate : string,
     status : string,
-    borrower : borrowerType
+    borrower : AddEditBorrowerType
 }
 
 export type GetAllRecordsResponse = {

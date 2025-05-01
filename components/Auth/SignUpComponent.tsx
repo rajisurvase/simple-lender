@@ -14,6 +14,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import MuiModalWrapper from "../Model/MuiModalWrapper";
 import ConfirmationComponent from "../Model/ConfirmationComponent";
+import { ROUTES } from "@/config/routes";
 
 // Correct the styled component name and fix the text-align property
 const SignStyle = styled(Box)`
@@ -29,6 +30,7 @@ const SignUpComponent = () => {
 
   const handleClose = useCallback(()=>{
     setIsConfirm(false)
+    router.push(ROUTES.LOGIN)
   },[setIsConfirm])
 
   const { control, handleSubmit } = useForm<ISignupForm>({
@@ -38,8 +40,7 @@ const SignUpComponent = () => {
   const {mutateAsync, isLoading} = useMutation({
     mutationFn : signUpMutation,
     mutationKey : [QUERYKEY?.auth?.SIGNUP],
-    onSuccess:(response)=>{
-      if(response?.data?.email)
+    onSuccess:()=>{
         setIsConfirm(true)
     }
   })
@@ -54,7 +55,7 @@ const SignUpComponent = () => {
       isShowBottom
       ButtonTxt="Login"
       leftText="Already have an Account?"
-      path="/auth/signin"
+      path={ROUTES.LOGIN}
     >
       <form onSubmit={onSubmit}>
         <SignStyle>
