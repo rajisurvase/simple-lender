@@ -44,7 +44,7 @@ export default function BorrowersTable() {
     queryFn: () =>
       GetBorrowerList({
         page: Number(currentPage),
-        size: 5,
+        limit: 10,
       }),
     queryKey: [QUERYKEY.borrower.list, currentPage],
     enabled: !!isLoggedIn,
@@ -159,7 +159,7 @@ export default function BorrowersTable() {
           )}
 
           <MuiModalWrapper
-            open={open && !!selectedBorrower?._id}
+            open={open}
             title={`${selectedBorrower?._id ? "Edit" : "Add"} Borrower`}
             onClose={() => {
               setOpen(false);

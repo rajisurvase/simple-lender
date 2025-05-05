@@ -21,7 +21,7 @@ export const endpoints = {
   borrower : {
     // list : "allBorrowers",
     list: (params : GetBorrowerListParams)=>{
-     return `borrower?page=${params?.page}&limit=${params?.size}`
+     return `borrower?page=${params?.page}&limit=${params?.limit}`
     },
     add : "borrower",
     delete : (Id : string)=>{

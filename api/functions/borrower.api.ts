@@ -15,7 +15,7 @@ import { BaseApiPaginationResponseType } from "@/typescript/types/common.type";
 
   export type GetBorrowerListParams = {
     page : number,
-    size : number
+    limit : number
   }
   
  
