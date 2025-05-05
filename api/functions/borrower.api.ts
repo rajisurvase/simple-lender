@@ -15,12 +15,15 @@ import { BaseApiPaginationResponseType } from "@/typescript/types/common.type";
 
   export type GetBorrowerListParams = {
     page : number,
-    limit : number
+    limit : number,
+    search? :string
   }
   
  
 export const GetBorrowerList = async (params: GetBorrowerListParams) => {
-    return axiosInstance.get<BaseApiPaginationResponseType<AddEditBorrowerType>>(endpoints?.borrower?.list(params))
+    return axiosInstance.get<BaseApiPaginationResponseType<AddEditBorrowerType>>(endpoints.borrower.add, {
+      params
+    })
     ?.then((response) => response?.data)
   };
 

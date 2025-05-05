@@ -9,12 +9,10 @@ import Paper from "@mui/material/Paper";
 import Link from "next/link";
 import { Alert, Box, IconButton, Pagination, Tooltip } from "@mui/material";
 import { useState } from "react";
-import { useMutation, useQuery } from "react-query";
+import { useMutation } from "react-query";
 import {
   DeleteBorrowerMutation,
-  GetBorrowerList,
 } from "@/api/functions/borrower.api";
-import { useAppSelector } from "@/hooks/useAppSelector";
 import MuiModalWrapper from "../Model/MuiModalWrapper";
 import BorrowersCreate from "./BorrowersCreate";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -24,34 +22,28 @@ import FilterComponent from "./FilterComponent";
 import ConfirmationComponent from "../Model/ConfirmationComponent";
 import { AddEditBorrowerType } from "@/schema/borrower.schema";
 import dayjs from "dayjs";
-import { QUERYKEY } from "@/config/QueryKey";
+import useGetBorrowers from "@/hooks/useGetBorrowers";
 
 export default function BorrowersTable() {
+ 
   const { toastSuccess } = useNotiStack();
-  const { isLoggedIn } = useAppSelector((s) => s.userSlice);
   const [currentPage, setCurrentPage] = useState(1);
   const [open, setOpen] = useState(false);
   const [selectedBorrower, setSelectedBorrower] = useState<
     AddEditBorrowerType | undefined
   >(undefined);
   const [isConfirm, setIsConfirm] = useState(false);
+  const [search, setSearch] = useState("")
+
+  const {refetch, data:borrowerList} = useGetBorrowers({
+    page : currentPage,
+    limit :8,
+    search : search || undefined
+  })
 
   const handleConfirmationModel = () => {
     setIsConfirm(false);
   };
-
-  const { data: borrowerList, refetch } = useQuery({
-    queryFn: () =>
-      GetBorrowerList({
-        page: Number(currentPage),
-        limit: 10,
-      }),
-    queryKey: [QUERYKEY.borrower.list, currentPage],
-    enabled: !!isLoggedIn,
-    select(data) {
-      return data.data;
-    },
-  });
 
   const { mutateAsync: deleteMutation, isLoading } = useMutation({
     mutationFn: DeleteBorrowerMutation,
@@ -83,7 +75,11 @@ export default function BorrowersTable() {
 
   return (
     <>
-      <FilterComponent handleAdd={handleAdd} />
+      <FilterComponent handleAdd={handleAdd}
+       handleChangeValue={(val)=>{
+        setSearch(val)
+       }}
+      />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
