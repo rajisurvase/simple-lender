@@ -1,4 +1,3 @@
-import { AddBorrower } from '@/api/functions/borrower.api';
 import * as Yup from "yup";
 
 export const AddBorrowerSchema = Yup

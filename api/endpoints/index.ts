@@ -43,9 +43,7 @@ export const endpoints = {
     list : (params: GetAllTransactionParams)=>{
       return `/records/${params?.recordId}/transactions?page=${params?.page}&size=${params?.size}`
     },
-    add : (borrowerId : string)=>{
-      return `records/${borrowerId}/transactions`
-    },
+    add : "transaction/",
     delete : (params : {borrowerId : string, recordId : string})=>{
       return `records/${params?.borrowerId}/transactions/${params?.recordId}`
     }

@@ -33,3 +33,11 @@ export const PERIODS = [
       value: 365
     }
   ]
+
+
+export const INTEREST_TYPES = {
+    PERCENTAGE: 'percentage',
+    FLAT: 'flat',
+  } as const;
+  
+export type IInterestType = typeof INTEREST_TYPES[keyof typeof INTEREST_TYPES];
