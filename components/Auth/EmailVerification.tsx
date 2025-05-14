@@ -34,9 +34,9 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({token, email}) => 
     }
   })
 
-  const handleCloseAction = useCallback(()=>{
+  const handleCloseAction = ()=>{
     router?.push("/auth/signin")
-  },[])
+  }
 
 
   if (isLoading) {

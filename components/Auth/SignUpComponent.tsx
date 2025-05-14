@@ -31,7 +31,7 @@ const SignUpComponent = () => {
   const handleClose = useCallback(()=>{
     setIsConfirm(false)
     router.push(ROUTES.LOGIN)
-  },[setIsConfirm])
+  },[setIsConfirm, router])
 
   const { control, handleSubmit } = useForm<ISignupForm>({
     resolver: yupResolver(signupValidationSchema),

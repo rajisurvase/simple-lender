@@ -50,6 +50,7 @@ export const endpoints = {
       return `records/${params?.borrowerId}/transactions/${params?.recordId}`
     }
   }
+  
 };
 
 

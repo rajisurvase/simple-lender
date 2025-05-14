@@ -38,11 +38,11 @@ const TransactionComponent = () => {
   const handleClose = React.useCallback(() => {
     setIsAdd(false);
     setIsEdit(undefined)
-  }, [setIsAdd, isAdd, setIsEdit, isEdit]);
+  }, [setIsAdd, setIsEdit]);
 
   const handleClick = useCallback((item : {id: string})=>{
      setIsEdit(item)
-  },[isEdit, setIsEdit])
+  },[setIsEdit])
 
   return (
     <>

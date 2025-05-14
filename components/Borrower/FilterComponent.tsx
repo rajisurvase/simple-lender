@@ -1,5 +1,5 @@
 import { useDebounce } from '@/hooks/useDebounce';
-import CustomButton from '@/ui/Buttons/CustomButton'
+// import CustomButton from '@/ui/Buttons/CustomButton'
 import DataSaverOnRoundedIcon from '@mui/icons-material/DataSaverOnRounded';
 // import CustomInput from '@/ui/Inputs/CustomInput'
 import { Box, Button, Stack, TextField, Typography, styled } from '@mui/material'
@@ -24,7 +24,7 @@ const FilterComponent = ({handleAdd, handleChangeValue} : FilterComponentProps) 
 
  useMemo(()=>{
   handleChangeValue && handleChangeValue(searchValue)
- },[searchValue])
+ },[searchValue, handleChangeValue])
  
   return (
     <FilterComponentStyle>
