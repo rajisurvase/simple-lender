@@ -1,11 +1,14 @@
 "use client";
 
 import {
+  Alert,
   Box,
   Button,
+  CircularProgress,
   Divider,
   Drawer,
   IconButton,
+  Pagination,
   Stack,
   Table,
   TableBody,
@@ -23,6 +26,8 @@ import AddTransaction, { AddTransactionRef } from "./AddTransaction";
 import EditTransaction from "./EditTransaction";
 import { useMutation } from "react-query";
 import { AddEditTransaction } from "@/api/functions/transaction.api";
+import useGetTranscations from "@/hooks/useGetTranscations";
+import { ITransactionType } from "@/typescript/types/transcation.type";
 
 const FilterTransactions = dynamic(
   () => import("./Filter/FilterTransactions"),
@@ -36,8 +41,14 @@ const FilterTransactions = dynamic(
 
 const TransactionComponent = () => {
   const formRef = useRef<AddTransactionRef>(null);
-  const [isAdd, setIsAdd] = React.useState(true);
-  const [isEdit, setIsEdit] = React.useState<{id: string}>()
+  const [isAdd, setIsAdd] = React.useState(false);
+  const [isEdit, setIsEdit] = React.useState<ITransactionType>()
+  const [currentPage, setCurrentPage] = useState(1)
+  const {data : transactions, isLoading} = useGetTranscations({
+    limit :10,
+    page :currentPage
+  })
+
   const handleClose = React.useCallback(() => {
     setIsAdd(false);
     setIsEdit(undefined)
@@ -47,9 +58,20 @@ const TransactionComponent = () => {
     mutationFn : AddEditTransaction,
   })
 
-  const handleClick = useCallback((item : {id: string})=>{
+  const handleClick = useCallback((item: ITransactionType)=>{
      setIsEdit(item)
   },[setIsEdit])
+
+  const handleExternalSubmit = () => {
+    formRef.current?.submit();
+  };
+
+   const handlePageChange = (
+      event: React.ChangeEvent<unknown>,
+      page: number
+    ) => {
+      setCurrentPage(page);
+    };
 
   return (
     <>
@@ -64,18 +86,40 @@ const TransactionComponent = () => {
             <TransactionTableHead />
           </TableHead>
           <TableBody>
-            <TransactionTableBodyRow handleClick={()=>handleClick({id: "dsfsdfsdf"})} />
-            <TransactionTableBodyRow />
-            <TransactionTableBodyRow />
-            <TransactionTableBodyRow />
-            <TransactionTableBodyRow />
-            <TransactionTableBodyRow />
+              {isLoading ? 
+              ("Loading...") :
+              transactions?.docs.length ? (
+                <>
+                {transactions.docs.map((item)=>(
+                  <TransactionTableBodyRow 
+                  key={item._id}
+                  item={item}
+                  handleClick={()=>{
+                    handleClick(item)
+                  }}
+                  />
+                ))}
+                </>
+              ) : (
+                <Alert severity="error">No Data Found..!</Alert>
+              )}
           </TableBody>
         </Table>
+          
       </TableContainer>
+       <Box display="flex" justifyContent="center" p={2}>
+                  {Number(transactions?.docs?.length) > 0 && (
+                    <Pagination
+                      count={transactions?.pages}
+                      page={transactions?.page}
+                      onChange={handlePageChange}
+                    />
+                  )}
+      </Box> 
+
       <Drawer
         anchor="right"
-        open={isAdd || Boolean(!!isEdit?.id)}
+        open={isAdd || Boolean(!!isEdit?._id)}
         onClose={handleClose}
         sx={{
           flexShrink: 0,
@@ -89,8 +133,8 @@ const TransactionComponent = () => {
         }}
       >
         <Stack display="flex" direction="row" justifyContent="space-between" px={1} alignItems="center" >
-          <Typography variant="h6" fontWeight="bold" >{isEdit?.id? "View/Edit" : "Add"} Transaction</Typography>
-          <IconButton>
+          <Typography variant="h6" fontWeight="bold" >{isEdit?._id? "View/Edit" : "Add"} Transaction</Typography>
+          <IconButton onClick={handleClose} >
               <HighlightOffRoundedIcon />
           </IconButton>
         </Stack>
@@ -98,8 +142,10 @@ const TransactionComponent = () => {
         <Divider />
         </Box>
         <Box px={1} >
-          {isEdit?.id? 
-          <EditTransaction />
+          {isEdit?._id? 
+          <EditTransaction
+           item={isEdit}
+          />
          : <AddTransaction 
            handleFormSubmit={(payload)=>{
             mutateAsync(payload)
@@ -125,12 +171,10 @@ const TransactionComponent = () => {
               variant="contained"
               fullWidth
               sx={{ background: "#D765FF" }}
-              onClick={() => {
-                // Handle save action
-                // handleClose(); // Close drawer after save
-              }}
+              onClick={handleExternalSubmit}
+              disabled={isProccessing}
             >
-              Save
+              {isProccessing ? <CircularProgress size={13} /> : "Save"}
             </Button>
           </Stack>
         </Box>

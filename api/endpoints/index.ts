@@ -1,7 +1,5 @@
 /* eslint-disable import/no-cycle */
-import { GetBorrowerListParams } from "../functions/borrower.api";
 import { GetAllRecordsParams } from "../functions/record.api";
-import { GetAllTransactionParams } from "../functions/transaction.api";
 
 export const baseUrl = process.env.NEXT_APP_BASE_URL;
 export const baseUrlApi = `${process.env.NEXT_APP_BASE_URL}/api/`;
@@ -40,9 +38,9 @@ export const endpoints = {
     }
   },
   transaction : {
-    list : (params: GetAllTransactionParams)=>{
-      return `/records/${params?.recordId}/transactions?page=${params?.page}&size=${params?.size}`
-    },
+    // list : (params: GetAllTransactionParams)=>{
+    //   return `/records/${params?.recordId}/transactions?page=${params?.page}&size=${params?.size}`
+    // },
     add : "transaction/",
     delete : (params : {borrowerId : string, recordId : string})=>{
       return `records/${params?.borrowerId}/transactions/${params?.recordId}`
