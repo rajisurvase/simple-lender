@@ -28,6 +28,7 @@ import { useMutation } from "react-query";
 import { AddEditTransaction } from "@/api/functions/transaction.api";
 import useGetTranscations from "@/hooks/useGetTranscations";
 import { ITransactionType } from "@/typescript/types/transcation.type";
+import FilterComponent from "../Borrower/FilterComponent";
 
 const FilterTransactions = dynamic(
   () => import("./Filter/FilterTransactions"),
@@ -44,9 +45,12 @@ const TransactionComponent = () => {
   const [isAdd, setIsAdd] = React.useState(false);
   const [isEdit, setIsEdit] = React.useState<ITransactionType>()
   const [currentPage, setCurrentPage] = useState(1)
-  const {data : transactions, isLoading} = useGetTranscations({
-    limit :10,
-    page :currentPage
+  const [search, setSearch] = useState("")
+
+  const { data: transactions, isLoading } = useGetTranscations({
+    limit: 10,
+    page: currentPage,
+    search
   })
 
   const handleClose = React.useCallback(() => {
@@ -54,30 +58,33 @@ const TransactionComponent = () => {
     setIsEdit(undefined)
   }, [setIsAdd, setIsEdit]);
 
-  const {mutateAsync, isLoading: isProccessing} = useMutation({
-    mutationFn : AddEditTransaction,
+  const { mutateAsync, isLoading: isProccessing } = useMutation({
+    mutationFn: AddEditTransaction,
   })
 
-  const handleClick = useCallback((item: ITransactionType)=>{
-     setIsEdit(item)
-  },[setIsEdit])
+  const handleClick = useCallback((item: ITransactionType) => {
+    setIsEdit(item)
+  }, [setIsEdit])
 
   const handleExternalSubmit = () => {
     formRef.current?.submit();
   };
 
-   const handlePageChange = (
-      event: React.ChangeEvent<unknown>,
-      page: number
-    ) => {
-      setCurrentPage(page);
-    };
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    page: number
+  ) => {
+    setCurrentPage(page);
+  };
 
   return (
     <>
-      <FilterTransactions
+      <FilterComponent
         handleAdd={() => {
           setIsAdd(true);
+        }}
+        handleChangeValue={(val) => {
+          setSearch(val)
         }}
       />
       <TableContainer>
@@ -86,36 +93,36 @@ const TransactionComponent = () => {
             <TransactionTableHead />
           </TableHead>
           <TableBody>
-              {isLoading ? 
+            {isLoading ?
               ("Loading...") :
               transactions?.docs.length ? (
                 <>
-                {transactions.docs.map((item)=>(
-                  <TransactionTableBodyRow 
-                  key={item._id}
-                  item={item}
-                  handleClick={()=>{
-                    handleClick(item)
-                  }}
-                  />
-                ))}
+                  {transactions.docs.map((item) => (
+                    <TransactionTableBodyRow
+                      key={item._id}
+                      item={item}
+                      handleClick={() => {
+                        handleClick(item)
+                      }}
+                    />
+                  ))}
                 </>
               ) : (
                 <Alert severity="error">No Data Found..!</Alert>
               )}
           </TableBody>
         </Table>
-          
+
       </TableContainer>
-       <Box display="flex" justifyContent="center" p={2}>
-                  {Number(transactions?.docs?.length) > 0 && (
-                    <Pagination
-                      count={transactions?.pages}
-                      page={transactions?.page}
-                      onChange={handlePageChange}
-                    />
-                  )}
-      </Box> 
+      <Box display="flex" justifyContent="center" p={2}>
+        {Number(transactions?.docs?.length) > 0 && (
+          <Pagination
+            count={transactions?.pages}
+            page={transactions?.page}
+            onChange={handlePageChange}
+          />
+        )}
+      </Box>
 
       <Drawer
         anchor="right"
@@ -133,25 +140,25 @@ const TransactionComponent = () => {
         }}
       >
         <Stack display="flex" direction="row" justifyContent="space-between" px={1} alignItems="center" >
-          <Typography variant="h6" fontWeight="bold" >{isEdit?._id? "View/Edit" : "Add"} Transaction</Typography>
+          <Typography variant="h6" fontWeight="bold" >{isEdit?._id ? "View/Edit" : "Add"} Transaction</Typography>
           <IconButton onClick={handleClose} >
-              <HighlightOffRoundedIcon />
+            <HighlightOffRoundedIcon />
           </IconButton>
         </Stack>
         <Box py={1}   >
-        <Divider />
+          <Divider />
         </Box>
         <Box px={1} >
-          {isEdit?._id? 
-          <EditTransaction
-           item={isEdit}
-          />
-         : <AddTransaction 
-           handleFormSubmit={(payload)=>{
-            mutateAsync(payload)
-           }}
-           ref={formRef}
-         /> }
+          {isEdit?._id ?
+            <EditTransaction
+              item={isEdit}
+            />
+            : <AddTransaction
+              handleFormSubmit={(payload) => {
+                mutateAsync(payload)
+              }}
+              ref={formRef}
+            />}
         </Box>
         <Box mt="auto"> {/* This pushes the buttons to the bottom */}
           <Stack
@@ -159,7 +166,7 @@ const TransactionComponent = () => {
             display="flex"
             flexDirection="row"
             justifyContent="space-between"
-          columnGap={2}
+            columnGap={2}
             p={2}
             bgcolor="background.paper" // Adjust as needed
           >
