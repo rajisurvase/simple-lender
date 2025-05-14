@@ -14,13 +14,15 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import TransactionTableHead from "./Table/TransactionTableHead";
 import TransactionTableBodyRow from "./Table/TransactionTableBodyRow";
 import dynamic from "next/dynamic";
 import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
-import AddTransaction from "./AddTransaction";
+import AddTransaction, { AddTransactionRef } from "./AddTransaction";
 import EditTransaction from "./EditTransaction";
+import { useMutation } from "react-query";
+import { AddEditTransaction } from "@/api/functions/transaction.api";
 
 const FilterTransactions = dynamic(
   () => import("./Filter/FilterTransactions"),
@@ -33,12 +35,17 @@ const FilterTransactions = dynamic(
 // import FilterTransactions from './Filter/FilterTransactions'
 
 const TransactionComponent = () => {
+  const formRef = useRef<AddTransactionRef>(null);
   const [isAdd, setIsAdd] = React.useState(true);
   const [isEdit, setIsEdit] = React.useState<{id: string}>()
   const handleClose = React.useCallback(() => {
     setIsAdd(false);
     setIsEdit(undefined)
   }, [setIsAdd, setIsEdit]);
+
+  const {mutateAsync, isLoading: isProccessing} = useMutation({
+    mutationFn : AddEditTransaction,
+  })
 
   const handleClick = useCallback((item : {id: string})=>{
      setIsEdit(item)
@@ -93,7 +100,12 @@ const TransactionComponent = () => {
         <Box px={1} >
           {isEdit?.id? 
           <EditTransaction />
-         : <AddTransaction /> }
+         : <AddTransaction 
+           handleFormSubmit={(payload)=>{
+            mutateAsync(payload)
+           }}
+           ref={formRef}
+         /> }
         </Box>
         <Box mt="auto"> {/* This pushes the buttons to the bottom */}
           <Stack

@@ -1,27 +1,23 @@
-// CustomAutocomplete.jsx
+import React from "react";
+import Autocomplete, { AutocompleteProps } from "@mui/material/Autocomplete";
+// import CustomInput from '../Inputs/CustomInput';
 
-import React from 'react';
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
-import CustomInput from '../Inputs/CustomInput';
+// type CustomAutocompleteProps = {
+//     options : {label :string}[]
+//     label : string
+//     onInputChange? :(event: React.SyntheticEvent, value: string, reason: AutocompleteInputChangeReason) => void,
+//     inputValue? :string
+// }
 
-type CustomAutocompleteProps = {
-    options : {label :string}[]
-    label : string
+// const CustomAutocomplete = ({ options, label,inputValue,onInputChange, ...otherProps } : CustomAutocompleteProps) => {
+function CustomAutocomplete<
+  T,
+  Multiple extends boolean | undefined = false,
+  DisableClearable extends boolean | undefined = false,
+  FreeSolo extends boolean | undefined = false
+>(props: AutocompleteProps<T, Multiple, DisableClearable, FreeSolo>) {
+  
+  return <Autocomplete {...props} />;
 }
-
-const CustomAutocomplete = ({ options, label, ...otherProps } : CustomAutocompleteProps) => {
-  return (
-    <Autocomplete
-      {...otherProps}
-      options={options}
-      getOptionLabel={(option) => option?.label}
-      renderInput={(params) => <CustomInput {...params}
-      placeholder={label}
-    //   label={label}
-       />}
-    />
-  );
-};
 
 export default CustomAutocomplete;
