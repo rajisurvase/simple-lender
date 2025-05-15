@@ -32,7 +32,7 @@ export const GetBorrowerList = async (params: GetBorrowerListParams) => {
   }
 
   export const EditBorrowerMutation = async (params : AddEditBorrowerType)=>{
-    return axiosInstance.post(endpoints.borrower.add, params)?.then((res)=>res?.data)
+    return axiosInstance.post(endpoints.borrower.add, {...params, borrower_id : params._id})?.then((res)=>res?.data)
    }
 
    type DeleteBorrowerMutationParams ={

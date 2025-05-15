@@ -99,8 +99,8 @@ export default function BorrowersTable(props : IBorrowersTablePropsType) {
               <TableCell align="center">Full Name</TableCell>
               <TableCell align="center">Email</TableCell>
               <TableCell align="center">Phone </TableCell>
-              <TableCell align="right">D.O.B</TableCell>
-              <TableCell align="right">Address</TableCell>
+              <TableCell align="center">D.O.B</TableCell>
+              <TableCell align="center">Address</TableCell>
               <TableCell align="right">Action</TableCell>
             </TableRow>
           </TableHead>
@@ -122,9 +122,9 @@ export default function BorrowersTable(props : IBorrowersTablePropsType) {
                   <TableCell align="center">{row?.email}</TableCell>
                   <TableCell align="center">{row?.phone}</TableCell>
                   <TableCell align="center">
-                    {dayjs(row?.dob).format("DD/MM/YYYy")}
+                    {dayjs(row?.dob).format("DD MMM, YYYY")}
                   </TableCell>
-                  <TableCell align="center">{row?.address}</TableCell>
+                  <TableCell align="center" >{row?.address}</TableCell>
                   <TableCell align="right">
                     <Tooltip
                       title="Edit"

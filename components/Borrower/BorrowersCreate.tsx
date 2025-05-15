@@ -64,13 +64,11 @@ const BorrowersCreate = ({
   const { mutateAsync: editBorrowerMutation, isLoading: isEditLoading } =
     useMutation({
       mutationFn: EditBorrowerMutation,
-      onSuccess: (response) => {
-        if (response?._id) {
+      onSuccess: () => {
           toastSuccess("Borrower Edit successfully");
           reset();
           handleClose();
           refetch();
-        }
       },
       onError: () => {
         toastError("Something went wrong");

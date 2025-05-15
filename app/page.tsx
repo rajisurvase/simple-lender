@@ -4,7 +4,6 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import KeyboardDoubleArrowUpOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowUpOutlined";
 import RadioButtonCheckedOutlinedIcon from "@mui/icons-material/RadioButtonCheckedOutlined";
 import BorrowersTable from "@/components/Borrower/BorrowersTable";
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 type IpageProps = {
   searchParams : {
@@ -17,7 +16,7 @@ export default function Home({searchParams} : IpageProps) {
     <div>
 
         <Grid container spacing={4} p={2}>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={4} >
             <Box
               component={Card}
               display={"flex"}
@@ -41,7 +40,7 @@ export default function Home({searchParams} : IpageProps) {
               </Box>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={4}>
             <Box
               component={Card}
               display={"flex"}
@@ -64,7 +63,7 @@ export default function Home({searchParams} : IpageProps) {
               </Box>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={4}>
             <Box
               component={Card}
               display={"flex"}
@@ -84,29 +83,6 @@ export default function Home({searchParams} : IpageProps) {
               </Box>
               <Box pr={2}>
                 <RadioButtonCheckedOutlinedIcon color="primary" />
-              </Box>
-            </Box>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <Box
-              component={Card}
-              display={"flex"}
-              alignItems={"center"}
-              justifyContent={"space-between"}
-            >
-              <Divider
-                orientation="vertical"
-                color="#FDA228"
-                sx={{ height: 100, width: "0.2rem" }}
-              />
-              <Box>
-                <Typography>Active users </Typography>
-                <Typography>
-                  <GroupAddIcon /> 0
-                </Typography>
-              </Box>
-              <Box pr={2}>
-                <KeyboardDoubleArrowUpOutlinedIcon color="success" />
               </Box>
             </Box>
           </Grid>
