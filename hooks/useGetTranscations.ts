@@ -9,7 +9,7 @@ const useGetTranscations = (params:IGetAllTransactionParamsType) => {
     return useQuery({
         queryFn: () =>
             GetAllTransaction(params),
-        queryKey: [QUERYKEY.transcation.list, params],
+        queryKey: [QUERYKEY.transcation.list, JSON.stringify(params)],
         enabled: !!isLoggedIn,
         select(data) {
             return data.data;

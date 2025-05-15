@@ -28,10 +28,9 @@ import { useMutation } from "react-query";
 import { AddEditTransaction } from "@/api/functions/transaction.api";
 import useGetTranscations from "@/hooks/useGetTranscations";
 import { ITransactionType } from "@/typescript/types/transcation.type";
-import FilterComponent from "../Borrower/FilterComponent";
 
-const FilterTransactions = dynamic(
-  () => import("./Filter/FilterTransactions"),
+const FilterComponent = dynamic(
+  () => import("../Borrower/FilterComponent"),
   { ssr: false }
 );
 
@@ -40,7 +39,11 @@ const FilterTransactions = dynamic(
 // `;
 // import FilterTransactions from './Filter/FilterTransactions'
 
-const TransactionComponent = () => {
+type ITransactionComponentType = {
+  BorrowerId?: string
+}
+
+const TransactionComponent = ({BorrowerId} : ITransactionComponentType) => {
   const formRef = useRef<AddTransactionRef>(null);
   const [isAdd, setIsAdd] = React.useState(false);
   const [isEdit, setIsEdit] = React.useState<ITransactionType>()
@@ -50,7 +53,8 @@ const TransactionComponent = () => {
   const { data: transactions, isLoading } = useGetTranscations({
     page: currentPage,
     limit: 8,
-    search : search  || undefined
+    search : search  || undefined,
+    borrower_id : BorrowerId
   })
 
   const handleClose = React.useCallback(() => {

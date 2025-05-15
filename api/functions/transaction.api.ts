@@ -16,7 +16,7 @@ export type ITransaction = {
 }
 
 
-export type IGetAllTransactionParamsType = {search? : string, page : number, limit : number}
+export type IGetAllTransactionParamsType = {search? : string, page : number, limit : number, borrower_id?: string}
 export const GetAllTransaction = async (params  :IGetAllTransactionParamsType)=>{
     return axiosInstance.get<BaseApiPaginationResponseType<ITransactionType>>(endpoints?.transaction?.add, {
         params 
