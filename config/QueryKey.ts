@@ -9,5 +9,8 @@ export const QUERYKEY = {
     },
     borrower : {
         list : "borrower-list"
+    },
+    transcation : {
+        list : "transcation-list"
     }
 }

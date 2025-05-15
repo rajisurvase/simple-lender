@@ -1,19 +1,17 @@
 "use client"
-import { useMemo } from "react";
-import { useSnackbar } from "notistack";
 import { Box, Card, Divider, Grid, Typography } from "@mui/material";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import KeyboardDoubleArrowUpOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowUpOutlined";
 import RadioButtonCheckedOutlinedIcon from "@mui/icons-material/RadioButtonCheckedOutlined";
 import BorrowersTable from "@/components/Borrower/BorrowersTable";
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
-
-export default function Home() {
-  const { enqueueSnackbar } = useSnackbar();
-
-  // useMemo(() => {
-  //   enqueueSnackbar("Hey! Welcome to Simple Lender!");
-  // }, []);
+type IpageProps = {
+  searchParams : {
+    search ? : string
+  }
+}
+export default function Home({searchParams} : IpageProps) {
 
   return (
     <div>
@@ -32,7 +30,7 @@ export default function Home() {
                 sx={{ height: 100, width: "0.2rem" }}
               />
               <Box>
-                <Typography>Total Amount </Typography>
+                <Typography>Total Principle</Typography>
                 <Typography>
                   ₹{" "}
                  0
@@ -56,7 +54,7 @@ export default function Home() {
                 sx={{ height: 100, width: "0.2rem" }}
               />
               <Box>
-                <Typography>Total Interest </Typography>
+                <Typography>Total Borrowers </Typography>
                 <Typography>
                   ₹ 0
                 </Typography>
@@ -79,7 +77,7 @@ export default function Home() {
                 sx={{ height: 100, width: "0.2rem" }}
               />
               <Box>
-                <Typography>Total Principal </Typography>
+                <Typography>Total Transcations </Typography>
                 <Typography>
                   ₹ 0
                 </Typography>
@@ -102,9 +100,9 @@ export default function Home() {
                 sx={{ height: 100, width: "0.2rem" }}
               />
               <Box>
-                <Typography>Total Amount </Typography>
+                <Typography>Active users </Typography>
                 <Typography>
-                  ₹ 0
+                  <GroupAddIcon /> 0
                 </Typography>
               </Box>
               <Box pr={2}>
@@ -121,7 +119,7 @@ export default function Home() {
                  <Button variant='contained' sx={{borderRadius : '1.5rem', backgroundColor : "#7D8CC4", textTransform:"none"}} endIcon={<AddIcon  sx={{fontSize:'small'}} />} >Add Borrower  </Button>
               </Link>
             </Box> */}
-          <BorrowersTable />
+          <BorrowersTable searchValue={searchParams.search} />
        </Card>
   </div>
   );

@@ -29,9 +29,8 @@ export default function TransitionTable({recordId}: TransitionTableProps) {
     
     const  {data : transactionList, refetch} = useQuery({
       queryFn : ()=>GetAllTransaction({
-         page : Number(currentPage-1),
-         size : 10,
-         recordId: "20001"
+         page : Number(currentPage),
+         limit : 10,
       }),
       queryKey : ["transaction", "list"],
       enabled : !!recordId
@@ -65,7 +64,7 @@ export default function TransitionTable({recordId}: TransitionTableProps) {
             <TableCell align='right' >Action</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
+        {/* <TableBody>
           {Number(transactionList?.transation?.length)>0 && transactionList?.transation?.map((row, index : number) => (
             <TableRow
               key={row.id}
@@ -93,15 +92,15 @@ export default function TransitionTable({recordId}: TransitionTableProps) {
               </TableCell>
             </TableRow> 
           ))}
-        </TableBody>
+        </TableBody> */}
       </Table>
-      {!transactionList?.transation?.length && <Alert severity="error" >No Data Found..!</Alert>}
+      {/* {!transactionList?.transation?.length && <Alert severity="error" >No Data Found..!</Alert>} */}
       <Box display="flex" justifyContent="center" p={2} >
-      {Number(transactionList?.transation?.length) > 0 &&   <Pagination
+      {/* {Number(transactionList?.transation?.length) > 0 &&   <Pagination
         count={Number(transactionList?.count)}
         page={currentPage}
         onChange={handlePageChange}
-      /> }
+      /> } */}
 
       <MuiModalWrapper open={open || !!selectedTransaction?.id} title={`${selectedTransaction?.id? "Edit" : "Add"} Transaction`}  onClose={()=>{
         setOpen(false)

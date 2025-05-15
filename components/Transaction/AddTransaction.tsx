@@ -1,4 +1,4 @@
-import { INTEREST_TYPES, PERIODS } from "@/config/constants";
+import { INTEREST_TYPES, IPeriodType, PERIODS } from "@/config/constants";
 import { useDebounce } from "@/hooks/useDebounce";
 import useGetBorrowers from "@/hooks/useGetBorrowers";
 import {
@@ -34,8 +34,7 @@ export interface AddTransactionRef {
   submit: () => void;
 }
 
-const AddTransaction = forwardRef<AddTransactionRef, IAddTransactionProps>(
-  ({ handleFormSubmit }, ref)=> {
+const AddTransaction = forwardRef<AddTransactionRef, IAddTransactionProps>(({ handleFormSubmit }, ref)=> {
   const [value, setValue] = useState<string>();;
   const searchValue = useDebounce(value, 500);
   const { isLoading, data: borrowers } = useGetBorrowers({
@@ -52,13 +51,18 @@ const AddTransaction = forwardRef<AddTransactionRef, IAddTransactionProps>(
     resolver: yupResolver(TransactionSchema),
     defaultValues: {
       interest_type: INTEREST_TYPES.PERCENTAGE,
+      transaction_date : dayjs().toString()
     },
   });
 
   const rateType = watch("interest_type");
 
   const onSubmit = handleSubmit((data) => {
-    handleFormSubmit(data)
+    handleFormSubmit({
+      ...data,
+      frequency : data.frequency.toLowerCase(),
+      transaction_date : dayjs(data.transaction_date).format("YYYY-MM-DD")
+    })
   });
 
   useImperativeHandle(ref, () => ({
@@ -202,9 +206,9 @@ const AddTransaction = forwardRef<AddTransactionRef, IAddTransactionProps>(
                     id="demo-simple-select"
                     {...field}
                   >
-                    {PERIODS?.map((item, index) => (
-                      <MenuItem key={index} value={item?.value}>
-                        {item?.name}
+                    {Object.values(IPeriodType)?.map((item, index) => (
+                      <MenuItem key={index} value={item}>
+                        {item}
                       </MenuItem>
                     ))}
                   </Select>
@@ -238,4 +242,5 @@ const AddTransaction = forwardRef<AddTransactionRef, IAddTransactionProps>(
   );
 });
 
+AddTransaction.displayName = 'AddTransaction';
 export default AddTransaction;

@@ -15,15 +15,11 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { useAppSelector } from "@/hooks/useAppSelector";
-// import { logout } from "@/reduxtoolkit/slices/userSlice";
 import styles from "@/styles/layout/header.module.scss";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { logout } from "@/redux-toolkit/slices/userSlice";
 import CustomButton from "@/ui/Buttons/CustomButton";
-// import CustomButton from "@/ui/Buttons/CustomButton";
-
-
 
 
 interface Props {

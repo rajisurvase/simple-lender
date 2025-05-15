@@ -17,7 +17,8 @@ const Page = ({ params }: IPageProps) => {
     <Box m="1rem">
        <BorrowerDetails />
       <Card>
-        <TransitionTable recordId={params?.RecordId as string} />
+        dsf
+        {/* <TransitionTable recordId={params?.RecordId as string} /> */}
       </Card>
     </Box>
   );

@@ -18,13 +18,24 @@ import BorrowersCreate from "./BorrowersCreate";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import useNotiStack from "@/hooks/useNotistack";
-import FilterComponent from "./FilterComponent";
 import ConfirmationComponent from "../Model/ConfirmationComponent";
 import { AddEditBorrowerType } from "@/schema/borrower.schema";
 import dayjs from "dayjs";
 import useGetBorrowers from "@/hooks/useGetBorrowers";
+import dynamic from "next/dynamic";
 
-export default function BorrowersTable() {
+
+const FilterComponent = dynamic(
+  () => import("./FilterComponent"),
+  { ssr: false }
+);
+
+type IBorrowersTablePropsType = {
+  searchValue ? : string
+}
+
+export default function BorrowersTable(props : IBorrowersTablePropsType) {
+  const {searchValue} = props
  
   const { toastSuccess } = useNotiStack();
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,7 +49,7 @@ export default function BorrowersTable() {
   const {refetch, data:borrowerList} = useGetBorrowers({
     page : currentPage,
     limit :8,
-    search : search || undefined
+    search : search || searchValue || undefined
   })
 
   const handleConfirmationModel = () => {
@@ -75,7 +86,8 @@ export default function BorrowersTable() {
 
   return (
     <>
-      <FilterComponent handleAdd={handleAdd}
+      <FilterComponent 
+      handleAdd={handleAdd}
        handleChangeValue={(val)=>{
         setSearch(val)
        }}

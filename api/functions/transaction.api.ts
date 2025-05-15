@@ -2,6 +2,8 @@
 import { ITransactionSchemaType } from "@/schema/transaction.schema"
 import axiosInstance from "../axiosInstance"
 import { endpoints } from "../endpoints"
+import { BaseApiPaginationResponseType } from "@/typescript/types/common.type"
+import { ITransactionType } from "@/typescript/types/transcation.type"
 
 
 
@@ -12,14 +14,13 @@ export type ITransaction = {
   withdrawAmount: string
   depositAmount: string
 }
-export type GetAllTransactionResponse = {
-    transation : ITransaction[],
-    count : string
-}
 
-export type GetAllTransactionParams = {recordId : string, page : number, size : number}
-export const GetAllTransaction = async (params  :GetAllTransactionParams )=>{
-    return axiosInstance.get<GetAllTransactionResponse>(endpoints?.transaction?.list(params))?.then((res)=>res?.data)
+
+export type IGetAllTransactionParamsType = {search? : string, page : number, limit : number, borrower_id?: string}
+export const GetAllTransaction = async (params  :IGetAllTransactionParamsType)=>{
+    return axiosInstance.get<BaseApiPaginationResponseType<ITransactionType>>(endpoints?.transaction?.add, {
+        params 
+    })?.then((res)=>res?.data)
 }
 
 

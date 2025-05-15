@@ -12,6 +12,7 @@ export default function Home() {
     rate: '',
     duration: ''
   })
+
   const [checkDuration, setCheckDuration] = useState<number>(1);
   const [labelName, setLabelName] = useState<string>('')
 
@@ -28,11 +29,10 @@ export default function Home() {
   };
 
 
-
-
 const TotalInterestEarned =()=>{
-return Number(formValue.amount) * (1 + Number(formValue.rate) / 100 * Number(formValue.duration) / checkDuration) - Number(formValue.amount)
+ return Number(formValue.amount) * (1 + Number(formValue.rate) / 100 * Number(formValue.duration) / checkDuration) - Number(formValue.amount)
 }
+
 const Totalvalue =()=>{
  return Number(formValue.amount) * (1 +Number( formValue.rate) / 100 * Number(formValue.duration) / checkDuration)
 }

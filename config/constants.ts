@@ -3,7 +3,7 @@ export const MAX_SIZE_FILE=2000000;
 export const loginAccessTokenCookieName=process.env.NEXT_APP_TOKEN_NAME ||""
 
 
-enum IPeriodType  {
+export enum IPeriodType  {
     YAER = "Year",
     MONTHLY="Monthly",
     WEEKLY= "Weekly",
@@ -41,3 +41,13 @@ export const INTEREST_TYPES = {
   } as const;
   
 export type IInterestType = typeof INTEREST_TYPES[keyof typeof INTEREST_TYPES];
+
+
+export const FREQUENCY_TYPES = {
+    YEARLY : "yearly",
+    MONTHLY :"monthly",
+    WEEKLY : "weekly",
+    DAILY :"daily"
+} as const
+
+export type IFrequencyType = typeof FREQUENCY_TYPES[keyof typeof FREQUENCY_TYPES]
