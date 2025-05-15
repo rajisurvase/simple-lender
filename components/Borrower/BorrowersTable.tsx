@@ -24,7 +24,12 @@ import { AddEditBorrowerType } from "@/schema/borrower.schema";
 import dayjs from "dayjs";
 import useGetBorrowers from "@/hooks/useGetBorrowers";
 
-export default function BorrowersTable() {
+type IBorrowersTablePropsType = {
+  searchValue ? : string
+}
+
+export default function BorrowersTable(props : IBorrowersTablePropsType) {
+  const {searchValue} = props
  
   const { toastSuccess } = useNotiStack();
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,7 +43,7 @@ export default function BorrowersTable() {
   const {refetch, data:borrowerList} = useGetBorrowers({
     page : currentPage,
     limit :8,
-    search : search || undefined
+    search : search || searchValue || undefined
   })
 
   const handleConfirmationModel = () => {
