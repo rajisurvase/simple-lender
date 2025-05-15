@@ -28,7 +28,7 @@ const FilterComponent = ({handleAdd, handleChangeValue} : FilterComponentProps) 
  
   return (
     <FilterComponentStyle>
-        <Stack display="flex" flexDirection="row" justifyContent="space-between" py={2} columnGap={1} >
+        <Stack display="flex" flexDirection="row" justifyContent="space-between" p={2} columnGap={1} >
         <Box>
             <TextField placeholder='Search by name or email' size='small' 
              value={value || ""}

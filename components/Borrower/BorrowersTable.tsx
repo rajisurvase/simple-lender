@@ -18,11 +18,17 @@ import BorrowersCreate from "./BorrowersCreate";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import useNotiStack from "@/hooks/useNotistack";
-import FilterComponent from "./FilterComponent";
 import ConfirmationComponent from "../Model/ConfirmationComponent";
 import { AddEditBorrowerType } from "@/schema/borrower.schema";
 import dayjs from "dayjs";
 import useGetBorrowers from "@/hooks/useGetBorrowers";
+import dynamic from "next/dynamic";
+
+
+const FilterComponent = dynamic(
+  () => import("./FilterComponent"),
+  { ssr: false }
+);
 
 type IBorrowersTablePropsType = {
   searchValue ? : string
@@ -80,7 +86,8 @@ export default function BorrowersTable(props : IBorrowersTablePropsType) {
 
   return (
     <>
-      <FilterComponent handleAdd={handleAdd}
+      <FilterComponent 
+      handleAdd={handleAdd}
        handleChangeValue={(val)=>{
         setSearch(val)
        }}

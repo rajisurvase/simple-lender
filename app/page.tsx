@@ -4,6 +4,7 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import KeyboardDoubleArrowUpOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowUpOutlined";
 import RadioButtonCheckedOutlinedIcon from "@mui/icons-material/RadioButtonCheckedOutlined";
 import BorrowersTable from "@/components/Borrower/BorrowersTable";
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 type IpageProps = {
   searchParams : {
@@ -29,7 +30,7 @@ export default function Home({searchParams} : IpageProps) {
                 sx={{ height: 100, width: "0.2rem" }}
               />
               <Box>
-                <Typography>Total Amount </Typography>
+                <Typography>Total Principle</Typography>
                 <Typography>
                   ₹{" "}
                  0
@@ -53,7 +54,7 @@ export default function Home({searchParams} : IpageProps) {
                 sx={{ height: 100, width: "0.2rem" }}
               />
               <Box>
-                <Typography>Total Interest </Typography>
+                <Typography>Total Borrowers </Typography>
                 <Typography>
                   ₹ 0
                 </Typography>
@@ -76,7 +77,7 @@ export default function Home({searchParams} : IpageProps) {
                 sx={{ height: 100, width: "0.2rem" }}
               />
               <Box>
-                <Typography>Total Principal </Typography>
+                <Typography>Total Transcations </Typography>
                 <Typography>
                   ₹ 0
                 </Typography>
@@ -99,9 +100,9 @@ export default function Home({searchParams} : IpageProps) {
                 sx={{ height: 100, width: "0.2rem" }}
               />
               <Box>
-                <Typography>Total Amount </Typography>
+                <Typography>Active users </Typography>
                 <Typography>
-                  ₹ 0
+                  <GroupAddIcon /> 0
                 </Typography>
               </Box>
               <Box pr={2}>

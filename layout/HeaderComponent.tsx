@@ -92,7 +92,7 @@ const HeaderComponent = () => {
 
   useMemo(()=>{
     router.push(`/?search=${searchValue}`);
-  },[searchValue])
+  },[searchValue, router])
 
 
   return (
@@ -122,7 +122,7 @@ const HeaderComponent = () => {
                     const isActive = pathname === item.link;
                     return (
                       <>
-                        <Link key={index} href={item?.link}>
+                        <Link key={item.id} href={item?.link}>
                           <Stack
                             display="flex"
                             flexDirection="row"
