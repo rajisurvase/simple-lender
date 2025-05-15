@@ -4,6 +4,7 @@ import {
   Divider,
   Grid,
   IconButton,
+  Skeleton,
   Stack,
   Table,
   TableBody,
@@ -20,6 +21,8 @@ import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 import { ITransactionType } from "@/typescript/types/transcation.type";
 import { INTEREST_TYPES } from "@/config/constants";
+import useGetBorrowerDetails from "@/hooks/useGetBorrowerDetails";
+import { calculateInterest } from "@/lib/calculation";
 
 
 type IEditTransactionPropsType = {
@@ -28,6 +31,9 @@ type IEditTransactionPropsType = {
 
 const EditTransaction = ({item}: IEditTransactionPropsType) => {
   const [showDetails, setShowDetails] = useState(false);
+  const {data : borrowerDetails} = useGetBorrowerDetails(item.borrower_id)
+
+  const totalInterest = calculateInterest({amount : item.adjusted_principal, durationType : item.frequency,interestType : item.interest_type,rate : item.interest_value, transactionDate : item.transaction_date})
 
   return (
     <Box>
@@ -55,7 +61,7 @@ const EditTransaction = ({item}: IEditTransactionPropsType) => {
               {item.borrower_name}
             </Typography>
             <Typography variant="body2" fontWeight="bold">
-              +91 675****453
+              +91 {borrowerDetails?.phone || <Skeleton variant="text" />}
             </Typography>
           </Box>
         </Stack>
@@ -73,13 +79,13 @@ const EditTransaction = ({item}: IEditTransactionPropsType) => {
                </Box>
                <Box>
                <Typography variant="body2" fontWeight="bold">Email</Typography>
-               <Typography>piraji**@gmail.com</Typography>
+               <Typography>{borrowerDetails?.email}</Typography>
                </Box>
              </Stack>
              <Stack display="flex" flexDirection="row" justifyContent="space-between"    >
                <Box>
                <Typography variant="body2" fontWeight="bold">Address</Typography>
-               <Typography>3354 Sheppard Ave, Toronto, Ontario,  M1S 1T4, Canada.</Typography>
+               <Typography>{borrowerDetails?.address || "N/A"}</Typography>
                </Box>
              </Stack>
       </Box>
@@ -103,14 +109,14 @@ const EditTransaction = ({item}: IEditTransactionPropsType) => {
         </Stack>
         <Stack display="flex" flexDirection="row"   justifyContent="space-between"  >
            <Typography variant="body1">Interest Amount ({item.interest_value}{item.interest_type ===INTEREST_TYPES.PERCENTAGE? "%" : "Flat"})</Typography>
-           <Typography variant="body1" color="green">₹6.00</Typography>
+           <Typography variant="body1" color="green">₹{totalInterest.toFixed(2)}</Typography>
         </Stack>
         <Box py={1} >
         <Divider />
         </Box>
         <Stack display="flex" flexDirection="row"   justifyContent="space-between"  >
            <Typography variant="body1">Total Amount</Typography>
-           <Typography variant="body1" color="green">₹606.00</Typography>
+           <Typography variant="body1" color="green">₹{(item.adjusted_principal + totalInterest).toFixed(2)}</Typography>
         </Stack>
       </Box>
       </Stack>

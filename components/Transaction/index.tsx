@@ -48,9 +48,9 @@ const TransactionComponent = () => {
   const [search, setSearch] = useState("")
 
   const { data: transactions, isLoading } = useGetTranscations({
-    limit: 10,
     page: currentPage,
-    search
+    limit: 8,
+    search : search  || undefined
   })
 
   const handleClose = React.useCallback(() => {

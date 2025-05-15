@@ -7,7 +7,7 @@
 import { endpoints } from "../endpoints";
 import axiosInstance from "../axiosInstance";
 import { AddEditBorrowerType } from "@/schema/borrower.schema";
-import { BaseApiPaginationResponseType } from "@/typescript/types/common.type";
+import { BaseApiPaginationResponseType, BaseApiResponse, BaseApiResponseType } from "@/typescript/types/common.type";
 
   //  const cookies = parseCookies();
   // const accessToken = cookies?.[loginAccessTokenCookieName];
@@ -40,4 +40,9 @@ export const GetBorrowerList = async (params: GetBorrowerListParams) => {
    }
    export const DeleteBorrowerMutation =async (params :DeleteBorrowerMutationParams)=>{
     return axiosInstance.delete(endpoints.borrower.delete(params?.id))?.then((response)=>response?.data)
+   }
+
+
+   export const GetBorrowerDetails = async(params : {borrower_id : string})=>{
+    return axiosInstance.get<BaseApiResponseType<AddEditBorrowerType>>(`${endpoints.borrower.add}/${params.borrower_id}`).then((response)=>response.data)
    }

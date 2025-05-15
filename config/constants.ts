@@ -41,3 +41,13 @@ export const INTEREST_TYPES = {
   } as const;
   
 export type IInterestType = typeof INTEREST_TYPES[keyof typeof INTEREST_TYPES];
+
+
+export const FREQUENCY_TYPES = {
+    YEARLY : "yearly",
+    MONTHLY :"monthly",
+    WEEKLY : "weekly",
+    DAILY :"daily"
+} as const
+
+export type IFrequencyType = typeof FREQUENCY_TYPES[keyof typeof FREQUENCY_TYPES]

@@ -1,4 +1,4 @@
-import { IInterestType } from "@/config/constants"
+import { IFrequencyType, IInterestType } from "@/config/constants"
 
 export interface ITransactionType {
      _id: string
@@ -6,7 +6,7 @@ export interface ITransactionType {
   principal_amount: number
   interest_type: IInterestType
   interest_value: number
-  frequency: string
+  frequency: IFrequencyType
   transaction_date: string
   note: string
   adjusted_principal: number
