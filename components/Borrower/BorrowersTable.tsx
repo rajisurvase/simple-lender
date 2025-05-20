@@ -96,80 +96,59 @@ export default function BorrowersTable(props: IBorrowersTablePropsType) {
               <TableCell align="center">Full Name</TableCell>
               <TableCell align="center">Email</TableCell>
               <TableCell align="center">Phone </TableCell>
-              <TableCell align="right">D.O.B</TableCell>
-              <TableCell align="right">Address</TableCell>
+              <TableCell align="center">D.O.B</TableCell>
+              <TableCell align="center">Address</TableCell>
               <TableCell align="right">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {isPending
-              ? Array.from({ length: 5 }).map((_, i) => (
-                  <TableRow key={i}>
-                    <TableCell align="center">
-                      <Skeleton variant="text" width={100} />
-                    </TableCell>
-                    <TableCell align="center">
-                      <Skeleton variant="text" width={120} />
-                    </TableCell>
-                    <TableCell align="center">
-                      <Skeleton variant="text" width={80} />
-                    </TableCell>
-                    <TableCell align="right">
-                      <Skeleton variant="text" width={90} />
-                    </TableCell>
-                    <TableCell align="right">
-                      <Skeleton variant="text" width={150} />
-                    </TableCell>
-                    <TableCell align="right">
-                      <Skeleton variant="circular" width={24} height={24} />
-                    </TableCell>
-                  </TableRow>
-                ))
-              : Number(borrowerList?.docs?.length) > 0 &&
-                borrowerList?.docs?.map((row, index: number) => (
-                  <TableRow
-                    key={row._id}
-                    sx={{
-                      "&:last-child td, &:last-child th": { border: 0 },
-                      background: `${index % 2 === 0 ? "" : "  #CEF3FF"}`,
-                    }}
-                  >
-                    <TableCell align="center" component="th" scope="row">
-                      <Link href={`/borrowers/${row?._id}`}>
-                        {row?.first_name} {row.last_name}
-                      </Link>
-                    </TableCell>
-                    <TableCell align="center">{row?.email}</TableCell>
-                    <TableCell align="center">{row?.phone}</TableCell>
-                    <TableCell align="center">{dayjs(row?.dob).format("DD/MM/YYYY")}</TableCell>
-                    <TableCell align="center">{row?.address}</TableCell>
-                    <TableCell align="right">
-                      <Tooltip
-                        title="Edit"
+            {Number(borrowerList?.docs?.length) > 0 &&
+              borrowerList?.docs?.map((row, index: number) => (
+                <TableRow
+                  key={row._id}
+                  sx={{
+                    "&:last-child td, &:last-child th": { border: 0 },
+                    background: `${index % 2 === 0 ? "" : "  #CEF3FF"}`,
+                  }}
+                >
+                  <TableCell align="center" component="th" scope="row">
+                    <Link href={`/borrowers/${row?._id}`}>
+                      {row?.first_name} {row.last_name}
+                    </Link>
+                  </TableCell>
+                  <TableCell align="center">{row?.email}</TableCell>
+                  <TableCell align="center">{row?.phone}</TableCell>
+                  <TableCell align="center">
+                    {dayjs(row?.dob).format("DD/MM/YYYy")}
+                  </TableCell>
+                  <TableCell align="center">{row?.address}</TableCell>
+                  <TableCell align="right">
+                    <Tooltip
+                      title="Edit"
+                      onClick={() => {
+                        setSelectedBorrower(row);
+                        setOpen(true);
+                      }}
+                    >
+                      <IconButton size="small">
+                        <EditOutlinedIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete">
+                      <IconButton
+                        size="small"
+                        disabled={isLoading}
                         onClick={() => {
+                          setIsConfirm(true);
                           setSelectedBorrower(row);
-                          setOpen(true);
                         }}
                       >
-                        <IconButton size="small">
-                          <EditOutlinedIcon fontSize="small" />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="Delete">
-                        <IconButton
-                          size="small"
-                          disabled={isLoading}
-                          onClick={() => {
-                            setIsConfirm(true);
-                            setSelectedBorrower(row);
-                          }}
-                        >
-                          <DeleteIcon fontSize="small" />
-                        </IconButton>
-                      </Tooltip>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
         {!borrowerList?.docs?.length && !isPending && (
