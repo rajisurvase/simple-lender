@@ -7,12 +7,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Link from "next/link";
-import { Alert, Box, IconButton, Pagination, Tooltip } from "@mui/material";
+import { Alert, Box, IconButton, Pagination, Tooltip, Skeleton } from "@mui/material";
 import { useState } from "react";
 import { useMutation } from "react-query";
-import {
-  DeleteBorrowerMutation,
-} from "@/api/functions/borrower.api";
+import { DeleteBorrowerMutation } from "@/api/functions/borrower.api";
 import MuiModalWrapper from "../Model/MuiModalWrapper";
 import BorrowersCreate from "./BorrowersCreate";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -24,33 +22,33 @@ import dayjs from "dayjs";
 import useGetBorrowers from "@/hooks/useGetBorrowers";
 import dynamic from "next/dynamic";
 
-
-const FilterComponent = dynamic(
-  () => import("./FilterComponent"),
-  { ssr: false }
-);
+const FilterComponent = dynamic(() => import("./FilterComponent"), {
+  ssr: false,
+});
 
 type IBorrowersTablePropsType = {
-  searchValue ? : string
-}
+  searchValue?: string;
+};
 
-export default function BorrowersTable(props : IBorrowersTablePropsType) {
-  const {searchValue} = props
- 
+export default function BorrowersTable(props: IBorrowersTablePropsType) {
+  const { searchValue } = props;
+
   const { toastSuccess } = useNotiStack();
   const [currentPage, setCurrentPage] = useState(1);
   const [open, setOpen] = useState(false);
-  const [selectedBorrower, setSelectedBorrower] = useState<
-    AddEditBorrowerType | undefined
-  >(undefined);
+  const [selectedBorrower, setSelectedBorrower] = useState<AddEditBorrowerType | undefined>(undefined);
   const [isConfirm, setIsConfirm] = useState(false);
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState("");
 
-  const {refetch, data:borrowerList} = useGetBorrowers({
-    page : currentPage,
-    limit :8,
-    search : search || searchValue || undefined
-  })
+  const {
+    refetch,
+    isLoading: isPending,
+    data: borrowerList,
+  } = useGetBorrowers({
+    page: currentPage,
+    limit: 8,
+    search: search || searchValue || undefined,
+  });
 
   const handleConfirmationModel = () => {
     setIsConfirm(false);
@@ -66,12 +64,11 @@ export default function BorrowersTable(props : IBorrowersTablePropsType) {
   });
 
   const handleClose = () => {
-    setOpen(false), setSelectedBorrower(undefined);
+    setOpen(false);
+    setSelectedBorrower(undefined);
   };
-  const handlePageChange = (
-    event: React.ChangeEvent<unknown>,
-    page: number
-  ) => {
+
+  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
     setCurrentPage(page);
   };
 
@@ -86,11 +83,11 @@ export default function BorrowersTable(props : IBorrowersTablePropsType) {
 
   return (
     <>
-      <FilterComponent 
-      handleAdd={handleAdd}
-       handleChangeValue={(val)=>{
-        setSearch(val)
-       }}
+      <FilterComponent
+        handleAdd={handleAdd}
+        handleChangeValue={(val) => {
+          setSearch(val);
+        }}
       />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -105,56 +102,77 @@ export default function BorrowersTable(props : IBorrowersTablePropsType) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Number(borrowerList?.docs?.length) > 0 &&
-              borrowerList?.docs?.map((row, index: number) => (
-                <TableRow
-                  key={row._id}
-                  sx={{
-                    "&:last-child td, &:last-child th": { border: 0 },
-                    background: `${index % 2 === 0 ? "" : "  #CEF3FF"}`,
-                  }}
-                >
-                  <TableCell align="center" component="th" scope="row">
-                    <Link href={`/borrowers/${row?._id}`}>
-                      {row?.first_name} {row.last_name}
-                    </Link>
-                  </TableCell>
-                  <TableCell align="center">{row?.email}</TableCell>
-                  <TableCell align="center">{row?.phone}</TableCell>
-                  <TableCell align="center">
-                    {dayjs(row?.dob).format("DD/MM/YYYy")}
-                  </TableCell>
-                  <TableCell align="center">{row?.address}</TableCell>
-                  <TableCell align="right">
-                    <Tooltip
-                      title="Edit"
-                      onClick={() => {
-                        setSelectedBorrower(row);
-                        setOpen(true);
-                      }}
-                    >
-                      <IconButton size="small">
-                        <EditOutlinedIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Delete">
-                      <IconButton
-                        size="small"
-                        disabled={isLoading}
+            {isPending
+              ? Array.from({ length: 5 }).map((_, i) => (
+                  <TableRow key={i}>
+                    <TableCell align="center">
+                      <Skeleton variant="text" width={100} />
+                    </TableCell>
+                    <TableCell align="center">
+                      <Skeleton variant="text" width={120} />
+                    </TableCell>
+                    <TableCell align="center">
+                      <Skeleton variant="text" width={80} />
+                    </TableCell>
+                    <TableCell align="right">
+                      <Skeleton variant="text" width={90} />
+                    </TableCell>
+                    <TableCell align="right">
+                      <Skeleton variant="text" width={150} />
+                    </TableCell>
+                    <TableCell align="right">
+                      <Skeleton variant="circular" width={24} height={24} />
+                    </TableCell>
+                  </TableRow>
+                ))
+              : Number(borrowerList?.docs?.length) > 0 &&
+                borrowerList?.docs?.map((row, index: number) => (
+                  <TableRow
+                    key={row._id}
+                    sx={{
+                      "&:last-child td, &:last-child th": { border: 0 },
+                      background: `${index % 2 === 0 ? "" : "  #CEF3FF"}`,
+                    }}
+                  >
+                    <TableCell align="center" component="th" scope="row">
+                      <Link href={`/borrowers/${row?._id}`}>
+                        {row?.first_name} {row.last_name}
+                      </Link>
+                    </TableCell>
+                    <TableCell align="center">{row?.email}</TableCell>
+                    <TableCell align="center">{row?.phone}</TableCell>
+                    <TableCell align="center">{dayjs(row?.dob).format("DD/MM/YYYY")}</TableCell>
+                    <TableCell align="center">{row?.address}</TableCell>
+                    <TableCell align="right">
+                      <Tooltip
+                        title="Edit"
                         onClick={() => {
-                          setIsConfirm(true);
                           setSelectedBorrower(row);
+                          setOpen(true);
                         }}
                       >
-                        <DeleteIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
-                  </TableCell>
-                </TableRow>
-              ))}
+                        <IconButton size="small">
+                          <EditOutlinedIcon fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Delete">
+                        <IconButton
+                          size="small"
+                          disabled={isLoading}
+                          onClick={() => {
+                            setIsConfirm(true);
+                            setSelectedBorrower(row);
+                          }}
+                        >
+                          <DeleteIcon fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
+                    </TableCell>
+                  </TableRow>
+                ))}
           </TableBody>
         </Table>
-        {!borrowerList?.docs?.length && (
+        {!borrowerList?.docs?.length && !isPending && (
           <Alert severity="error">No Data Found..!</Alert>
         )}
         <Box display="flex" justifyContent="center" p={2}>

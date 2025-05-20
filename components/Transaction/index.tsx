@@ -9,13 +9,13 @@ import {
   Drawer,
   IconButton,
   Pagination,
+  Skeleton,
   Stack,
   Table,
   TableBody,
   TableContainer,
   TableHead,
   Typography,
-  styled,
 } from "@mui/material";
 import React, { useCallback, useRef, useState } from "react";
 import TransactionTableHead from "./Table/TransactionTableHead";
@@ -34,16 +34,11 @@ const FilterComponent = dynamic(
   { ssr: false }
 );
 
-// const DrawerWrapperStyle = styled(Box)`
-//   width: 50%;
-// `;
-// import FilterTransactions from './Filter/FilterTransactions'
-
 type ITransactionComponentType = {
   BorrowerId?: string
 }
 
-const TransactionComponent = ({BorrowerId} : ITransactionComponentType) => {
+const TransactionComponent = ({ BorrowerId }: ITransactionComponentType) => {
   const formRef = useRef<AddTransactionRef>(null);
   const [isAdd, setIsAdd] = React.useState(false);
   const [isEdit, setIsEdit] = React.useState<ITransactionType>()
@@ -53,8 +48,8 @@ const TransactionComponent = ({BorrowerId} : ITransactionComponentType) => {
   const { data: transactions, isLoading } = useGetTranscations({
     page: currentPage,
     limit: 8,
-    search : search  || undefined,
-    borrower_id : BorrowerId
+    search: search || undefined,
+    borrower_id: BorrowerId
   })
 
   const handleClose = React.useCallback(() => {
@@ -97,26 +92,33 @@ const TransactionComponent = ({BorrowerId} : ITransactionComponentType) => {
             <TransactionTableHead />
           </TableHead>
           <TableBody>
-            {isLoading ?
-              ("Loading...") :
-              transactions?.docs.length ? (
-                <>
-                  {transactions.docs.map((item) => (
-                    <TransactionTableBodyRow
-                      key={item._id}
-                      item={item}
-                      handleClick={() => {
-                        handleClick(item)
-                      }}
-                    />
-                  ))}
-                </>
-              ) : (
-                <Alert severity="error">No Data Found..!</Alert>
-              )}
+            {isLoading ? (
+              Array.from({ length: 5 }).map((_, index) => (
+                <Skeleton
+                  key={index}
+                  variant="rectangular"
+                  height={60}
+                  animation="wave"
+                  sx={{ my: 1, borderRadius: 1 }}
+                />
+              ))
+            ) : transactions?.docs.length ? (
+              <>
+                {transactions.docs.map((item) => (
+                  <TransactionTableBodyRow
+                    key={item._id}
+                    item={item}
+                    handleClick={() => {
+                      handleClick(item)
+                    }}
+                  />
+                ))}
+              </>
+            ) : (
+              <Alert severity="error">No Data Found..!</Alert>
+            )}
           </TableBody>
         </Table>
-
       </TableContainer>
       <Box display="flex" justifyContent="center" p={2}>
         {Number(transactions?.docs?.length) > 0 && (
@@ -136,20 +138,20 @@ const TransactionComponent = ({BorrowerId} : ITransactionComponentType) => {
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             width: {
-              xs: "90%", // 90% width on extra small screens
-              md: "50%", // 60% width on medium screens
+              xs: "90%",
+              md: "50%",
             },
             boxSizing: "border-box",
           }
         }}
       >
         <Stack display="flex" direction="row" justifyContent="space-between" px={1} alignItems="center" >
-          <Typography variant="h6" fontWeight="bold" >{isEdit?._id ? "View/Edit" : "Add"} Transaction</Typography>
+          <Typography variant="h6" fontWeight="bold">{isEdit?._id ? "View/Edit" : "Add"} Transaction</Typography>
           <IconButton onClick={handleClose} >
             <HighlightOffRoundedIcon />
           </IconButton>
         </Stack>
-        <Box py={1}   >
+        <Box py={1} >
           <Divider />
         </Box>
         <Box px={1} >
@@ -164,7 +166,7 @@ const TransactionComponent = ({BorrowerId} : ITransactionComponentType) => {
               ref={formRef}
             />}
         </Box>
-        <Box mt="auto"> {/* This pushes the buttons to the bottom */}
+        <Box mt="auto">
           <Stack
             px={1}
             display="flex"
@@ -172,7 +174,7 @@ const TransactionComponent = ({BorrowerId} : ITransactionComponentType) => {
             justifyContent="space-between"
             columnGap={2}
             p={2}
-            bgcolor="background.paper" // Adjust as needed
+            bgcolor="background.paper"
           >
             <Button type="button" variant="outlined" fullWidth onClick={handleClose}>
               Cancel
