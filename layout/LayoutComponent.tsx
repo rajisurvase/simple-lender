@@ -2,6 +2,8 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import { Grid } from "@mui/material";
+import Skeleton from '@mui/material/Skeleton';
+
 import SidebarComponent from "./SidebarComponent";
 import HeaderComponent from "./HeaderComponent";
 import { usePathname } from "next/navigation";
@@ -29,9 +31,15 @@ const LayoutComponent = ({ children }: { children: React.ReactNode }) => {
     }
   })
 
-  if(isLoading) {
-    return "Loading..."
-  }
+ if (isLoading) {
+  return (
+    <Box sx={{ p: 2 }}>
+      <Skeleton variant="rectangular" width="100%" height={60} />
+      <Skeleton variant="rectangular" width="100%" height={500} sx={{ mt: 2 }} />
+    </Box>
+  );
+}
+
   
   return (
     <Box>
